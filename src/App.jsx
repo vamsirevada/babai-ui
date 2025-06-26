@@ -72,10 +72,10 @@ const ThreeBackground = () => {
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     
     const material = new THREE.PointsMaterial({
-      color: 0x25D366,
+      color: 0x075E54,
       size: 0.02,
       transparent: true,
-      opacity: 0.6
+      opacity: 0.4
     });
 
     const particles = new THREE.Points(geometry, material);
