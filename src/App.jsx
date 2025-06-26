@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -57,14 +56,14 @@ const ThreeBackground = () => {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    
+
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x000000, 0);
     mountRef.current.appendChild(renderer.domElement);
 
     // Create multiple particle systems for depth
     const particleGroups = [];
-    
+
     // Main floating particles
     const mainGeometry = new THREE.BufferGeometry();
     const particlesCount = 150;
@@ -75,14 +74,14 @@ const ThreeBackground = () => {
       positions[i] = (Math.random() - 0.5) * 25;
       positions[i + 1] = (Math.random() - 0.5) * 25;
       positions[i + 2] = (Math.random() - 0.5) * 15;
-      
+
       velocities[i] = (Math.random() - 0.5) * 0.002;
       velocities[i + 1] = (Math.random() - 0.5) * 0.002;
       velocities[i + 2] = (Math.random() - 0.5) * 0.002;
     }
 
     mainGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    
+
     const mainMaterial = new THREE.PointsMaterial({
       color: 0x00d4aa,
       size: 0.03,
@@ -105,14 +104,14 @@ const ThreeBackground = () => {
       secondPositions[i] = (Math.random() - 0.5) * 30;
       secondPositions[i + 1] = (Math.random() - 0.5) * 30;
       secondPositions[i + 2] = (Math.random() - 0.5) * 20;
-      
+
       secondVelocities[i] = (Math.random() - 0.5) * 0.001;
       secondVelocities[i + 1] = (Math.random() - 0.5) * 0.001;
       secondVelocities[i + 2] = (Math.random() - 0.5) * 0.001;
     }
 
     secondGeometry.setAttribute('position', new THREE.BufferAttribute(secondPositions, 3));
-    
+
     const secondMaterial = new THREE.PointsMaterial({
       color: 0x25D366,
       size: 0.02,
@@ -127,7 +126,7 @@ const ThreeBackground = () => {
 
     // Add geometric shapes for more 3D depth
     const geometricGroup = new THREE.Group();
-    
+
     for (let i = 0; i < 5; i++) {
       const geometry = new THREE.OctahedronGeometry(0.1, 0);
       const material = new THREE.MeshBasicMaterial({
@@ -136,17 +135,17 @@ const ThreeBackground = () => {
         opacity: 0.1,
         wireframe: true
       });
-      
+
       const mesh = new THREE.Mesh(geometry, material);
       mesh.position.set(
         (Math.random() - 0.5) * 20,
         (Math.random() - 0.5) * 20,
         (Math.random() - 0.5) * 10
       );
-      
+
       geometricGroup.add(mesh);
     }
-    
+
     scene.add(geometricGroup);
 
     camera.position.z = 8;
@@ -175,25 +174,25 @@ const ThreeBackground = () => {
       particleGroups.forEach((group, index) => {
         const positions = group.particles.geometry.attributes.position.array;
         const velocities = group.velocities;
-        
+
         for (let i = 0; i < positions.length; i += 3) {
           // Smooth floating motion
           positions[i] += velocities[i] * group.speed;
           positions[i + 1] += velocities[i + 1] * group.speed;
           positions[i + 2] += velocities[i + 2] * group.speed;
-          
+
           // Add wave motion
           positions[i + 1] += Math.sin(time + positions[i] * 0.5) * 0.002;
           positions[i] += Math.cos(time + positions[i + 1] * 0.3) * 0.001;
-          
+
           // Boundary wrapping
           if (Math.abs(positions[i]) > 15) velocities[i] *= -1;
           if (Math.abs(positions[i + 1]) > 15) velocities[i + 1] *= -1;
           if (Math.abs(positions[i + 2]) > 10) velocities[i + 2] *= -1;
         }
-        
+
         group.particles.geometry.attributes.position.needsUpdate = true;
-        
+
         // Mouse interaction
         group.particles.rotation.x += (mouseRef.current.y * 0.1 - group.particles.rotation.x) * 0.05;
         group.particles.rotation.y += (mouseRef.current.x * 0.1 - group.particles.rotation.y) * 0.05;
@@ -279,7 +278,7 @@ export default function App() {
         ...demoMessages[messageCount],
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
-      
+
       setMessages(prev => [...prev, newMessage]);
       setMessageCount(prev => prev + 1);
     }
@@ -336,8 +335,8 @@ export default function App() {
             filter: "blur(8px)"
           },
           { 
-            right: "50%",
-            x: "50%",
+            right: "10%", // Adjusted right value to make the phone visible
+            x: "0%",
             scale: 0.9,
             opacity: 1,
             rotationY: 0,
@@ -518,14 +517,14 @@ export default function App() {
   return (
     <div className="app">
       <ThreeBackground />
-      
+
       {/* Navigation Bar */}
       <nav className="navbar">
         <div className="navbar-logo">
           <h1 className="logo-text">bab.ai</h1>
         </div>
       </nav>
-      
+
       <main className="main-content" ref={heroRef}>
         <div className="hero-section">
           <h1 className="hero-title">bab.ai</h1>
