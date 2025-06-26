@@ -186,18 +186,10 @@ export default function App() {
       start: "top 80%",
       end: "bottom 20%",
       onEnter: () => {
-        gsap.fromTo(chatRef.current, 
+        gsap.to(chatRef.current, 
           { 
-            x: "100vw", 
-            y: "50vh", 
-            scale: 0.7,
-            opacity: 0 
-          },
-          { 
-            x: "50vw", 
-            y: "50vh", 
-            xPercent: -50,
-            yPercent: -50,
+            right: "50%",
+            x: "50%",
             scale: 0.9,
             opacity: 1, 
             duration: 1.2, 
@@ -217,10 +209,8 @@ export default function App() {
       onLeaveBack: () => {
         gsap.to(chatRef.current, 
           { 
-            x: "100vw", 
-            y: "50vh", 
-            xPercent: 0,
-            yPercent: -50,
+            right: "-400px",
+            x: "0%",
             scale: 0.7,
             opacity: 0, 
             duration: 0.8, 
@@ -238,7 +228,9 @@ export default function App() {
       end: "bottom 20%",
       onEnter: () => {
         gsap.to(chatRef.current, {
-          scale: 1.1,
+          scale: 1.2,
+          right: "50%",
+          x: "50%",
           duration: 1,
           ease: "power2.out"
         });
@@ -252,7 +244,9 @@ export default function App() {
       },
       onEnterBack: () => {
         gsap.to(chatRef.current, {
-          scale: 1.1,
+          scale: 1.2,
+          right: "50%",
+          x: "50%",
           duration: 1,
           ease: "power2.out"
         });

@@ -183,7 +183,9 @@ body {
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
   border-radius: 25px;
   overflow: hidden;
-  transform: translateX(100vw) translateY(-50%);
+  top: 50%;
+  right: -400px;
+  transform: translateY(-50%);
   opacity: 0;
   border: 8px solid #2c2c2c;
   background-clip: padding-box;
