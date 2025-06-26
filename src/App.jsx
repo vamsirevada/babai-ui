@@ -1,8 +1,11 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import * as THREE from 'three';
 import './App.css';
+
+gsap.registerPlugin(ScrollTrigger);
 
 // Chat Message Component
 const ChatMessage = ({ message, isUser, timestamp }) => (
@@ -112,7 +115,6 @@ const ThreeBackground = () => {
 };
 
 export default function App() {
-  const [isChatOpen, setIsChatOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
       id: 1,
@@ -124,6 +126,7 @@ export default function App() {
 
   const chatRef = useRef(null);
   const heroRef = useRef(null);
+  const showcaseRef = useRef(null);
 
   useEffect(() => {
     // GSAP Hero Animation
@@ -143,24 +146,91 @@ export default function App() {
       { opacity: 1, y: 0, duration: 1, delay: 0.6, ease: "power2.out" }
     );
 
-    gsap.fromTo(".cta-button", 
-      { opacity: 0, scale: 0.8 },
-      { opacity: 1, scale: 1, duration: 0.8, delay: 0.9, ease: "back.out(1.7)" }
+    // Animate features cards
+    gsap.fromTo(".feature-card", 
+      { opacity: 0, y: 50 },
+      { opacity: 1, y: 0, duration: 0.8, delay: 0.9, stagger: 0.2, ease: "power2.out" }
     );
-  }, []);
 
-  useEffect(() => {
-    if (isChatOpen) {
-      gsap.fromTo(chatRef.current, 
-        { x: "100%", opacity: 0 },
-        { x: "0%", opacity: 1, duration: 0.5, ease: "power2.out" }
-      );
-    } else {
-      gsap.to(chatRef.current, 
-        { x: "100%", opacity: 0, duration: 0.5, ease: "power2.in" }
-      );
-    }
-  }, [isChatOpen]);
+    // ScrollTrigger for chat animation
+    ScrollTrigger.create({
+      trigger: showcaseRef.current,
+      start: "top 80%",
+      end: "bottom 20%",
+      onEnter: () => {
+        gsap.fromTo(chatRef.current, 
+          { 
+            x: "100vw", 
+            y: "0", 
+            scale: 0.8,
+            opacity: 0 
+          },
+          { 
+            x: "50%", 
+            y: "50%", 
+            xPercent: -50,
+            yPercent: -50,
+            scale: 1,
+            opacity: 1, 
+            duration: 1.2, 
+            ease: "power3.out" 
+          }
+        );
+      },
+      onLeave: () => {
+        gsap.to(chatRef.current, 
+          { 
+            x: "100vw", 
+            y: "0", 
+            xPercent: 0,
+            yPercent: 0,
+            scale: 0.8,
+            opacity: 0, 
+            duration: 0.8, 
+            ease: "power2.in" 
+          }
+        );
+      },
+      onEnterBack: () => {
+        gsap.fromTo(chatRef.current, 
+          { 
+            x: "100vw", 
+            y: "0", 
+            scale: 0.8,
+            opacity: 0 
+          },
+          { 
+            x: "50%", 
+            y: "50%", 
+            xPercent: -50,
+            yPercent: -50,
+            scale: 1,
+            opacity: 1, 
+            duration: 1.2, 
+            ease: "power3.out" 
+          }
+        );
+      },
+      onLeaveBack: () => {
+        gsap.to(chatRef.current, 
+          { 
+            x: "100vw", 
+            y: "0", 
+            xPercent: 0,
+            yPercent: 0,
+            scale: 0.8,
+            opacity: 0, 
+            duration: 0.8, 
+            ease: "power2.in" 
+          }
+        );
+      }
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
 
   const handleSendMessage = (message) => {
     const newMessage = {
@@ -192,12 +262,7 @@ export default function App() {
         <div className="hero-section">
           <h1 className="hero-title">bab.ai</h1>
           <p className="hero-subtitle">Intelligent Operating System for Construction</p>
-          <button 
-            className="cta-button"
-            onClick={() => setIsChatOpen(true)}
-          >
-            Start Building Smarter
-          </button>
+          <p className="scroll-hint">Scroll down to see our AI assistant in action</p>
         </div>
 
         <div className="features-grid">
@@ -216,8 +281,29 @@ export default function App() {
         </div>
       </main>
 
+      <section className="showcase-section" ref={showcaseRef}>
+        <div className="showcase-content">
+          <h2>Experience Our AI Assistant</h2>
+          <p>Watch as our intelligent chat interface demonstrates real-time construction project assistance</p>
+          <div className="showcase-features">
+            <div className="showcase-item">
+              <span className="showcase-icon">🏗️</span>
+              <h4>Real-time Project Updates</h4>
+            </div>
+            <div className="showcase-item">
+              <span className="showcase-icon">📊</span>
+              <h4>Intelligent Analytics</h4>
+            </div>
+            <div className="showcase-item">
+              <span className="showcase-icon">🤖</span>
+              <h4>AI-Powered Insights</h4>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* WhatsApp-style Chat Interface */}
-      <div className={`chat-container ${isChatOpen ? 'open' : ''}`} ref={chatRef}>
+      <div className="chat-container" ref={chatRef}>
         <div className="chat-header">
           <div className="chat-info">
             <div className="avatar">
@@ -228,12 +314,6 @@ export default function App() {
               <span className="status">Online</span>
             </div>
           </div>
-          <button 
-            className="close-chat"
-            onClick={() => setIsChatOpen(false)}
-          >
-            ✕
-          </button>
         </div>
 
         <div className="chat-messages">
@@ -249,8 +329,6 @@ export default function App() {
 
         <ChatInput onSendMessage={handleSendMessage} />
       </div>
-
-      {isChatOpen && <div className="chat-overlay" onClick={() => setIsChatOpen(false)} />}
     </div>
   );
 }
