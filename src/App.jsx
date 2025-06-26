@@ -1,11 +1,10 @@
+import React, { useState, useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import * as THREE from 'three'
+import './App.css'
 
-import React, { useState, useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import * as THREE from 'three';
-import './App.css';
-
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger)
 
 // Chat Message Component
 const ChatMessage = ({ message, isUser, timestamp }) => (
@@ -15,19 +14,19 @@ const ChatMessage = ({ message, isUser, timestamp }) => (
       <span className="timestamp">{timestamp}</span>
     </div>
   </div>
-);
+)
 
 // Chat Input Component
 const ChatInput = ({ onSendMessage }) => {
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState('')
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (inputValue.trim()) {
-      onSendMessage(inputValue);
-      setInputValue('');
+      onSendMessage(inputValue)
+      setInputValue('')
     }
-  };
+  }
 
   return (
     <form className="chat-input" onSubmit={handleSubmit}>
@@ -40,282 +39,328 @@ const ChatInput = ({ onSendMessage }) => {
       />
       <button type="submit" className="send-button">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M2 21L23 12L2 3V10L17 12L2 14V21Z" fill="currentColor"/>
+          <path d="M2 21L23 12L2 3V10L17 12L2 14V21Z" fill="currentColor" />
         </svg>
       </button>
     </form>
-  );
-};
+  )
+}
 
 // Three.js Background Component
 const ThreeBackground = () => {
-  const mountRef = useRef(null);
+  const mountRef = useRef(null)
 
   useEffect(() => {
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x000000, 0);
-    mountRef.current.appendChild(renderer.domElement);
+    const scene = new THREE.Scene()
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    )
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
+
+    renderer.setSize(window.innerWidth, window.innerHeight)
+    renderer.setClearColor(0x000000, 0)
+    mountRef.current.appendChild(renderer.domElement)
 
     // Create floating particles
-    const geometry = new THREE.BufferGeometry();
-    const particlesCount = 100;
-    const positions = new Float32Array(particlesCount * 3);
+    const geometry = new THREE.BufferGeometry()
+    const particlesCount = 100
+    const positions = new Float32Array(particlesCount * 3)
 
     for (let i = 0; i < particlesCount * 3; i++) {
-      positions[i] = (Math.random() - 0.5) * 20;
+      positions[i] = (Math.random() - 0.5) * 20
     }
 
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+
     const material = new THREE.PointsMaterial({
-      color: 0x075E54,
+      color: 0x075e54,
       size: 0.02,
       transparent: true,
-      opacity: 0.4
-    });
+      opacity: 0.4,
+    })
 
-    const particles = new THREE.Points(geometry, material);
-    scene.add(particles);
+    const particles = new THREE.Points(geometry, material)
+    scene.add(particles)
 
-    camera.position.z = 5;
+    camera.position.z = 5
 
     // Animation loop
     const animate = () => {
-      requestAnimationFrame(animate);
-      particles.rotation.x += 0.001;
-      particles.rotation.y += 0.001;
-      renderer.render(scene, camera);
-    };
+      requestAnimationFrame(animate)
+      particles.rotation.x += 0.001
+      particles.rotation.y += 0.001
+      renderer.render(scene, camera)
+    }
 
-    animate();
+    animate()
 
     // Handle resize
     const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    };
+      camera.aspect = window.innerWidth / window.innerHeight
+      camera.updateProjectionMatrix()
+      renderer.setSize(window.innerWidth, window.innerHeight)
+    }
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize)
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', handleResize)
       if (mountRef.current && renderer.domElement) {
-        mountRef.current.removeChild(renderer.domElement);
+        mountRef.current.removeChild(renderer.domElement)
       }
-      renderer.dispose();
-    };
-  }, []);
+      renderer.dispose()
+    }
+  }, [])
 
-  return <div ref={mountRef} className="three-background" />;
-};
+  return <div ref={mountRef} className="three-background" />
+}
 
 export default function App() {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      message: "Hello! Welcome to bab.ai - your intelligent operating system for construction. How can I help you today?",
+      message:
+        'Hello! Welcome to bab.ai - your intelligent operating system for construction. How can I help you today?',
       isUser: false,
-      timestamp: "10:30 AM"
-    }
-  ]);
+      timestamp: '10:30 AM',
+    },
+  ])
 
-  const [isAutoGenerating, setIsAutoGenerating] = useState(false);
-  const [messageCount, setMessageCount] = useState(1);
+  const [isAutoGenerating, setIsAutoGenerating] = useState(false)
+  const [messageCount, setMessageCount] = useState(1)
 
-  const chatRef = useRef(null);
-  const heroRef = useRef(null);
-  const showcaseRef = useRef(null);
-  const zoomSectionRef = useRef(null);
+  const chatRef = useRef(null)
+  const heroRef = useRef(null)
+  const showcaseRef = useRef(null)
+  const zoomSectionRef = useRef(null)
 
   const demoMessages = [
-    { isUser: true, message: "I need help with project scheduling for a new office building" },
-    { isUser: false, message: "I can help you create an optimized schedule. What's the project timeline and key milestones?" },
-    { isUser: true, message: "12-month project, foundation starts in March" },
-    { isUser: false, message: "Perfect! Based on current weather patterns and resource availability, I recommend starting foundation work in the second week of March. I've created a preliminary schedule with buffer time for weather delays." },
-    { isUser: true, message: "What about safety compliance?" },
-    { isUser: false, message: "I've integrated OSHA safety requirements into your timeline. All safety inspections are scheduled, and I'll send real-time alerts for any compliance issues." },
-    { isUser: true, message: "How about cost estimation?" },
-    { isUser: false, message: "Based on current material costs and labor rates in your area, I estimate $2.4M total project cost. I'm monitoring price fluctuations and will alert you to any significant changes." }
-  ];
+    {
+      isUser: true,
+      message: 'I need help with project scheduling for a new office building',
+    },
+    {
+      isUser: false,
+      message:
+        "I can help you create an optimized schedule. What's the project timeline and key milestones?",
+    },
+    { isUser: true, message: '12-month project, foundation starts in March' },
+    {
+      isUser: false,
+      message:
+        "Perfect! Based on current weather patterns and resource availability, I recommend starting foundation work in the second week of March. I've created a preliminary schedule with buffer time for weather delays.",
+    },
+    { isUser: true, message: 'What about safety compliance?' },
+    {
+      isUser: false,
+      message:
+        "I've integrated OSHA safety requirements into your timeline. All safety inspections are scheduled, and I'll send real-time alerts for any compliance issues.",
+    },
+    { isUser: true, message: 'How about cost estimation?' },
+    {
+      isUser: false,
+      message:
+        "Based on current material costs and labor rates in your area, I estimate $2.4M total project cost. I'm monitoring price fluctuations and will alert you to any significant changes.",
+    },
+  ]
 
   const generateAutoMessage = () => {
     if (messageCount < demoMessages.length) {
       const newMessage = {
         id: messages.length + 1,
         ...demoMessages[messageCount],
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
-      
-      setMessages(prev => [...prev, newMessage]);
-      setMessageCount(prev => prev + 1);
+        timestamp: new Date().toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit',
+        }),
+      }
+
+      setMessages((prev) => [...prev, newMessage])
+      setMessageCount((prev) => prev + 1)
     }
-  };
+  }
 
   useEffect(() => {
     // GSAP Hero Animation
-    gsap.fromTo(heroRef.current, 
+    gsap.fromTo(
+      heroRef.current,
       { opacity: 0, y: 50 },
-      { opacity: 1, y: 0, duration: 1, ease: "power2.out" }
-    );
+      { opacity: 1, y: 0, duration: 1, ease: 'power2.out' }
+    )
 
     // Animate title text
-    gsap.fromTo(".hero-title", 
+    gsap.fromTo(
+      '.hero-title',
       { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 1, delay: 0.3, ease: "power2.out" }
-    );
+      { opacity: 1, y: 0, duration: 1, delay: 0.3, ease: 'power2.out' }
+    )
 
-    gsap.fromTo(".hero-subtitle", 
+    gsap.fromTo(
+      '.hero-subtitle',
       { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 1, delay: 0.6, ease: "power2.out" }
-    );
+      { opacity: 1, y: 0, duration: 1, delay: 0.6, ease: 'power2.out' }
+    )
 
     // Animate features cards
-    gsap.fromTo(".feature-card", 
+    gsap.fromTo(
+      '.feature-card',
       { opacity: 0, y: 50 },
-      { opacity: 1, y: 0, duration: 0.8, delay: 0.9, stagger: 0.2, ease: "power2.out" }
-    );
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        delay: 0.9,
+        stagger: 0.2,
+        ease: 'power2.out',
+      }
+    )
 
     // ScrollTrigger for chat slide-in animation
     ScrollTrigger.create({
       trigger: showcaseRef.current,
-      start: "top 80%",
-      end: "bottom 20%",
+      start: 'top 50%',
+      end: 'bottom 20%',
       onEnter: () => {
-        gsap.to(chatRef.current, 
-          { 
-            right: "50%",
-            x: "50%",
-            scale: 0.9,
-            opacity: 1, 
-            duration: 1.2, 
-            ease: "power3.out",
-            onComplete: () => {
-              setIsAutoGenerating(true);
-            }
-          }
-        );
+        gsap.to(chatRef.current, {
+          right: '50%',
+          x: '50%',
+          scale: 0.9,
+          opacity: 1,
+          duration: 1.2,
+          ease: 'power3.out',
+          onComplete: () => {
+            setIsAutoGenerating(true)
+          },
+        })
       },
       onLeave: () => {
-        setIsAutoGenerating(false);
+        setIsAutoGenerating(false)
       },
       onEnterBack: () => {
-        setIsAutoGenerating(true);
+        setIsAutoGenerating(true)
       },
       onLeaveBack: () => {
-        gsap.to(chatRef.current, 
-          { 
-            right: "-400px",
-            x: "0%",
-            scale: 0.7,
-            opacity: 0, 
-            duration: 0.8, 
-            ease: "power2.in" 
-          }
-        );
-        setIsAutoGenerating(false);
-      }
-    });
+        gsap.to(chatRef.current, {
+          right: '-400px',
+          x: '0%',
+          scale: 0.7,
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power2.in',
+        })
+        setIsAutoGenerating(false)
+      },
+    })
 
     // ScrollTrigger for chat zoom effect
     ScrollTrigger.create({
       trigger: zoomSectionRef.current,
-      start: "top 80%",
-      end: "bottom 20%",
+      start: 'top 80%',
+      end: 'bottom 20%',
       onEnter: () => {
         gsap.to(chatRef.current, {
           scale: 1.2,
-          right: "50%",
-          x: "50%",
+          right: '50%',
+          x: '50%',
           duration: 1,
-          ease: "power2.out"
-        });
+          ease: 'power2.out',
+        })
       },
       onLeave: () => {
         gsap.to(chatRef.current, {
           scale: 0.9,
           duration: 0.8,
-          ease: "power2.in"
-        });
+          ease: 'power2.in',
+        })
       },
       onEnterBack: () => {
         gsap.to(chatRef.current, {
           scale: 1.2,
-          right: "50%",
-          x: "50%",
+          right: '50%',
+          x: '50%',
           duration: 1,
-          ease: "power2.out"
-        });
+          ease: 'power2.out',
+        })
       },
       onLeaveBack: () => {
         gsap.to(chatRef.current, {
           scale: 0.9,
           duration: 0.8,
-          ease: "power2.out"
-        });
-      }
-    });
+          ease: 'power2.out',
+        })
+      },
+    })
 
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
-  }, []);
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+    }
+  }, [])
 
   useEffect(() => {
-    let interval;
+    let interval
     if (isAutoGenerating && messageCount < demoMessages.length) {
       interval = setInterval(() => {
-        generateAutoMessage();
-      }, 2500);
+        generateAutoMessage()
+      }, 500)
     }
 
     return () => {
-      if (interval) clearInterval(interval);
-    };
-  }, [isAutoGenerating, messageCount, messages.length]);
+      if (interval) clearInterval(interval)
+    }
+  }, [isAutoGenerating, messageCount, messages.length])
 
   const handleSendMessage = (message) => {
     const newMessage = {
       id: messages.length + 1,
       message,
       isUser: true,
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    };
+      timestamp: new Date().toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+      }),
+    }
 
-    setMessages(prev => [...prev, newMessage]);
+    setMessages((prev) => [...prev, newMessage])
 
     // Simulate bot response
     setTimeout(() => {
       const botResponse = {
         id: messages.length + 2,
-        message: "I understand you're working on a construction project. Let me help you with that. What specific area would you like assistance with?",
+        message:
+          "I understand you're working on a construction project. Let me help you with that. What specific area would you like assistance with?",
         isUser: false,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
-      setMessages(prev => [...prev, botResponse]);
-    }, 1000);
-  };
+        timestamp: new Date().toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit',
+        }),
+      }
+      setMessages((prev) => [...prev, botResponse])
+    }, 1000)
+  }
 
   return (
     <div className="app">
       <ThreeBackground />
-      
+
       {/* Navigation Bar */}
       <nav className="navbar">
         <div className="navbar-logo">
           <h1 className="logo-text">bab.ai</h1>
         </div>
       </nav>
-      
+
       <main className="main-content" ref={heroRef}>
         <div className="hero-section">
-          <h1 className="hero-title">bab.ai</h1>
-          <p className="hero-subtitle">Intelligent Operating System for Construction</p>
-          <p className="scroll-hint">Scroll down to see our AI assistant in action</p>
+          <h1 className="hero-title">Construction Management, Simplified!</h1>
+          <p className="hero-subtitle">
+            Intelligent Operating System for Construction
+          </p>
+          <p className="scroll-hint">
+            Scroll down to see our AI assistant in action
+          </p>
         </div>
 
         <div className="features-grid">
@@ -334,45 +379,8 @@ export default function App() {
         </div>
       </main>
 
-      <section className="showcase-section" ref={showcaseRef}>
-        <div className="showcase-content">
-          <h2>Experience Our AI Assistant</h2>
-          <p>Watch as our intelligent chat interface demonstrates real-time construction project assistance</p>
-          <div className="showcase-features">
-            <div className="showcase-item">
-              <span className="showcase-icon">🏗️</span>
-              <h4>Real-time Project Updates</h4>
-            </div>
-            <div className="showcase-item">
-              <span className="showcase-icon">📊</span>
-              <h4>Intelligent Analytics</h4>
-            </div>
-            <div className="showcase-item">
-              <span className="showcase-icon">🤖</span>
-              <h4>AI-Powered Insights</h4>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="zoom-section" ref={zoomSectionRef}>
-        <div className="zoom-content">
-          <h2>Interactive AI Conversations</h2>
-          <p>See how our AI handles complex construction queries with intelligent responses and project insights</p>
-          <div className="zoom-features">
-            <div className="zoom-item">
-              <span className="zoom-icon">💬</span>
-              <h4>Natural Language Processing</h4>
-              <p>Communicate naturally with your AI assistant</p>
-            </div>
-            <div className="zoom-item">
-              <span className="zoom-icon">⚡</span>
-              <h4>Instant Responses</h4>
-              <p>Get immediate answers to your construction questions</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <section className="showcase-section" ref={showcaseRef}></section>
+      <section className="zoom-section" ref={zoomSectionRef}></section>
 
       {/* WhatsApp-style Chat Interface */}
       <div className="chat-container" ref={chatRef}>
@@ -382,17 +390,20 @@ export default function App() {
               <div className="avatar-icon">🤖</div>
             </div>
             <div className="contact-info">
-              <h3>bab.ai Assistant</h3>
+              <h3>bab.ai</h3>
               <span className="status">Online</span>
             </div>
           </div>
         </div>
 
-        <div className="chat-messages" ref={(el) => {
-          if (el && messages.length > 1) {
-            el.scrollTop = el.scrollHeight;
-          }
-        }}>
+        <div
+          className="chat-messages"
+          ref={(el) => {
+            if (el && messages.length > 1) {
+              el.scrollTop = el.scrollHeight
+            }
+          }}
+        >
           {messages.map((msg) => (
             <ChatMessage
               key={msg.id}
@@ -406,5 +417,5 @@ export default function App() {
         <ChatInput onSendMessage={handleSendMessage} />
       </div>
     </div>
-  );
+  )
 }

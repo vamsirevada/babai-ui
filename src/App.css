@@ -52,7 +52,7 @@ body {
   font-size: 2rem;
   font-weight: 700;
   margin: 0;
-  background: linear-gradient(45deg, #00d4aa, #25D366);
+  background: linear-gradient(45deg, #00d4aa, #25d366);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -63,29 +63,26 @@ body {
   position: relative;
 }
 
-.logo-text::after {
-  content: '🤖';
-  position: absolute;
-  right: -30px;
-  top: -5px;
-  font-size: 1.2rem;
-  animation: pulse 2s infinite;
-}
-
 .logo-text:hover {
   transform: scale(1.05);
   filter: drop-shadow(0 0 15px rgba(0, 212, 170, 0.4));
 }
 
 @keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
 }
 
 /* Main Content */
 .main-content {
   padding: 2rem;
   padding-top: 8rem;
+  padding-bottom: 6rem;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -105,27 +102,12 @@ body {
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  background: linear-gradient(45deg, #00d4aa, #25D366, #00bfa5);
+  background: linear-gradient(45deg, #00d4aa, #25d366, #00bfa5);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: relative;
-}
-
-.hero-title::after {
-  content: '✨ AI Powered';
-  position: absolute;
-  top: -30px;
-  right: 0;
-  font-size: 0.8rem;
-  background: rgba(0, 212, 170, 0.1);
-  padding: 0.3rem 0.8rem;
-  border-radius: 15px;
-  border: 1px solid rgba(0, 212, 170, 0.2);
-  color: #00d4aa;
-  font-weight: 400;
-  backdrop-filter: blur(10px);
 }
 
 .hero-subtitle {
@@ -145,7 +127,11 @@ body {
 }
 
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     transform: translateY(0);
   }
   40% {
@@ -174,10 +160,21 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: 
-    radial-gradient(circle at 20% 80%, rgba(0, 212, 170, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(37, 211, 102, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(0, 191, 165, 0.025) 0%, transparent 50%);
+  background-image: radial-gradient(
+      circle at 20% 80%,
+      rgba(0, 212, 170, 0.05) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(37, 211, 102, 0.05) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 40% 40%,
+      rgba(0, 191, 165, 0.025) 0%,
+      transparent 50%
+    );
   pointer-events: none;
 }
 
@@ -193,7 +190,7 @@ body {
   font-size: 3rem;
   margin-bottom: 1.5rem;
   font-weight: 700;
-  background: linear-gradient(45deg, #075E54, #25D366);
+  background: linear-gradient(45deg, #075e54, #25d366);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -231,7 +228,7 @@ body {
 .showcase-item h4 {
   font-size: 1.2rem;
   margin: 0;
-  color: #075E54;
+  color: #075e54;
 }
 
 /* Features Grid */
@@ -241,6 +238,7 @@ body {
   gap: 2rem;
   max-width: 1200px;
   width: 100%;
+  margin-bottom: 4rem;
 }
 
 .feature-card {
@@ -262,7 +260,11 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(37, 211, 102, 0.03) 0%, rgba(7, 94, 84, 0.03) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(37, 211, 102, 0.03) 0%,
+    rgba(7, 94, 84, 0.03) 100%
+  );
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -276,7 +278,7 @@ body {
 .feature-card h3 {
   font-size: 1.3rem;
   margin-bottom: 1rem;
-  color: #075E54;
+  color: #075e54;
   position: relative;
   z-index: 1;
 }
@@ -309,7 +311,7 @@ body {
 
 /* Chat Header */
 .chat-header {
-  background: #075E54;
+  background: #075e54;
   color: white;
   padding: 1rem;
   display: flex;
@@ -328,7 +330,7 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #25D366;
+  background: #25d366;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -348,8 +350,6 @@ body {
   font-size: 0.8rem;
   opacity: 0.8;
 }
-
-
 
 /* Chat Messages */
 .chat-messages {
@@ -398,7 +398,7 @@ body {
 }
 
 .user-message .message-content {
-  background: #DCF8C6;
+  background: #dcf8c6;
   border-bottom-right-radius: 4px;
 }
 
@@ -449,7 +449,7 @@ body {
 }
 
 .send-button {
-  background: #25D366;
+  background: #25d366;
   border: none;
   width: 40px;
   height: 40px;
@@ -463,11 +463,9 @@ body {
 }
 
 .send-button:hover {
-  background: #128C7E;
+  background: #128c7e;
   transform: scale(1.05);
 }
-
-
 
 /* Zoom Section */
 .zoom-section {
@@ -487,9 +485,16 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: 
-    radial-gradient(circle at 60% 30%, rgba(18, 140, 126, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 30% 70%, rgba(37, 211, 102, 0.05) 0%, transparent 50%);
+  background-image: radial-gradient(
+      circle at 60% 30%,
+      rgba(18, 140, 126, 0.05) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 30% 70%,
+      rgba(37, 211, 102, 0.05) 0%,
+      transparent 50%
+    );
   pointer-events: none;
 }
 
@@ -505,7 +510,7 @@ body {
   font-size: 3rem;
   margin-bottom: 1.5rem;
   font-weight: 700;
-  background: linear-gradient(45deg, #075E54, #25D366);
+  background: linear-gradient(45deg, #075e54, #25d366);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -537,7 +542,11 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(37, 211, 102, 0.03) 0%, rgba(7, 94, 84, 0.03) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(37, 211, 102, 0.03) 0%,
+    rgba(7, 94, 84, 0.03) 100%
+  );
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -551,7 +560,7 @@ body {
 .zoom-item h4 {
   font-size: 1.3rem;
   margin-bottom: 1rem;
-  color: #075E54;
+  color: #075e54;
   position: relative;
   z-index: 1;
 }
@@ -665,12 +674,16 @@ body {
   width: 20px;
   height: 20px;
   border: 3px solid #f3f3f3;
-  border-top: 3px solid #25D366;
+  border-top: 3px solid #25d366;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
