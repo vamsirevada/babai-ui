@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -46,170 +47,47 @@ const ChatInput = ({ onSendMessage }) => {
   );
 };
 
-// Enhanced Three.js Background Component
+// Three.js Background Component
 const ThreeBackground = () => {
   const mountRef = useRef(null);
-  const mouseRef = useRef({ x: 0, y: 0 });
-  const scrollRef = useRef(0);
 
   useEffect(() => {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-
+    
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x000000, 0);
     mountRef.current.appendChild(renderer.domElement);
 
-    // Create multiple particle systems for depth
-    const particleGroups = [];
-
-    // Main floating particles
-    const mainGeometry = new THREE.BufferGeometry();
-    const particlesCount = 150;
+    // Create floating particles
+    const geometry = new THREE.BufferGeometry();
+    const particlesCount = 100;
     const positions = new Float32Array(particlesCount * 3);
-    const velocities = new Float32Array(particlesCount * 3);
 
-    for (let i = 0; i < particlesCount * 3; i += 3) {
-      positions[i] = (Math.random() - 0.5) * 25;
-      positions[i + 1] = (Math.random() - 0.5) * 25;
-      positions[i + 2] = (Math.random() - 0.5) * 15;
-
-      velocities[i] = (Math.random() - 0.5) * 0.002;
-      velocities[i + 1] = (Math.random() - 0.5) * 0.002;
-      velocities[i + 2] = (Math.random() - 0.5) * 0.002;
+    for (let i = 0; i < particlesCount * 3; i++) {
+      positions[i] = (Math.random() - 0.5) * 20;
     }
 
-    mainGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-    const mainMaterial = new THREE.PointsMaterial({
-      color: 0x00d4aa,
-      size: 0.03,
-      transparent: true,
-      opacity: 0.6,
-      blending: THREE.AdditiveBlending
-    });
-
-    const mainParticles = new THREE.Points(mainGeometry, mainMaterial);
-    scene.add(mainParticles);
-    particleGroups.push({ particles: mainParticles, velocities, speed: 1 });
-
-    // Secondary particle layer
-    const secondGeometry = new THREE.BufferGeometry();
-    const secondCount = 80;
-    const secondPositions = new Float32Array(secondCount * 3);
-    const secondVelocities = new Float32Array(secondCount * 3);
-
-    for (let i = 0; i < secondCount * 3; i += 3) {
-      secondPositions[i] = (Math.random() - 0.5) * 30;
-      secondPositions[i + 1] = (Math.random() - 0.5) * 30;
-      secondPositions[i + 2] = (Math.random() - 0.5) * 20;
-
-      secondVelocities[i] = (Math.random() - 0.5) * 0.001;
-      secondVelocities[i + 1] = (Math.random() - 0.5) * 0.001;
-      secondVelocities[i + 2] = (Math.random() - 0.5) * 0.001;
-    }
-
-    secondGeometry.setAttribute('position', new THREE.BufferAttribute(secondPositions, 3));
-
-    const secondMaterial = new THREE.PointsMaterial({
-      color: 0x25D366,
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    
+    const material = new THREE.PointsMaterial({
+      color: 0x075E54,
       size: 0.02,
       transparent: true,
-      opacity: 0.4,
-      blending: THREE.AdditiveBlending
+      opacity: 0.4
     });
 
-    const secondParticles = new THREE.Points(secondGeometry, secondMaterial);
-    scene.add(secondParticles);
-    particleGroups.push({ particles: secondParticles, velocities: secondVelocities, speed: 0.5 });
+    const particles = new THREE.Points(geometry, material);
+    scene.add(particles);
 
-    // Add geometric shapes for more 3D depth
-    const geometricGroup = new THREE.Group();
+    camera.position.z = 5;
 
-    for (let i = 0; i < 5; i++) {
-      const geometry = new THREE.OctahedronGeometry(0.1, 0);
-      const material = new THREE.MeshBasicMaterial({
-        color: 0x00bfa5,
-        transparent: true,
-        opacity: 0.1,
-        wireframe: true
-      });
-
-      const mesh = new THREE.Mesh(geometry, material);
-      mesh.position.set(
-        (Math.random() - 0.5) * 20,
-        (Math.random() - 0.5) * 20,
-        (Math.random() - 0.5) * 10
-      );
-
-      geometricGroup.add(mesh);
-    }
-
-    scene.add(geometricGroup);
-
-    camera.position.z = 8;
-
-    // Mouse interaction
-    const handleMouseMove = (event) => {
-      mouseRef.current.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouseRef.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    };
-
-    // Scroll interaction
-    const handleScroll = () => {
-      scrollRef.current = window.scrollY * 0.001;
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('scroll', handleScroll);
-
-    // Enhanced animation loop
-    let time = 0;
+    // Animation loop
     const animate = () => {
       requestAnimationFrame(animate);
-      time += 0.01;
-
-      // Animate particle groups
-      particleGroups.forEach((group, index) => {
-        const positions = group.particles.geometry.attributes.position.array;
-        const velocities = group.velocities;
-
-        for (let i = 0; i < positions.length; i += 3) {
-          // Smooth floating motion
-          positions[i] += velocities[i] * group.speed;
-          positions[i + 1] += velocities[i + 1] * group.speed;
-          positions[i + 2] += velocities[i + 2] * group.speed;
-
-          // Add wave motion
-          positions[i + 1] += Math.sin(time + positions[i] * 0.5) * 0.002;
-          positions[i] += Math.cos(time + positions[i + 1] * 0.3) * 0.001;
-
-          // Boundary wrapping
-          if (Math.abs(positions[i]) > 15) velocities[i] *= -1;
-          if (Math.abs(positions[i + 1]) > 15) velocities[i + 1] *= -1;
-          if (Math.abs(positions[i + 2]) > 10) velocities[i + 2] *= -1;
-        }
-
-        group.particles.geometry.attributes.position.needsUpdate = true;
-
-        // Mouse interaction
-        group.particles.rotation.x += (mouseRef.current.y * 0.1 - group.particles.rotation.x) * 0.05;
-        group.particles.rotation.y += (mouseRef.current.x * 0.1 - group.particles.rotation.y) * 0.05;
-      });
-
-      // Animate geometric shapes
-      geometricGroup.children.forEach((mesh, index) => {
-        mesh.rotation.x += 0.01 + index * 0.002;
-        mesh.rotation.y += 0.015 + index * 0.001;
-        mesh.position.y += Math.sin(time + index) * 0.001;
-      });
-
-      // Camera subtle movement based on scroll and mouse
-      camera.position.x += (mouseRef.current.x * 0.5 - camera.position.x) * 0.02;
-      camera.position.y += (-mouseRef.current.y * 0.5 - camera.position.y) * 0.02;
-      camera.position.z = 8 + scrollRef.current * 2;
-
+      particles.rotation.x += 0.001;
+      particles.rotation.y += 0.001;
       renderer.render(scene, camera);
     };
 
@@ -226,16 +104,10 @@ const ThreeBackground = () => {
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('scroll', handleScroll);
       if (mountRef.current && renderer.domElement) {
         mountRef.current.removeChild(renderer.domElement);
       }
       renderer.dispose();
-      mainGeometry.dispose();
-      mainMaterial.dispose();
-      secondGeometry.dispose();
-      secondMaterial.dispose();
     };
   }, []);
 
@@ -278,198 +150,112 @@ export default function App() {
         ...demoMessages[messageCount],
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
-
+      
       setMessages(prev => [...prev, newMessage]);
       setMessageCount(prev => prev + 1);
     }
   };
 
   useEffect(() => {
-    // Enhanced GSAP Hero Animation with smoother easing
+    // GSAP Hero Animation
     gsap.fromTo(heroRef.current, 
-      { opacity: 0, y: 80, scale: 0.95 },
-      { opacity: 1, y: 0, scale: 1, duration: 1.4, ease: "power3.out" }
+      { opacity: 0, y: 50 },
+      { opacity: 1, y: 0, duration: 1, ease: "power2.out" }
     );
 
-    // Animate title text with enhanced smoothness
+    // Animate title text
     gsap.fromTo(".hero-title", 
-      { opacity: 0, y: 50, rotationX: 15 },
-      { opacity: 1, y: 0, rotationX: 0, duration: 1.2, delay: 0.4, ease: "power3.out" }
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 1, delay: 0.3, ease: "power2.out" }
     );
 
     gsap.fromTo(".hero-subtitle", 
-      { opacity: 0, y: 40, filter: "blur(10px)" },
-      { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.2, delay: 0.7, ease: "power3.out" }
-    );
-
-    gsap.fromTo(".scroll-hint", 
       { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 1, delay: 1, ease: "power3.out" }
+      { opacity: 1, y: 0, duration: 1, delay: 0.6, ease: "power2.out" }
     );
 
-    // Animate features cards with staggered entrance
+    // Animate features cards
     gsap.fromTo(".feature-card", 
-      { opacity: 0, y: 60, rotationY: 15, scale: 0.9 },
-      { opacity: 1, y: 0, rotationY: 0, scale: 1, duration: 1, delay: 1.2, stagger: 0.15, ease: "power3.out" }
+      { opacity: 0, y: 50 },
+      { opacity: 1, y: 0, duration: 0.8, delay: 0.9, stagger: 0.2, ease: "power2.out" }
     );
 
-    // Animate navbar with smooth entrance
-    gsap.fromTo(".navbar", 
-      { opacity: 0, y: -50 },
-      { opacity: 1, y: 0, duration: 1, delay: 0.2, ease: "power3.out" }
-    );
-
-    // ScrollTrigger for chat slide-in animation with enhanced smoothness
+    // ScrollTrigger for chat slide-in animation
     ScrollTrigger.create({
       trigger: showcaseRef.current,
       start: "top 80%",
       end: "bottom 20%",
       onEnter: () => {
-        gsap.fromTo(chatRef.current, 
+        gsap.to(chatRef.current, 
           { 
-            right: "-450px",
-            x: "0%",
-            scale: 0.8,
-            opacity: 0,
-            rotationY: 25,
-            filter: "blur(8px)"
-          },
-          { 
-            right: "10%", // Adjusted right value to make the phone visible
-            x: "0%",
+            right: "50%",
+            x: "50%",
             scale: 0.9,
-            opacity: 1,
-            rotationY: 0,
-            filter: "blur(0px)",
-            duration: 1.5, 
-            ease: "power4.out",
+            opacity: 1, 
+            duration: 1.2, 
+            ease: "power3.out",
             onComplete: () => {
               setIsAutoGenerating(true);
-              // Add subtle floating animation
-              gsap.to(chatRef.current, {
-                y: "+=10",
-                duration: 2,
-                repeat: -1,
-                yoyo: true,
-                ease: "power2.inOut"
-              });
             }
           }
         );
       },
       onLeave: () => {
         setIsAutoGenerating(false);
-        gsap.killTweensOf(chatRef.current);
       },
       onEnterBack: () => {
         setIsAutoGenerating(true);
-        gsap.to(chatRef.current, {
-          y: "+=10",
-          duration: 2,
-          repeat: -1,
-          yoyo: true,
-          ease: "power2.inOut"
-        });
       },
       onLeaveBack: () => {
-        gsap.killTweensOf(chatRef.current);
         gsap.to(chatRef.current, 
           { 
-            right: "-450px",
+            right: "-400px",
             x: "0%",
-            scale: 0.8,
-            opacity: 0,
-            rotationY: -25,
-            filter: "blur(8px)",
-            duration: 1, 
-            ease: "power3.in" 
+            scale: 0.7,
+            opacity: 0, 
+            duration: 0.8, 
+            ease: "power2.in" 
           }
         );
         setIsAutoGenerating(false);
       }
     });
 
-    // ScrollTrigger for chat zoom effect with enhanced smoothness
+    // ScrollTrigger for chat zoom effect
     ScrollTrigger.create({
       trigger: zoomSectionRef.current,
       start: "top 80%",
       end: "bottom 20%",
       onEnter: () => {
-        gsap.killTweensOf(chatRef.current);
         gsap.to(chatRef.current, {
-          scale: 1.25,
+          scale: 1.2,
           right: "50%",
           x: "50%",
-          rotationZ: 1,
-          transformPerspective: 1000,
-          duration: 1.2,
-          ease: "power4.out",
-          onComplete: () => {
-            // Add subtle pulsing effect during zoom
-            gsap.to(chatRef.current, {
-              scale: 1.27,
-              duration: 3,
-              repeat: -1,
-              yoyo: true,
-              ease: "power2.inOut"
-            });
-          }
+          duration: 1,
+          ease: "power2.out"
         });
       },
       onLeave: () => {
-        gsap.killTweensOf(chatRef.current);
         gsap.to(chatRef.current, {
           scale: 0.9,
-          rotationZ: 0,
-          duration: 1,
-          ease: "power3.in",
-          onComplete: () => {
-            gsap.to(chatRef.current, {
-              y: "+=10",
-              duration: 2,
-              repeat: -1,
-              yoyo: true,
-              ease: "power2.inOut"
-            });
-          }
+          duration: 0.8,
+          ease: "power2.in"
         });
       },
       onEnterBack: () => {
-        gsap.killTweensOf(chatRef.current);
         gsap.to(chatRef.current, {
-          scale: 1.25,
+          scale: 1.2,
           right: "50%",
           x: "50%",
-          rotationZ: 1,
-          duration: 1.2,
-          ease: "power4.out",
-          onComplete: () => {
-            gsap.to(chatRef.current, {
-              scale: 1.27,
-              duration: 3,
-              repeat: -1,
-              yoyo: true,
-              ease: "power2.inOut"
-            });
-          }
+          duration: 1,
+          ease: "power2.out"
         });
       },
       onLeaveBack: () => {
-        gsap.killTweensOf(chatRef.current);
         gsap.to(chatRef.current, {
           scale: 0.9,
-          rotationZ: 0,
-          duration: 1,
-          ease: "power3.out",
-          onComplete: () => {
-            gsap.to(chatRef.current, {
-              y: "+=10",
-              duration: 2,
-              repeat: -1,
-              yoyo: true,
-              ease: "power2.inOut"
-            });
-          }
+          duration: 0.8,
+          ease: "power2.out"
         });
       }
     });
@@ -517,14 +303,14 @@ export default function App() {
   return (
     <div className="app">
       <ThreeBackground />
-
+      
       {/* Navigation Bar */}
       <nav className="navbar">
         <div className="navbar-logo">
           <h1 className="logo-text">bab.ai</h1>
         </div>
       </nav>
-
+      
       <main className="main-content" ref={heroRef}>
         <div className="hero-section">
           <h1 className="hero-title">bab.ai</h1>
