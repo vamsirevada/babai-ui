@@ -387,7 +387,7 @@ export default function App() {
         <div className="chat-header">
           <div className="chat-info">
             <div className="avatar">
-              <div className="avatar-icon">🤖</div>
+              <div className="avatar-icon">B</div>
             </div>
             <div className="contact-info">
               <h3>bab.ai</h3>
