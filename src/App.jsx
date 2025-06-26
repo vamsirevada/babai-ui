@@ -124,9 +124,37 @@ export default function App() {
     }
   ]);
 
+  const [isAutoGenerating, setIsAutoGenerating] = useState(false);
+  const [messageCount, setMessageCount] = useState(1);
+
   const chatRef = useRef(null);
   const heroRef = useRef(null);
   const showcaseRef = useRef(null);
+  const zoomSectionRef = useRef(null);
+
+  const demoMessages = [
+    { isUser: true, message: "I need help with project scheduling for a new office building" },
+    { isUser: false, message: "I can help you create an optimized schedule. What's the project timeline and key milestones?" },
+    { isUser: true, message: "12-month project, foundation starts in March" },
+    { isUser: false, message: "Perfect! Based on current weather patterns and resource availability, I recommend starting foundation work in the second week of March. I've created a preliminary schedule with buffer time for weather delays." },
+    { isUser: true, message: "What about safety compliance?" },
+    { isUser: false, message: "I've integrated OSHA safety requirements into your timeline. All safety inspections are scheduled, and I'll send real-time alerts for any compliance issues." },
+    { isUser: true, message: "How about cost estimation?" },
+    { isUser: false, message: "Based on current material costs and labor rates in your area, I estimate $2.4M total project cost. I'm monitoring price fluctuations and will alert you to any significant changes." }
+  ];
+
+  const generateAutoMessage = () => {
+    if (messageCount < demoMessages.length) {
+      const newMessage = {
+        id: messages.length + 1,
+        ...demoMessages[messageCount],
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      };
+      
+      setMessages(prev => [...prev, newMessage]);
+      setMessageCount(prev => prev + 1);
+    }
+  };
 
   useEffect(() => {
     // GSAP Hero Animation
@@ -152,7 +180,7 @@ export default function App() {
       { opacity: 1, y: 0, duration: 0.8, delay: 0.9, stagger: 0.2, ease: "power2.out" }
     );
 
-    // ScrollTrigger for chat animation
+    // ScrollTrigger for chat slide-in animation
     ScrollTrigger.create({
       trigger: showcaseRef.current,
       start: "top 80%",
@@ -161,69 +189,80 @@ export default function App() {
         gsap.fromTo(chatRef.current, 
           { 
             x: "100vw", 
-            y: "0", 
-            scale: 0.8,
+            y: "50vh", 
+            scale: 0.7,
             opacity: 0 
           },
           { 
-            x: "50%", 
-            y: "50%", 
+            x: "50vw", 
+            y: "50vh", 
             xPercent: -50,
             yPercent: -50,
-            scale: 1,
+            scale: 0.9,
             opacity: 1, 
             duration: 1.2, 
-            ease: "power3.out" 
+            ease: "power3.out",
+            onComplete: () => {
+              setIsAutoGenerating(true);
+            }
           }
         );
       },
       onLeave: () => {
-        gsap.to(chatRef.current, 
-          { 
-            x: "100vw", 
-            y: "0", 
-            xPercent: 0,
-            yPercent: 0,
-            scale: 0.8,
-            opacity: 0, 
-            duration: 0.8, 
-            ease: "power2.in" 
-          }
-        );
+        setIsAutoGenerating(false);
       },
       onEnterBack: () => {
-        gsap.fromTo(chatRef.current, 
-          { 
-            x: "100vw", 
-            y: "0", 
-            scale: 0.8,
-            opacity: 0 
-          },
-          { 
-            x: "50%", 
-            y: "50%", 
-            xPercent: -50,
-            yPercent: -50,
-            scale: 1,
-            opacity: 1, 
-            duration: 1.2, 
-            ease: "power3.out" 
-          }
-        );
+        setIsAutoGenerating(true);
       },
       onLeaveBack: () => {
         gsap.to(chatRef.current, 
           { 
             x: "100vw", 
-            y: "0", 
+            y: "50vh", 
             xPercent: 0,
-            yPercent: 0,
-            scale: 0.8,
+            yPercent: -50,
+            scale: 0.7,
             opacity: 0, 
             duration: 0.8, 
             ease: "power2.in" 
           }
         );
+        setIsAutoGenerating(false);
+      }
+    });
+
+    // ScrollTrigger for chat zoom effect
+    ScrollTrigger.create({
+      trigger: zoomSectionRef.current,
+      start: "top 80%",
+      end: "bottom 20%",
+      onEnter: () => {
+        gsap.to(chatRef.current, {
+          scale: 1.1,
+          duration: 1,
+          ease: "power2.out"
+        });
+      },
+      onLeave: () => {
+        gsap.to(chatRef.current, {
+          scale: 0.9,
+          duration: 0.8,
+          ease: "power2.in"
+        });
+      },
+      onEnterBack: () => {
+        gsap.to(chatRef.current, {
+          scale: 1.1,
+          duration: 1,
+          ease: "power2.out"
+        });
+      },
+      onLeaveBack: () => {
+        gsap.to(chatRef.current, {
+          scale: 0.9,
+          duration: 0.8,
+          ease: "power2.out"
+        });
       }
     });
 
@@ -231,6 +270,19 @@ export default function App() {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
+
+  useEffect(() => {
+    let interval;
+    if (isAutoGenerating && messageCount < demoMessages.length) {
+      interval = setInterval(() => {
+        generateAutoMessage();
+      }, 2500);
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isAutoGenerating, messageCount, messages.length]);
 
   const handleSendMessage = (message) => {
     const newMessage = {
@@ -302,6 +354,25 @@ export default function App() {
         </div>
       </section>
 
+      <section className="zoom-section" ref={zoomSectionRef}>
+        <div className="zoom-content">
+          <h2>Interactive AI Conversations</h2>
+          <p>See how our AI handles complex construction queries with intelligent responses and project insights</p>
+          <div className="zoom-features">
+            <div className="zoom-item">
+              <span className="zoom-icon">💬</span>
+              <h4>Natural Language Processing</h4>
+              <p>Communicate naturally with your AI assistant</p>
+            </div>
+            <div className="zoom-item">
+              <span className="zoom-icon">⚡</span>
+              <h4>Instant Responses</h4>
+              <p>Get immediate answers to your construction questions</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* WhatsApp-style Chat Interface */}
       <div className="chat-container" ref={chatRef}>
         <div className="chat-header">
@@ -316,7 +387,11 @@ export default function App() {
           </div>
         </div>
 
-        <div className="chat-messages">
+        <div className="chat-messages" ref={(el) => {
+          if (el && messages.length > 1) {
+            el.scrollTop = el.scrollHeight;
+          }
+        }}>
           {messages.map((msg) => (
             <ChatMessage
               key={msg.id}
