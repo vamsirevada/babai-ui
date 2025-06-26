@@ -304,6 +304,13 @@ export default function App() {
     <div className="app">
       <ThreeBackground />
       
+      {/* Navigation Bar */}
+      <nav className="navbar">
+        <div className="navbar-logo">
+          <h1 className="logo-text">bab.ai</h1>
+        </div>
+      </nav>
+      
       <main className="main-content" ref={heroRef}>
         <div className="hero-section">
           <h1 className="hero-title">bab.ai</h1>
