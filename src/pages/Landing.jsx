@@ -16,6 +16,10 @@ import {
   Shield,
   Zap,
   Users,
+  MessageCircle,
+  Building2,
+  Truck,
+  HardHat,
 } from 'lucide-react'
 import PhoneModel from '@/components/PhoneModel'
 import ThreeBackground from '@/components/ThreeBackground'
@@ -460,8 +464,8 @@ const Landing = () => {
               Intel in one WhatsApp chat
             </h3>
             <p className="text-gray-600 max-w-xl mx-auto">
-              Experience how Bab.ai transforms construction management through
-              intelligent WhatsApp conversations
+              "Experience how Bab.ai transforms construction management through
+              intelligent WhatsApp — just say 'Hi' to start."
             </p>
           </div>
 
@@ -607,6 +611,188 @@ const Landing = () => {
           </div>
         </div>
 
+        {/* Who is it for Section */}
+        <div className="max-w-6xl mx-auto px-4 mt-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Who is it for?
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Bab.ai is designed for construction professionals who want to
+              streamline their operations through WhatsApp
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center group">
+              <div className="w-16 h-16 bg-gradient-to-r from-blue-100 to-blue-200 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:from-blue-200 group-hover:to-blue-300 transition-all duration-300">
+                <Building2 className="w-8 h-8 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                Builders
+              </h3>
+              <p className="text-gray-600">
+                Manage multiple projects, track progress, and coordinate with
+                teams efficiently through WhatsApp
+              </p>
+            </div>
+
+            <div className="text-center group">
+              <div className="w-16 h-16 bg-gradient-to-r from-green-100 to-green-200 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:from-green-200 group-hover:to-green-300 transition-all duration-300">
+                <Truck className="w-8 h-8 text-green-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                Vendors
+              </h3>
+              <p className="text-gray-600">
+                Submit quotes, track orders, and communicate with project teams
+                seamlessly via WhatsApp
+              </p>
+            </div>
+
+            <div className="text-center group">
+              <div className="w-16 h-16 bg-gradient-to-r from-purple-100 to-purple-200 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:from-purple-200 group-hover:to-purple-300 transition-all duration-300">
+                <HardHat className="w-8 h-8 text-purple-600" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                Site Engineers
+              </h3>
+              <p className="text-gray-600">
+                Report updates, request materials, and access project data
+                instantly through familiar WhatsApp interface
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Testimonials & Traction Section */}
+        <div className="bg-gray-50 py-16 mt-20">
+          <div className="max-w-6xl mx-auto px-4">
+            {/* Traction Stats */}
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                Trusted by Construction Leaders
+              </h2>
+              <p className="text-lg text-gray-600 mb-8">
+                Join the growing community transforming construction through
+                WhatsApp AI
+              </p>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-blue-600 mb-2">
+                    25+
+                  </div>
+                  <div className="text-sm text-gray-600">Pilot Projects</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-green-600 mb-2">
+                    200+
+                  </div>
+                  <div className="text-sm text-gray-600">
+                    Daily Vendor Quotes
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-purple-600 mb-2">
+                    ₹2.5Cr+
+                  </div>
+                  <div className="text-sm text-gray-600">
+                    Procurement via WhatsApp
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-orange-600 mb-2">
+                    4.8/5
+                  </div>
+                  <div className="text-sm text-gray-600">User Satisfaction</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Testimonials */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Card className="bg-white border-0 shadow-lg">
+                <CardContent className="pt-6">
+                  <div className="flex items-center mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                      R
+                    </div>
+                    <div className="ml-3">
+                      <div className="font-semibold text-gray-900">
+                        Rajesh Kumar
+                      </div>
+                      <div className="text-sm text-gray-600">
+                        Site Engineer, Metro Projects
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-gray-700 italic">
+                    "Bab.ai has revolutionized how we handle daily reports and
+                    material requests. Everything happens on WhatsApp now - it's
+                    so much faster than emails and calls."
+                  </p>
+                  <div className="flex text-yellow-400 mt-3">
+                    {'★'.repeat(5)}
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-white border-0 shadow-lg">
+                <CardContent className="pt-6">
+                  <div className="flex items-center mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                      P
+                    </div>
+                    <div className="ml-3">
+                      <div className="font-semibold text-gray-900">
+                        Priya Sharma
+                      </div>
+                      <div className="text-sm text-gray-600">
+                        Project Director, Residential
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-gray-700 italic">
+                    "The vendor coordination feature is amazing. We get quotes
+                    instantly and can compare prices right on WhatsApp. Our
+                    procurement efficiency has doubled."
+                  </p>
+                  <div className="flex text-yellow-400 mt-3">
+                    {'★'.repeat(5)}
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-white border-0 shadow-lg">
+                <CardContent className="pt-6">
+                  <div className="flex items-center mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                      A
+                    </div>
+                    <div className="ml-3">
+                      <div className="font-semibold text-gray-900">
+                        Amit Patel
+                      </div>
+                      <div className="text-sm text-gray-600">
+                        Builder, Commercial Projects
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-gray-700 italic">
+                    "Managing 5 sites simultaneously was chaos before Bab.ai.
+                    Now I get real-time updates and can make decisions instantly
+                    through the dashboard."
+                  </p>
+                  <div className="flex text-yellow-400 mt-3">
+                    {'★'.repeat(5)}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+
         {/* CTA Section */}
         <div className="text-center mt-20">
           <Card className="max-w-3xl mx-auto bg-gradient-to-r from-blue-600 to-purple-600 border-0 text-white relative overflow-hidden">
@@ -654,6 +840,25 @@ const Landing = () => {
           </div>
         </div>
       </footer>
+
+      {/* Floating WhatsApp CTA */}
+      <div className="fixed bottom-6 right-6 z-50 md:hidden">
+        <button
+          onClick={() =>
+            window.open(
+              "https://wa.me/919876543210?text=Hi! I'm interested in Bab.ai for my construction project.",
+              '_blank'
+            )
+          }
+          className="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group animate-pulse hover:animate-none"
+          aria-label="Chat on WhatsApp"
+        >
+          <MessageCircle className="w-6 h-6" />
+          <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+            1
+          </span>
+        </button>
+      </div>
     </div>
   )
 }
