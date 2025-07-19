@@ -10,11 +10,11 @@ import { Badge } from '../components/ui/badge'
 import { useNavigate } from 'react-router-dom'
 import {
   ArrowRight,
-  BarChart3,
-  CreditCard,
-  TrendingUp,
-  Shield,
-  Zap,
+  Camera,
+  Sparkles,
+  Brain,
+  Lightbulb,
+  Heart,
   Users,
   MessageCircle,
   Building2,
@@ -41,39 +41,44 @@ const Landing = () => {
 
   const features = [
     {
-      icon: BarChart3,
+      icon: Camera,
       title: 'WhatsApp Photo Intelligence',
       description:
         'AI analyzes site photos shared in WhatsApp to track progress, identify safety issues, and measure completion rates automatically',
       metric: 'Photo AI',
+      gradient: 'from-pink-400 to-rose-400',
     },
     {
-      icon: CreditCard,
+      icon: Sparkles,
       title: 'Smart Bill Processing',
       description:
         'Automatically extracts quantities, prices, and delivery dates from vendor bills shared in WhatsApp chats',
       metric: 'Auto Extract',
+      gradient: 'from-blue-400 to-cyan-400',
     },
     {
-      icon: TrendingUp,
+      icon: Brain,
       title: 'Vendor Behavior Learning',
       description:
         'Builds intelligence on vendor reliability, delivery patterns, and quality consistency from chat history',
       metric: 'Smart Learning',
+      gradient: 'from-purple-400 to-indigo-400',
     },
     {
-      icon: Shield,
+      icon: Lightbulb,
       title: 'Real-time Project Model',
       description:
         'Creates and updates a comprehensive mental model of each project from WhatsApp conversations and media',
       metric: 'Live Model',
+      gradient: 'from-yellow-400 to-orange-400',
     },
     {
-      icon: Zap,
+      icon: Heart,
       title: 'Conversation Intelligence',
       description:
         'Understands construction context in chat messages to predict delays, budget issues, and quality concerns',
       metric: 'Context AI',
+      gradient: 'from-red-400 to-pink-400',
     },
     {
       icon: Users,
@@ -81,6 +86,7 @@ const Landing = () => {
       description:
         'Monitors site team performance and execution patterns through WhatsApp communications and updates',
       metric: 'Team Intel',
+      gradient: 'from-green-400 to-emerald-400',
     },
   ]
 
@@ -552,66 +558,27 @@ const Landing = () => {
                 <p className="text-lg md:text-xl text-gray-600 mb-6 leading-relaxed">
                   Watch how Bab.ai instantly transforms your everyday WhatsApp
                   conversations into
-                  <span className="font-semibold text-gray-800">
+                  <span className="font-semibold">
                     {' '}
                     actionable construction insights
                   </span>
                   .
                 </p>
-                <p className="text-base md:text-lg text-gray-500 italic mb-8">
-                  No training required • No new apps • Just say "Hi" to start
+                <p className="text-base md:text-lg text-black font-semibold italic mb-8">
+                  No training required • Just say "Hi" to start
                 </p>
-              </div>
-
-              {/* Interactive Feature Pills */}
-              <div className="flex flex-wrap justify-center lg:justify-start gap-3">
-                <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200">
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-sm font-medium text-gray-700">
-                    Real-time Analysis
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                  <span className="text-sm font-medium text-gray-700">
-                    Instant Insights
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
-                  <span className="text-sm font-medium text-gray-700">
-                    Smart Predictions
-                  </span>
-                </div>
               </div>
             </div>
 
             {/* Right Side - iPhone Mockup */}
             <div className="flex justify-center lg:justify-end">
-              <div className="relative">
-                <PhoneModel />
-
+              <div className="relative max-w-xs lg:max-w-sm">
+                <div className="transform scale-x-75 scale-y-75 lg:scale-85 origin-center">
+                  <PhoneModel />
+                </div>
                 {/* Decorative elements around phone */}
-                <div className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full opacity-50 animate-pulse"></div>
-                <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full opacity-50 animate-pulse"></div>
-
-                {/* Floating stats around phone */}
-                <div className="absolute -left-8 top-1/4 hidden xl:block">
-                  <div className="bg-white rounded-lg shadow-lg p-3 border border-gray-100">
-                    <div className="text-sm font-semibold text-green-600">
-                      100K+
-                    </div>
-                    <div className="text-xs text-gray-500">Messages</div>
-                  </div>
-                </div>
-                <div className="absolute -right-8 bottom-1/4 hidden xl:block">
-                  <div className="bg-white rounded-lg shadow-lg p-3 border border-gray-100">
-                    <div className="text-sm font-semibold text-blue-600">
-                      95%
-                    </div>
-                    <div className="text-xs text-gray-500">Accuracy</div>
-                  </div>
-                </div>
+                <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full opacity-50 animate-pulse"></div>
+                <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full opacity-50 animate-pulse"></div>
               </div>
             </div>
           </div>
@@ -730,11 +697,13 @@ const Landing = () => {
               return (
                 <Card
                   key={index}
-                  className="hover:shadow-xl transition-all duration-300 border-0 shadow-md hover:scale-105 group"
+                  className="hover:shadow-xl transition-all duration-300 border-0 shadow-md hover:scale-105 group bg-gradient-to-br from-white to-gray-50"
                 >
                   <CardHeader>
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg flex items-center justify-center mb-4 group-hover:from-blue-200 group-hover:to-purple-200 transition-colors duration-300">
-                      <IconComponent className="w-6 h-6 text-blue-600" />
+                    <div
+                      className={`w-14 h-14 bg-gradient-to-r ${feature.gradient} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-all duration-300 shadow-lg`}
+                    >
+                      <IconComponent className="w-7 h-7 text-white drop-shadow-sm" />
                     </div>
                     <CardTitle className="text-lg flex items-start justify-between gap-3">
                       <span className="flex-1 leading-tight">
@@ -742,7 +711,7 @@ const Landing = () => {
                       </span>
                       <Badge
                         variant="secondary"
-                        className="bg-green-100 text-green-700 text-xs whitespace-nowrap flex-shrink-0"
+                        className="bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 text-xs whitespace-nowrap flex-shrink-0 border border-green-200"
                       >
                         {feature.metric}
                       </Badge>
@@ -773,8 +742,8 @@ const Landing = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center group">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-100 to-blue-200 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:from-blue-200 group-hover:to-blue-300 transition-all duration-300">
-                <Building2 className="w-8 h-8 text-blue-600" />
+              <div className="w-16 h-16 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:from-blue-500 group-hover:to-indigo-600 transition-all duration-300 shadow-lg group-hover:shadow-xl group-hover:scale-110">
+                <Building2 className="w-8 h-8 text-white drop-shadow-sm" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
                 Builders
@@ -786,8 +755,8 @@ const Landing = () => {
             </div>
 
             <div className="text-center group">
-              <div className="w-16 h-16 bg-gradient-to-r from-green-100 to-green-200 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:from-green-200 group-hover:to-green-300 transition-all duration-300">
-                <Truck className="w-8 h-8 text-green-600" />
+              <div className="w-16 h-16 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:from-emerald-500 group-hover:to-green-600 transition-all duration-300 shadow-lg group-hover:shadow-xl group-hover:scale-110">
+                <Truck className="w-8 h-8 text-white drop-shadow-sm" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
                 Vendors
@@ -799,8 +768,8 @@ const Landing = () => {
             </div>
 
             <div className="text-center group">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-100 to-purple-200 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:from-purple-200 group-hover:to-purple-300 transition-all duration-300">
-                <HardHat className="w-8 h-8 text-purple-600" />
+              <div className="w-16 h-16 bg-gradient-to-r from-purple-400 to-violet-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:from-purple-500 group-hover:to-violet-600 transition-all duration-300 shadow-lg group-hover:shadow-xl group-hover:scale-110">
+                <HardHat className="w-8 h-8 text-white drop-shadow-sm" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
                 Site Engineers
