@@ -226,14 +226,14 @@ const Landing = () => {
                 opacity: '0',
               }}
             >
-              <Badge className="bg-blue-50 text-blue-700 border-blue-200">
-                🧠 Real-time Mental Model
+              <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-700 hover:to-purple-700 text-white">
+                Free to use
               </Badge>
-              <Badge className="bg-purple-50 text-purple-700 border-purple-200">
-                🎯 Vendor Behavior Learning
+              <Badge className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-700 hover:to-purple-700 text-white">
+                WhatsApp Interface
               </Badge>
-              <Badge className="bg-orange-50 text-orange-700 border-orange-200">
-                ⚡ Instant Project Insights
+              <Badge className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-700 hover:to-blue-700 text-white">
+                Made for everyone
               </Badge>
             </div>
           </div>
