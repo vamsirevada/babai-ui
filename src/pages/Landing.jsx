@@ -275,10 +275,10 @@ const Landing = () => {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Site Ops</h3>
               <p className="text-gray-600 leading-relaxed mb-4">
-                AI analyzes site photos to track progress, identify safety
-                issues, and measure completion rates. Understands concrete
-                quality, structural integrity, and material placement from
-                WhatsApp images.
+                Streamline site operations through intelligent WhatsApp
+                monitoring. Track daily activities, manage workforce attendance,
+                coordinate material deliveries, and ensure quality control
+                across all construction phases in real-time.
               </p>
             </Card>
 
@@ -306,9 +306,10 @@ const Landing = () => {
                 Procurement
               </h3>
               <p className="text-gray-600 leading-relaxed">
-                Automatically extracts quantities, prices, and delivery dates
-                from vendor bills and invoices shared in WhatsApp. Builds cost
-                databases and predicts budget variances in real-time.
+                Revolutionize procurement workflows with AI-powered vendor
+                management. Get instant quotes, compare prices, track
+                deliveries, and manage purchase orders directly through WhatsApp
+                conversations with complete transparency.
               </p>
             </Card>
 
@@ -334,9 +335,10 @@ const Landing = () => {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Credit</h3>
               <p className="text-gray-600 leading-relaxed">
-                Learns from every chat to understand vendor reliability, builder
-                consistency patterns, and site execution speed. Creates
-                predictive models for each contractor and project type.
+                Smart credit management and financial intelligence for
+                construction projects by automatically triggering invoice-based
+                credit disbursement directly to vendors. Keep your projects
+                moving—no cash flow delays.
               </p>
             </Card>
           </div>
