@@ -197,27 +197,29 @@ const Landing = () => {
 
           {/* Right Side - Hero Content */}
           <div className="text-center lg:text-left">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-              AI-Powered
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                {' '}
-                Construction Project Management
+            {/* Market positioning badge */}
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-100 to-red-100 px-4 py-2 rounded-full mb-4">
+              <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+              <span className="text-sm font-semibold text-red-700 uppercase tracking-wider">
+                #1 Construction AI in India
               </span>
-              <br />
-            </h2>
-            <p
-              className="text-lg text-gray-600 mb-6 max-w-2xl lg:max-w-none leading-relaxed"
-              style={{
-                animation: 'fadeInUp 0.2s ease-out 0.3s both',
-                opacity: '0',
-              }}
-            >
-              Our AI understands WhatsApp photos, bills, and conversations. It
-              builds a real-time mental model of each project, learning vendor
-              behavior, builder consistency, and site speed to prevent cost
-              overruns before they happen.
-            </p>
+            </div>
 
+            <h2 className="text-3xl md:text-4xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+              Transform Your WhatsApp into{' '}
+              <span className="bg-gradient-to-r from-green-600 via-blue-600 to-purple-600 bg-clip-text text-transparent block mt-2">
+                Smart Construction Brain
+              </span>
+            </h2>
+
+            <p className="text-xl text-gray-600 mb-8 max-w-2xl lg:max-w-none leading-relaxed">
+              <span className="font-semibold text-gray-800">
+                Works with your existing WhatsApp conversations.
+              </span>{' '}
+              Our AI reads every message, photo, and bill to give you real-time
+              project control. Predict delays, prevent cost overruns, and manage
+              multiple sites effortlessly.
+            </p>
             {/* Enhanced Key Benefits with WhatsApp Focus */}
             <div
               className="flex flex-wrap gap-3 justify-center lg:justify-start mb-8"
@@ -242,21 +244,67 @@ const Landing = () => {
         {/* WhatsApp Intelligence Section */}
         <div className="max-w-6xl mx-auto mb-20">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              How Bab.ai Reads Your WhatsApp Like a Construction Expert
+            {/* SEO-optimized heading with construction keywords */}
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-100 to-blue-100 px-4 py-2 rounded-full mb-6">
+              <svg
+                className="w-5 h-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.520-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.484 3.488"
+                  fill="#25D366"
+                />
+              </svg>
+              <span className="text-sm font-semibold text-gray-700 uppercase tracking-wider">
+                WhatsApp Construction AI Platform
+              </span>
+            </div>
+
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+              Transform Your WhatsApp into a{' '}
+              <span className="bg-gradient-to-r from-green-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Smart Construction Command Center
+              </span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our AI doesn't just analyze text - it understands construction
-              context, learns from every interaction, and builds intelligent
-              project insights from your existing WhatsApp conversations.
+
+            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed mb-8">
+              India's first AI-powered construction management platform that
+              converts your WhatsApp conversations into actionable project
+              intelligence. Get real-time site monitoring, vendor coordination,
+              and predictive analytics - all through the messaging app your team
+              already uses.
             </p>
+
+            {/* Key value propositions */}
+            <div className="flex flex-wrap justify-center gap-4 mb-8">
+              <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-sm font-medium text-gray-700">
+                  Zero Learning Curve
+                </span>
+              </div>
+              <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border">
+                <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                <span className="text-sm font-medium text-gray-700">
+                  Real-time Project Insights
+                </span>
+              </div>
+              <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border">
+                <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
+                <span className="text-sm font-medium text-gray-700">
+                  Predictive Cost Control
+                </span>
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             {/* SiteOps AI */}
-            <Card className="p-6 text-center hover:shadow-lg transition-all duration-300">
+            <Card className="p-6 text-center hover:shadow-xl transition-all duration-300 group border-0 bg-gradient-to-br from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100">
               {/* SiteOps Video */}
-              <div className="relative rounded-2xl overflow-hidden shadow-md bg-gray-100">
+              <div className="relative rounded-2xl overflow-hidden shadow-lg bg-gray-100 mb-4 group-hover:shadow-xl transition-shadow duration-300">
                 <video
                   className="w-full h-auto"
                   autoPlay
@@ -271,21 +319,38 @@ const Landing = () => {
                   <source src="/SiteOps.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
-                <div className="absolute inset-0 bg-gradient-to-t from-green-500/10 to-transparent pointer-events-none"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-green-600/20 to-transparent pointer-events-none"></div>
+                <div className="absolute bottom-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
+                  Site Ops
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Site Ops</h3>
-              <p className="text-gray-600 leading-relaxed mb-4">
-                Streamline site operations through intelligent WhatsApp
-                monitoring. Track daily activities, manage workforce attendance,
-                coordinate material deliveries, and ensure quality control
-                across all construction phases in real-time.
+
+              {/* Key Features */}
+              <div className="space-y-2 mb-4">
+                <div className="flex items-center text-sm text-gray-700">
+                  <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                  Track daily activities & workforce
+                </div>
+                <div className="flex items-center text-sm text-gray-700">
+                  <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                  Material delivery coordination
+                </div>
+                <div className="flex items-center text-sm text-gray-700">
+                  <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                  Real-time quality control
+                </div>
+              </div>
+
+              <p className="text-gray-600 leading-relaxed text-sm">
+                "Streamline site operations through intelligent WhatsApp
+                monitoring in all construction phases."
               </p>
             </Card>
 
             {/* Procurement AI */}
-            <Card className="p-6 text-center hover:shadow-lg transition-all duration-300">
+            <Card className="p-6 text-center hover:shadow-xl transition-all duration-300 group border-0 bg-gradient-to-br from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100">
               {/* Procurement Video */}
-              <div className="relative rounded-2xl overflow-hidden shadow-md bg-gray-100">
+              <div className="relative rounded-2xl overflow-hidden shadow-lg bg-gray-100 mb-4 group-hover:shadow-xl transition-shadow duration-300">
                 <video
                   className="w-full h-auto"
                   autoPlay
@@ -300,23 +365,38 @@ const Landing = () => {
                   <source src="/Procure.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
-                <div className="absolute inset-0 bg-gradient-to-t from-green-500/10 to-transparent pointer-events-none"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent pointer-events-none"></div>
+                <div className="absolute bottom-2 right-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full">
+                  Procurement
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
-                Procurement
-              </h3>
-              <p className="text-gray-600 leading-relaxed">
-                Revolutionize procurement workflows with AI-powered vendor
-                management. Get instant quotes, compare prices, track
-                deliveries, and manage purchase orders directly through WhatsApp
-                conversations with complete transparency.
+
+              {/* Key Features */}
+              <div className="space-y-2 mb-4">
+                <div className="flex items-center text-sm text-gray-700">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
+                  Instant vendor quotes & comparison
+                </div>
+                <div className="flex items-center text-sm text-gray-700">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
+                  Automated purchase orders
+                </div>
+                <div className="flex items-center text-sm text-gray-700">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
+                  Delivery tracking & transparency
+                </div>
+              </div>
+
+              <p className="text-gray-600 leading-relaxed text-sm">
+                "Revolutionize procurement flow with AI-powered vendor
+                management through WhatsApp."
               </p>
             </Card>
 
             {/* Credit */}
-            <Card className="p-6 text-center hover:shadow-lg transition-all duration-300">
+            <Card className="p-6 text-center hover:shadow-xl transition-all duration-300 group border-0 bg-gradient-to-br from-purple-50 to-violet-50 hover:from-purple-100 hover:to-violet-100">
               {/* Credit Video */}
-              <div className="relative rounded-2xl overflow-hidden shadow-md bg-gray-100">
+              <div className="relative rounded-2xl overflow-hidden shadow-lg bg-gray-100 mb-4 group-hover:shadow-xl transition-shadow duration-300">
                 <video
                   className="w-full h-auto"
                   autoPlay
@@ -331,14 +411,31 @@ const Landing = () => {
                   <source src="/Credit.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
-                <div className="absolute inset-0 bg-gradient-to-t from-green-500/10 to-transparent pointer-events-none"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-purple-600/20 to-transparent pointer-events-none"></div>
+                <div className="absolute bottom-2 right-2 bg-purple-500 text-white text-xs px-2 py-1 rounded-full">
+                  Credit
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Credit</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Smart credit management and financial intelligence for
-                construction projects by automatically triggering invoice-based
-                credit disbursement directly to vendors. Keep your projects
-                moving—no cash flow delays.
+
+              {/* Key Features */}
+              <div className="space-y-2 mb-4">
+                <div className="flex items-center text-sm text-gray-700">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full mr-2"></div>
+                  AI verifies progress & invoices
+                </div>
+                <div className="flex items-center text-sm text-gray-700">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full mr-2"></div>
+                  Automatic credit disbursement
+                </div>
+                <div className="flex items-center text-sm text-gray-700">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full mr-2"></div>
+                  Zero cash flow delays
+                </div>
+              </div>
+
+              <p className="text-gray-600 leading-relaxed text-sm">
+                "Smart credit management that triggers direct vendor payments
+                based on verified progress."
               </p>
             </Card>
           </div>
