@@ -192,27 +192,28 @@ const DemoSection = () => {
         {/* Left Side - Header, Description, CTA, and Stats */}
         <div className="text-center lg:text-left px-4 lg:px-8 flex flex-col justify-center">
           {/* Demo Badge */}
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 px-4 py-2 rounded-full mb-6 mx-auto lg:mx-0">
-            <svg
-              className="w-5 h-5 text-green-600"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="2"
-              />
-              <polygon points="10,8 16,12 10,16" fill="currentColor" />
-            </svg>
-            <span className="text-sm font-semibold text-green-700 uppercase tracking-wider">
-              Live Demo
-            </span>
-          </div>
-
+          <div className="flex justify-center lg:justify-start mb-6">
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 px-3 py-1 rounded-full">
+              <svg
+                className="w-4 h-4 text-green-600"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                />
+                <polygon points="10,8 16,12 10,16" fill="currentColor" />
+              </svg>
+              <span className="text-sm font-semibold text-green-700 uppercase tracking-wider">
+                Live Demo
+              </span>
+            </div>
+          </div>{' '}
           {/* Enhanced Heading */}
           <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
             <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
@@ -223,7 +224,6 @@ const DemoSection = () => {
               in One WhatsApp Chat
             </span>
           </h3>
-
           {/* Enhanced Description */}
           <div className="max-w-2xl lg:max-w-none">
             <p className="text-lg md:text-xl text-gray-600 mb-6 leading-relaxed">
