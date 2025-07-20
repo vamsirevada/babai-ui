@@ -1,4 +1,87 @@
 import { Card, CardContent } from '../ui/card.jsx'
+import { useState, useEffect, useRef } from 'react'
+
+// Animated counter component
+const AnimatedCounter = ({
+  end,
+  duration = 2000,
+  prefix = '',
+  suffix = '',
+}) => {
+  const [count, setCount] = useState(0)
+  const [hasAnimated, setHasAnimated] = useState(false)
+  const counterRef = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Trigger animation when element is 50% visible and hasn't animated yet
+        if (entry.isIntersecting && !hasAnimated) {
+          setHasAnimated(true)
+        }
+      },
+      {
+        threshold: 0.5, // Trigger when 50% of element is visible
+        rootMargin: '0px 0px -100px 0px', // Start animation a bit earlier
+      }
+    )
+
+    if (counterRef.current) {
+      observer.observe(counterRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [hasAnimated])
+
+  useEffect(() => {
+    if (!hasAnimated) return
+
+    let startTime = null
+    const startValue = 0
+    const endValue = end
+
+    const animate = (currentTime) => {
+      if (startTime === null) startTime = currentTime
+      const elapsed = currentTime - startTime
+      const progress = Math.min(elapsed / duration, 1)
+
+      // Easing function for smooth animation
+      const easeOutCubic = 1 - Math.pow(1 - progress, 3)
+
+      // Handle decimal numbers properly
+      let currentCount
+      if (endValue % 1 !== 0) {
+        // For decimal numbers like 4.8
+        currentCount = Number(
+          (startValue + (endValue - startValue) * easeOutCubic).toFixed(1)
+        )
+      } else {
+        // For whole numbers
+        currentCount = Math.floor(
+          startValue + (endValue - startValue) * easeOutCubic
+        )
+      }
+
+      setCount(currentCount)
+
+      if (progress < 1) {
+        requestAnimationFrame(animate)
+      }
+    }
+
+    requestAnimationFrame(animate)
+  }, [hasAnimated, end, duration])
+
+  return (
+    <span ref={counterRef} className="inline-block">
+      {prefix}
+      {typeof count === 'number' && count % 1 !== 0
+        ? count
+        : count.toLocaleString()}
+      {suffix}
+    </span>
+  )
+}
 
 const TestimonialsSection = () => {
   return (
@@ -15,25 +98,34 @@ const TestimonialsSection = () => {
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-2">25+</div>
+            <div className="text-center group">
+              <div className="text-3xl font-bold text-blue-600 mb-2 group-hover:scale-110 transition-transform duration-300">
+                <AnimatedCounter end={25} suffix="+" duration={2000} />
+              </div>
               <div className="text-sm text-gray-600">Pilot Projects</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-green-600 mb-2">200+</div>
+            <div className="text-center group">
+              <div className="text-3xl font-bold text-green-600 mb-2 group-hover:scale-110 transition-transform duration-300">
+                <AnimatedCounter end={200} suffix="+" duration={2500} />
+              </div>
               <div className="text-sm text-gray-600">Daily Vendor Quotes</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-purple-600 mb-2">
-                ₹2.5Cr+
+            <div className="text-center group">
+              <div className="text-3xl font-bold text-purple-600 mb-2 group-hover:scale-110 transition-transform duration-300">
+                <AnimatedCounter
+                  end={2.5}
+                  prefix="₹"
+                  suffix="Cr+"
+                  duration={3000}
+                />
               </div>
               <div className="text-sm text-gray-600">
                 Procurement via WhatsApp
               </div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-orange-600 mb-2">
-                4.8/5
+            <div className="text-center group">
+              <div className="text-3xl font-bold text-orange-600 mb-2 group-hover:scale-110 transition-transform duration-300">
+                <AnimatedCounter end={4.8} suffix="/5" duration={2200} />
               </div>
               <div className="text-sm text-gray-600">User Satisfaction</div>
             </div>

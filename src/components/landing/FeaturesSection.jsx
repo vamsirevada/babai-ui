@@ -344,29 +344,36 @@ const FeaturesSection = () => {
           return (
             <Card
               key={index}
-              className="hover:shadow-xl transition-all duration-300 border-0 shadow-md hover:scale-105 group bg-gradient-to-br from-white to-gray-50"
+              className="hover:shadow-xl transition-all duration-300 border-0 shadow-md hover:scale-105 group bg-gradient-to-br from-white to-gray-50 p-6"
             >
-              <CardHeader>
+              <div className="flex items-start gap-4 mb-4">
+                {/* Icon on the left */}
                 <div
-                  className={`w-14 h-14 bg-gradient-to-r ${feature.gradient} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-all duration-300 shadow-lg`}
+                  className={`w-12 h-12 bg-gradient-to-r ${feature.gradient} rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-all duration-300 shadow-lg`}
                 >
-                  <IconComponent className="w-7 h-7 text-white drop-shadow-sm" />
+                  <IconComponent className="w-6 h-6 text-white drop-shadow-sm" />
                 </div>
-                <CardTitle className="text-lg flex items-start justify-between gap-3">
-                  <span className="flex-1 leading-tight">{feature.title}</span>
+
+                {/* Title and metric on the right */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between gap-2 mb-1">
+                    <h3 className="text-lg font-semibold text-gray-900 leading-tight">
+                      {feature.title}
+                    </h3>
+                  </div>
                   <Badge
                     variant="secondary"
-                    className="bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 text-xs whitespace-nowrap flex-shrink-0 border border-green-200"
+                    className="bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 text-xs border border-green-200 inline-block"
                   >
                     {feature.metric}
                   </Badge>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-gray-600">
-                  {feature.description}
-                </CardDescription>
-              </CardContent>
+                </div>
+              </div>
+
+              {/* Description below */}
+              <p className="text-gray-600 text-sm leading-relaxed">
+                {feature.description}
+              </p>
             </Card>
           )
         })}

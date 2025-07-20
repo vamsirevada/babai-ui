@@ -2,84 +2,99 @@ import { Canvas } from '@react-three/fiber'
 import { useRef, Suspense } from 'react'
 import { useFrame } from '@react-three/fiber'
 
-// Construction-themed floating elements
-function ConstructionElements() {
+// Minimal construction intelligence elements
+function MinimalElements() {
   const group = useRef()
-  const element1 = useRef()
-  const element2 = useRef()
-  const element3 = useRef()
+  const building1 = useRef()
+  const building2 = useRef()
+  const dataFlow = useRef()
+  const aiCore = useRef()
 
   useFrame((state) => {
     const time = state.clock.elapsedTime
 
+    // Very subtle group rotation for depth
     if (group.current) {
-      group.current.rotation.y = Math.sin(time * 0.1) * 0.1
+      group.current.rotation.y = Math.sin(time * 0.05) * 0.02
     }
 
-    // Individual element animations with construction-like movements
-    if (element1.current) {
-      element1.current.position.y = Math.sin(time * 0.5) * 0.5
-      element1.current.rotation.x = time * 0.2
+    // Gentle building sway (construction stability visualization)
+    if (building1.current) {
+      building1.current.position.y = Math.sin(time * 0.3) * 0.1
+      building1.current.rotation.y = Math.sin(time * 0.2) * 0.02
     }
 
-    if (element2.current) {
-      element2.current.position.x = Math.cos(time * 0.3) * 1
-      element2.current.rotation.z = time * 0.15
+    if (building2.current) {
+      building2.current.position.y = Math.cos(time * 0.25) * 0.08
+      building2.current.rotation.y = Math.cos(time * 0.15) * 0.015
     }
 
-    if (element3.current) {
-      element3.current.position.y = Math.cos(time * 0.4) * 0.3
-      element3.current.rotation.y = time * 0.25
+    // Subtle data flow animation (AI processing)
+    if (dataFlow.current) {
+      dataFlow.current.position.x = Math.sin(time * 0.4) * 0.3
+      dataFlow.current.material.opacity = 0.05 + Math.sin(time * 0.6) * 0.02
+    }
+
+    // AI core gentle pulsing
+    if (aiCore.current) {
+      const scale = 1 + Math.sin(time * 0.8) * 0.05
+      aiCore.current.scale.set(scale, scale, scale)
+      aiCore.current.material.opacity = 0.03 + Math.sin(time * 0.5) * 0.01
     }
   })
 
   return (
     <group ref={group}>
-      {/* Central building-like structure - subtle blue */}
-      <mesh ref={element1} position={[0, 0, -3]}>
-        <boxGeometry args={[1.5, 3, 1.5]} />
-        <meshBasicMaterial color="#3b82f6" transparent opacity={0.15} />
+      {/* Main building structure - representing construction projects */}
+      <mesh ref={building1} position={[-2, 0, -4]}>
+        <boxGeometry args={[0.8, 2.5, 0.8]} />
+        <meshBasicMaterial color="#10b981" transparent opacity={0.04} />
       </mesh>
 
-      {/* Crane-like structure - orange/construction yellow */}
-      <mesh ref={element2} position={[4, 1, -2]}>
-        <cylinderGeometry args={[0.1, 0.1, 4]} />
-        <meshBasicMaterial color="#f59e0b" transparent opacity={0.2} />
+      {/* Secondary building - project portfolio */}
+      <mesh ref={building2} position={[2.5, 0, -3.5]}>
+        <boxGeometry args={[0.6, 1.8, 0.6]} />
+        <meshBasicMaterial color="#3b82f6" transparent opacity={0.035} />
       </mesh>
 
-      {/* Foundation blocks - concrete gray */}
-      <mesh position={[-3, -1, -2]}>
-        <boxGeometry args={[2, 0.5, 2]} />
-        <meshBasicMaterial color="#6b7280" transparent opacity={0.1} />
+      {/* Data connection lines - WhatsApp/AI communication */}
+      <mesh ref={dataFlow} position={[0, 1, -2.5]}>
+        <cylinderGeometry args={[0.02, 0.02, 3]} />
+        <meshBasicMaterial color="#059669" transparent opacity={0.06} />
       </mesh>
 
-      {/* Construction site spheres - representing materials */}
-      <mesh ref={element3} position={[2, 2, -1]}>
-        <sphereGeometry args={[0.6, 16, 16]} />
-        <meshBasicMaterial color="#10b981" transparent opacity={0.2} />
+      {/* AI intelligence core - subtle central element */}
+      <mesh ref={aiCore} position={[0, 0, -3]}>
+        <sphereGeometry args={[0.4, 16, 16]} />
+        <meshBasicMaterial color="#6366f1" transparent opacity={0.04} />
       </mesh>
 
-      {/* Steel beam representation */}
-      <mesh position={[-2, 2, -2.5]} rotation={[0, 0, 0.3]}>
-        <boxGeometry args={[0.2, 3, 0.2]} />
-        <meshBasicMaterial color="#ef4444" transparent opacity={0.15} />
+      {/* Foundation elements - stability and trust */}
+      <mesh position={[-1, -1.2, -3]}>
+        <boxGeometry args={[3, 0.2, 3]} />
+        <meshBasicMaterial color="#6b7280" transparent opacity={0.02} />
       </mesh>
 
-      {/* Floating construction particles */}
-      <mesh position={[1, -1, -1]}>
-        <sphereGeometry args={[0.3, 12, 12]} />
-        <meshBasicMaterial color="#8b5cf6" transparent opacity={0.25} />
+      {/* Minimal floating data points */}
+      <mesh position={[1.5, 1.5, -2]}>
+        <sphereGeometry args={[0.08, 8, 8]} />
+        <meshBasicMaterial color="#10b981" transparent opacity={0.08} />
       </mesh>
 
-      <mesh position={[-1, 3, -2]}>
-        <sphereGeometry args={[0.4, 12, 12]} />
-        <meshBasicMaterial color="#06b6d4" transparent opacity={0.2} />
+      <mesh position={[-1.8, 1.2, -2.2]}>
+        <sphereGeometry args={[0.06, 8, 8]} />
+        <meshBasicMaterial color="#3b82f6" transparent opacity={0.06} />
+      </mesh>
+
+      <mesh position={[0.5, -0.5, -1.8]}>
+        <sphereGeometry args={[0.05, 8, 8]} />
+        <meshBasicMaterial color="#8b5cf6" transparent opacity={0.05} />
       </mesh>
     </group>
   )
 }
 
-// Enhanced background component with construction theme
+// Clean, minimal background for construction intelligence platform
 const ThreeBackground = () => {
   return (
     <div
@@ -95,8 +110,8 @@ const ThreeBackground = () => {
     >
       <Canvas
         camera={{
-          position: [0, 0, 4],
-          fov: 85,
+          position: [0, 0, 5],
+          fov: 75,
         }}
         style={{
           width: '100%',
@@ -105,9 +120,9 @@ const ThreeBackground = () => {
         }}
       >
         <Suspense fallback={null}>
-          <ambientLight intensity={0.8} />
-          <directionalLight position={[10, 10, 5]} intensity={0.3} />
-          <ConstructionElements />
+          <ambientLight intensity={0.4} />
+          <directionalLight position={[5, 5, 5]} intensity={0.1} />
+          <MinimalElements />
         </Suspense>
       </Canvas>
     </div>
