@@ -11,9 +11,9 @@ import { ArrowRight } from 'lucide-react'
 const CTASection = ({ onGetStarted }) => {
   return (
     <div className="mb-20">
-      <Card className="container mx-auto max-w-6xl bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 border-0 text-white relative overflow-hidden shadow-2xl">
+      <Card className="container mx-auto max-w-6xl bg-gradient-primary border-0 text-white relative overflow-hidden shadow-2xl">
         {/* Enhanced background decoration */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/95 via-purple-600/95 to-indigo-700/95"></div>
+        <div className="absolute inset-0 bg-gradient-primary/95"></div>
         <div
           className="absolute top-0 right-0 w-80 h-80 bg-white/10 rounded-full -translate-y-40 translate-x-40 animate-pulse"
           style={{ animationDuration: '4s' }}
@@ -42,10 +42,7 @@ const CTASection = ({ onGetStarted }) => {
           </div>
           <CardTitle className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight text-center">
             Ready to Revolutionize Your Construction Projects with{' '}
-            <span className="bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent font-extrabold">
-              bab.ai
-            </span>
-            ?
+            <span className="text-gray-200 font-extrabold">bab.ai?</span>
           </CardTitle>
           <CardDescription className="text-blue-100 text-xl max-w-3xl mx-auto leading-relaxed text-center">
             Join leading builders who've increased project efficiency by 40% and

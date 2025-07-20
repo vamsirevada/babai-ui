@@ -12,7 +12,7 @@ const Footer = () => {
           {/* Left Side - Company Info & Social Media */}
           <div className="space-y-6">
             <div>
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+              <h3 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
                 bab.ai
               </h3>
               <p className="text-gray-600 text-sm leading-relaxed mb-6 max-w-md">
@@ -125,7 +125,7 @@ const Footer = () => {
                   placeholder="Enter your email"
                   className="flex-1 px-4 py-3 bg-gray-50 text-gray-800 rounded-l-lg border border-gray-300 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm"
                 />
-                <button className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-r-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 text-sm font-medium shadow-sm hover:shadow-md">
+                <button className="px-6 py-3 bg-gradient-primary text-white rounded-r-lg hover:opacity-90 transition-all duration-200 text-sm font-medium shadow-sm hover:shadow-md">
                   Subscribe
                 </button>
               </div>

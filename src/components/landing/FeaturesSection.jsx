@@ -350,7 +350,19 @@ const FeaturesSection = () => {
               <div className="grid grid-cols-[auto_1fr] grid-rows-2 gap-x-4 gap-y-2 mb-4 items-center">
                 {/* Icon - spans both rows in left column */}
                 <div
-                  className={`w-12 h-12 bg-gradient-to-r ${feature.gradient} rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-all duration-300 shadow-lg row-span-2`}
+                  className={`w-12 h-12 ${
+                    index === 0
+                      ? 'bg-gradient-highlight'
+                      : index === 1
+                      ? 'bg-gradient-primary'
+                      : index === 2
+                      ? 'bg-gradient-accent'
+                      : index === 3
+                      ? 'bg-gradient-warm'
+                      : index === 4
+                      ? 'bg-gradient-highlight'
+                      : 'bg-gradient-whatsapp'
+                  } rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-all duration-300 shadow-lg row-span-2`}
                 >
                   <IconComponent className="w-6 h-6 text-white drop-shadow-sm" />
                 </div>
@@ -364,11 +376,35 @@ const FeaturesSection = () => {
                 <div className="flex justify-start self-start">
                   <Badge
                     variant="secondary"
-                    className={`bg-gradient-to-r ${feature.gradient} bg-opacity-10 text-gray-700 text-xs font-medium px-3 py-1 border border-gray-200 transition-all duration-200 group-hover:bg-opacity-20 group-hover:border-gray-300 flex-shrink-0 flex items-center gap-1`}
+                    className={`${
+                      index === 0
+                        ? 'bg-gradient-highlight'
+                        : index === 1
+                        ? 'bg-gradient-primary'
+                        : index === 2
+                        ? 'bg-gradient-accent'
+                        : index === 3
+                        ? 'bg-gradient-warm'
+                        : index === 4
+                        ? 'bg-gradient-highlight'
+                        : 'bg-gradient-whatsapp'
+                    }/10 text-gray-700 text-xs font-medium px-3 py-1 border border-gray-200 transition-all duration-200 group-hover:bg-opacity-20 group-hover:border-gray-300 flex-shrink-0 flex items-center gap-1`}
                   >
                     {/* Small status dot */}
                     <div
-                      className={`w-1 h-1 bg-gradient-to-r ${feature.gradient} rounded-full`}
+                      className={`w-1 h-1 ${
+                        index === 0
+                          ? 'bg-gradient-highlight'
+                          : index === 1
+                          ? 'bg-gradient-primary'
+                          : index === 2
+                          ? 'bg-gradient-accent'
+                          : index === 3
+                          ? 'bg-gradient-warm'
+                          : index === 4
+                          ? 'bg-gradient-highlight'
+                          : 'bg-gradient-whatsapp'
+                      } rounded-full`}
                     ></div>
                     {feature.metric}
                   </Badge>

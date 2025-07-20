@@ -77,6 +77,11 @@ export default {
         'gradient-primary': 'var(--gradient-primary)',
         'gradient-success': 'var(--gradient-success)',
         'gradient-warning': 'var(--gradient-warning)',
+        'gradient-whatsapp': 'var(--gradient-whatsapp)',
+        'gradient-accent': 'var(--gradient-accent)',
+        'gradient-warm': 'var(--gradient-warm)',
+        'gradient-cool': 'var(--gradient-cool)',
+        'gradient-highlight': 'var(--gradient-highlight)',
       },
       boxShadow: {
         soft: 'var(--shadow-soft)',

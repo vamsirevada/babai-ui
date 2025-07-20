@@ -6,10 +6,10 @@ const Header = ({ onLogin, onRegister }) => {
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <div className="relative">
-            <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+            <div className="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-lg">
               <span className="text-white font-bold text-lg">B</span>
             </div>
-            <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+            <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-gradient-cool rounded-full flex items-center justify-center">
               <span className="text-white text-xs font-bold">ai</span>
             </div>
           </div>
@@ -25,7 +25,7 @@ const Header = ({ onLogin, onRegister }) => {
           </Button>
           <Button
             onClick={onRegister}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+            className="bg-gradient-primary hover:opacity-90 text-white transition-all duration-200"
           >
             Sign Up
           </Button>

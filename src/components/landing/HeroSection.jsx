@@ -50,7 +50,7 @@ const HeroSection = () => {
             Hello,
           </span>
           <span
-            className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent ml-4 inline-block"
+            className="bg-gradient-primary bg-clip-text text-transparent ml-4 inline-block"
             style={{
               fontFamily: "'Dancing Script', 'Brush Script MT', cursive",
               fontWeight: '600',
@@ -70,7 +70,7 @@ const HeroSection = () => {
       {/* Right Side - Hero Content */}
       <div className="text-center lg:text-left">
         {/* Market positioning badge */}
-        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-100 to-red-100 px-4 py-2 rounded-full mb-4">
+        <div className="inline-flex items-center gap-2 bg-gradient-warm px-4 py-2 rounded-full mb-4">
           <svg
             className="w-5 h-5"
             viewBox="0 0 24 24"
@@ -113,13 +113,13 @@ const HeroSection = () => {
             opacity: '0',
           }}
         >
-          <Badge className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-4 py-2 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+          <Badge className="bg-gradient-whatsapp hover:bg-gradient-to-r hover:from-green-600 hover:to-emerald-700 text-white px-4 py-2 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
             Free to Start
           </Badge>
-          <Badge className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-4 py-2 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+          <Badge className="bg-gradient-primary hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-700 text-white px-4 py-2 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
             Works on WhatsApp
           </Badge>
-          <Badge className="bg-gradient-to-r from-purple-500 to-violet-600 hover:from-purple-600 hover:to-violet-700 text-white px-4 py-2 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+          <Badge className="bg-gradient-accent hover:bg-gradient-to-r hover:from-purple-600 hover:to-violet-700 text-white px-4 py-2 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
             Easy to Learn
           </Badge>
         </div>
