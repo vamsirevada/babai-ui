@@ -41,7 +41,11 @@ const CTASection = ({ onGetStarted }) => {
             </div>
           </div>
           <CardTitle className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight text-center">
-            Ready to Revolutionize Your Construction Projects with bab.ai?
+            Ready to Revolutionize Your Construction Projects with{' '}
+            <span className="bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent font-extrabold">
+              bab.ai
+            </span>
+            ?
           </CardTitle>
           <CardDescription className="text-blue-100 text-xl max-w-3xl mx-auto leading-relaxed text-center">
             Join leading builders who've increased project efficiency by 40% and
