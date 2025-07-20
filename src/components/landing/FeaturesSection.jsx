@@ -346,25 +346,30 @@ const FeaturesSection = () => {
               key={index}
               className="hover:shadow-xl transition-all duration-300 border-0 shadow-md hover:scale-105 group bg-gradient-to-br from-white to-gray-50 p-6"
             >
-              <div className="flex items-start gap-4 mb-4">
-                {/* Icon on the left */}
+              {/* 2x2 Grid Layout */}
+              <div className="grid grid-cols-[auto_1fr] grid-rows-2 gap-x-4 gap-y-2 mb-4 items-center">
+                {/* Icon - spans both rows in left column */}
                 <div
-                  className={`w-12 h-12 bg-gradient-to-r ${feature.gradient} rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-all duration-300 shadow-lg`}
+                  className={`w-12 h-12 bg-gradient-to-r ${feature.gradient} rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-all duration-300 shadow-lg row-span-2`}
                 >
                   <IconComponent className="w-6 h-6 text-white drop-shadow-sm" />
                 </div>
 
-                {/* Title and metric on the right */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-2 mb-1">
-                    <h3 className="text-lg font-semibold text-gray-900 leading-tight">
-                      {feature.title}
-                    </h3>
-                  </div>
+                {/* Title - first row, right column */}
+                <h3 className="text-sm font-semibold text-gray-900 leading-tight self-end">
+                  {feature.title}
+                </h3>
+
+                {/* Metric - second row, right column */}
+                <div className="flex justify-start self-start">
                   <Badge
                     variant="secondary"
-                    className="bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 text-xs border border-green-200 inline-block"
+                    className={`bg-gradient-to-r ${feature.gradient} bg-opacity-10 text-gray-700 text-xs font-medium px-3 py-1 border border-gray-200 transition-all duration-200 group-hover:bg-opacity-20 group-hover:border-gray-300 flex-shrink-0 flex items-center gap-1`}
                   >
+                    {/* Small status dot */}
+                    <div
+                      className={`w-1 h-1 bg-gradient-to-r ${feature.gradient} rounded-full`}
+                    ></div>
                     {feature.metric}
                   </Badge>
                 </div>

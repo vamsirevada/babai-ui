@@ -133,74 +133,106 @@ const TestimonialsSection = () => {
         </div>
 
         {/* Testimonials */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="bg-white border-0 shadow-lg">
-            <CardContent className="pt-6">
-              <div className="flex items-center mb-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+          <Card className="bg-white border-2 border-blue-100 shadow-xl hover:shadow-2xl transition-all duration-300 group rounded-2xl overflow-hidden hover:border-blue-200 hover:-translate-y-1">
+            <CardContent className="p-8">
+              <div className="flex items-center mb-6">
+                <div className="w-14 h-14 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
                   R
                 </div>
-                <div className="ml-3">
-                  <div className="font-semibold text-gray-900">
+                <div className="ml-4">
+                  <div className="font-semibold text-gray-900 text-lg">
                     Rajesh Kumar
                   </div>
-                  <div className="text-sm text-gray-600">
+                  <div className="text-sm text-gray-600 font-medium">
                     Site Engineer, Metro Projects
                   </div>
                 </div>
               </div>
-              <p className="text-gray-700 italic">
-                "Bab.ai has revolutionized how we handle daily reports and
-                material requests. Everything happens on WhatsApp now - it's so
-                much faster than emails and calls."
-              </p>
-              <div className="flex text-yellow-400 mt-3">{'★'.repeat(5)}</div>
+              <div className="relative">
+                <div className="absolute -top-2 -left-2 text-blue-200 text-4xl font-serif">
+                  "
+                </div>
+                <p className="text-gray-700 italic leading-relaxed pl-6 text-base">
+                  Bab.ai has revolutionized how we handle daily reports and
+                  material requests. Everything happens on WhatsApp now - it's
+                  so much faster than emails and calls.
+                </p>
+                <div className="absolute -bottom-2 -right-2 text-blue-200 text-4xl font-serif rotate-180">
+                  "
+                </div>
+              </div>
+              <div className="flex text-yellow-400 mt-6 text-lg">
+                {'★'.repeat(5)}
+              </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-white border-0 shadow-lg">
-            <CardContent className="pt-6">
-              <div className="flex items-center mb-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+          <Card className="bg-white border-2 border-green-100 shadow-xl hover:shadow-2xl transition-all duration-300 group rounded-2xl overflow-hidden hover:border-green-200 hover:-translate-y-1">
+            <CardContent className="p-8">
+              <div className="flex items-center mb-6">
+                <div className="w-14 h-14 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
                   P
                 </div>
-                <div className="ml-3">
-                  <div className="font-semibold text-gray-900">
+                <div className="ml-4">
+                  <div className="font-semibold text-gray-900 text-lg">
                     Priya Sharma
                   </div>
-                  <div className="text-sm text-gray-600">
+                  <div className="text-sm text-gray-600 font-medium">
                     Project Director, Residential
                   </div>
                 </div>
               </div>
-              <p className="text-gray-700 italic">
-                "The vendor coordination feature is amazing. We get quotes
-                instantly and can compare prices right on WhatsApp. Our
-                procurement efficiency has doubled."
-              </p>
-              <div className="flex text-yellow-400 mt-3">{'★'.repeat(5)}</div>
+              <div className="relative">
+                <div className="absolute -top-2 -left-2 text-green-200 text-4xl font-serif">
+                  "
+                </div>
+                <p className="text-gray-700 italic leading-relaxed pl-6 text-base">
+                  The vendor coordination feature is amazing. We get quotes
+                  instantly and can compare prices right on WhatsApp. Our
+                  procurement efficiency has doubled.
+                </p>
+                <div className="absolute -bottom-2 -right-2 text-green-200 text-4xl font-serif rotate-180">
+                  "
+                </div>
+              </div>
+              <div className="flex text-yellow-400 mt-6 text-lg">
+                {'★'.repeat(5)}
+              </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-white border-0 shadow-lg">
-            <CardContent className="pt-6">
-              <div className="flex items-center mb-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+          <Card className="bg-white border-2 border-purple-100 shadow-xl hover:shadow-2xl transition-all duration-300 group rounded-2xl overflow-hidden hover:border-purple-200 hover:-translate-y-1">
+            <CardContent className="p-8">
+              <div className="flex items-center mb-6">
+                <div className="w-14 h-14 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
                   A
                 </div>
-                <div className="ml-3">
-                  <div className="font-semibold text-gray-900">Amit Patel</div>
-                  <div className="text-sm text-gray-600">
+                <div className="ml-4">
+                  <div className="font-semibold text-gray-900 text-lg">
+                    Amit Patel
+                  </div>
+                  <div className="text-sm text-gray-600 font-medium">
                     Builder, Commercial Projects
                   </div>
                 </div>
               </div>
-              <p className="text-gray-700 italic">
-                "Managing 5 sites simultaneously was chaos before Bab.ai. Now I
-                get real-time updates and can make decisions instantly through
-                the dashboard."
-              </p>
-              <div className="flex text-yellow-400 mt-3">{'★'.repeat(5)}</div>
+              <div className="relative">
+                <div className="absolute -top-2 -left-2 text-purple-200 text-4xl font-serif">
+                  "
+                </div>
+                <p className="text-gray-700 italic leading-relaxed pl-6 text-base">
+                  Managing 5 sites simultaneously was chaos before Bab.ai. Now I
+                  get real-time updates and can make decisions instantly through
+                  the dashboard.
+                </p>
+                <div className="absolute -bottom-2 -right-2 text-purple-200 text-4xl font-serif rotate-180">
+                  "
+                </div>
+              </div>
+              <div className="flex text-yellow-400 mt-6 text-lg">
+                {'★'.repeat(5)}
+              </div>
             </CardContent>
           </Card>
         </div>
