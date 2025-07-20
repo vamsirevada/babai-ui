@@ -9,12 +9,16 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, Eye, EyeOff } from 'lucide-react'
+import { ArrowLeft, Eye, EyeOff, Loader2 } from 'lucide-react'
 import { useState } from 'react'
+import { useToast } from '@/hooks/use-toast'
 
 const Login = () => {
   const navigate = useNavigate()
+  const { toast } = useToast()
   const [showPassword, setShowPassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [errors, setErrors] = useState({})
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -25,13 +29,95 @@ const Login = () => {
       ...formData,
       [e.target.name]: e.target.value,
     })
+    // Clear error when user starts typing
+    if (errors[e.target.name]) {
+      setErrors({
+        ...errors,
+        [e.target.name]: '',
+      })
+    }
   }
 
-  const handleLogin = (e) => {
+  const validateForm = () => {
+    const newErrors = {}
+
+    // Email validation
+    if (!formData.email) {
+      newErrors.email = 'Email is required'
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address'
+    }
+
+    // Password validation
+    if (!formData.password) {
+      newErrors.password = 'Password is required'
+    } else if (formData.password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters'
+    }
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
+  const handleLogin = async (e) => {
     e.preventDefault()
-    // Here you would typically handle authentication
-    // For now, we'll just redirect to dashboard
-    navigate('/dashboard')
+
+    if (!validateForm()) {
+      return
+    }
+
+    setIsLoading(true)
+
+    try {
+      // Simulate API call - replace with actual authentication logic
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+
+      // Demo credentials check
+      if (formData.email === 'demo@bab.ai' && formData.password === 'demo123') {
+        // Store user session (in real app, you'd get this from API)
+        localStorage.setItem(
+          'user',
+          JSON.stringify({
+            email: formData.email,
+            name: 'Demo User',
+            token: 'demo-token-' + Date.now(),
+          })
+        )
+
+        toast({
+          title: 'Welcome back!',
+          description: 'You have successfully signed in to bab.ai',
+        })
+
+        // Redirect to dashboard
+        navigate('/dashboard')
+      } else {
+        // Handle invalid credentials
+        setErrors({
+          general:
+            'Invalid email or password. Try demo@bab.ai with password: demo123',
+        })
+
+        toast({
+          variant: 'destructive',
+          title: 'Sign in failed',
+          description: 'Invalid email or password. Please try again.',
+        })
+      }
+    } catch (error) {
+      console.error('Login error:', error)
+      setErrors({
+        general: 'Something went wrong. Please try again later.',
+      })
+
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Failed to sign in. Please try again later.',
+      })
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const handleBackToHome = () => {
@@ -74,6 +160,12 @@ const Login = () => {
           </CardHeader>
 
           <CardContent>
+            {errors.general && (
+              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                <p className="text-sm text-red-600">{errors.general}</p>
+              </div>
+            )}
+
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
@@ -81,12 +173,17 @@ const Login = () => {
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder="Enter your email (try: demo@bab.ai)"
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className="w-full"
+                  className={`w-full ${
+                    errors.email ? 'border-red-500 focus:border-red-500' : ''
+                  }`}
                 />
+                {errors.email && (
+                  <p className="text-sm text-red-600">{errors.email}</p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -96,11 +193,15 @@ const Login = () => {
                     id="password"
                     name="password"
                     type={showPassword ? 'text' : 'password'}
-                    placeholder="Enter your password"
+                    placeholder="Enter your password (try: demo123)"
                     value={formData.password}
                     onChange={handleInputChange}
                     required
-                    className="w-full pr-10"
+                    className={`w-full pr-10 ${
+                      errors.password
+                        ? 'border-red-500 focus:border-red-500'
+                        : ''
+                    }`}
                   />
                   <Button
                     type="button"
@@ -116,6 +217,9 @@ const Login = () => {
                     )}
                   </Button>
                 </div>
+                {errors.password && (
+                  <p className="text-sm text-red-600">{errors.password}</p>
+                )}
               </div>
 
               <div className="flex items-center justify-between">
@@ -129,9 +233,17 @@ const Login = () => {
 
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+                disabled={isLoading}
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white disabled:opacity-50"
               >
-                Sign In
+                {isLoading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Signing In...
+                  </>
+                ) : (
+                  'Sign In'
+                )}
               </Button>
             </form>
 

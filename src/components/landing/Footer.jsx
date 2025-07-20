@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const Footer = () => {
   return (
     <footer className="bg-gradient-to-br from-gray-50 via-white to-gray-100 text-gray-800 relative overflow-hidden border-t border-gray-200">
@@ -81,7 +83,7 @@ const Footer = () => {
                   <div>
                     <p className="text-sm text-gray-600">Email</p>
                     <p className="text-sm font-medium text-gray-900">
-                      hello@bab.ai
+                      team@bab.ai
                     </p>
                   </div>
                 </div>
@@ -144,12 +146,12 @@ const Footer = () => {
             </div>
 
             <div className="flex flex-wrap justify-center md:justify-end space-x-6 text-sm">
-              <a
-                href="#"
+              <Link
+                to="/privacy-policy"
                 className="text-gray-500 hover:text-blue-600 transition-colors duration-200"
               >
                 Privacy Policy
-              </a>
+              </Link>
               <a
                 href="#"
                 className="text-gray-500 hover:text-blue-600 transition-colors duration-200"
