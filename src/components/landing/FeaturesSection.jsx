@@ -67,18 +67,263 @@ const FeaturesSection = () => {
         <p className="text-gray-500 text-sm mb-6">
           TRUSTED BY LEADING BUILDERS & DEVELOPERS
         </p>
-        <div className="flex flex-wrap justify-center items-center gap-6 opacity-70">
-          <Badge className="bg-blue-100 text-blue-700 px-4 py-2 text-sm font-semibold">
-            🏗️ Real Estate
+        <div className="flex flex-wrap justify-center items-center gap-6 opacity-90">
+          <Badge
+            className="bg-gradient-to-r from-blue-100 to-blue-200 text-blue-700 px-5 py-3 text-sm font-semibold border border-blue-200 hover:from-blue-200 hover:to-blue-300 transition-all duration-300 transform hover:scale-105 shadow-sm hover:shadow-md flex items-center gap-2 animate-bounce"
+            style={{ animationDuration: '3s', animationDelay: '0s' }}
+          >
+            <svg
+              className="w-5 h-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3 21V7L12 2L21 7V21H13V13H11V21H3Z"
+                fill="currentColor"
+                className="text-blue-600"
+              />
+              <path
+                d="M12 2L21 7V21H13V13H11V21H3V7L12 2Z"
+                stroke="currentColor"
+                strokeWidth="2"
+                className="text-blue-500"
+                fill="none"
+              />
+              <circle
+                cx="12"
+                cy="9"
+                r="1.5"
+                fill="currentColor"
+                className="text-yellow-400"
+                style={{
+                  animation: 'pulse 3s ease-in-out infinite',
+                }}
+              />
+            </svg>
+            Real Estate
           </Badge>
-          <Badge className="bg-orange-100 text-orange-700 px-4 py-2 text-sm font-semibold">
-            🏢 Construction
+          <Badge
+            className="bg-gradient-to-r from-orange-100 to-orange-200 text-orange-700 px-5 py-3 text-sm font-semibold border border-orange-200 hover:from-orange-200 hover:to-orange-300 transition-all duration-300 transform hover:scale-105 shadow-sm hover:shadow-md flex items-center gap-2 animate-bounce"
+            style={{ animationDuration: '3s', animationDelay: '0.5s' }}
+          >
+            <svg
+              className="w-5 h-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="2"
+                y="3"
+                width="20"
+                height="18"
+                rx="2"
+                fill="currentColor"
+                className="text-orange-200"
+              />
+              <rect
+                x="4"
+                y="8"
+                width="16"
+                height="10"
+                rx="1"
+                fill="currentColor"
+                className="text-orange-300"
+              />
+              <rect
+                x="6"
+                y="10"
+                width="3"
+                height="6"
+                rx="0.5"
+                fill="currentColor"
+                className="text-orange-600"
+              />
+              <rect
+                x="10"
+                y="10"
+                width="3"
+                height="6"
+                rx="0.5"
+                fill="currentColor"
+                className="text-orange-600"
+              />
+              <rect
+                x="14"
+                y="10"
+                width="3"
+                height="6"
+                rx="0.5"
+                fill="currentColor"
+                className="text-orange-600"
+              />
+              <circle
+                cx="12"
+                cy="6"
+                r="1"
+                fill="currentColor"
+                className="text-yellow-400"
+                style={{
+                  animation: 'ping 4s ease-in-out infinite',
+                }}
+              />
+            </svg>
+            Construction
           </Badge>
-          <Badge className="bg-purple-100 text-purple-700 px-4 py-2 text-sm font-semibold">
-            📋 Project Management
+          <Badge
+            className="bg-gradient-to-r from-purple-100 to-purple-200 text-purple-700 px-5 py-3 text-sm font-semibold border border-purple-200 hover:from-purple-200 hover:to-purple-300 transition-all duration-300 transform hover:scale-105 shadow-sm hover:shadow-md flex items-center gap-2 animate-bounce"
+            style={{ animationDuration: '3s', animationDelay: '1s' }}
+          >
+            <svg
+              className="w-5 h-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="3"
+                y="4"
+                width="18"
+                height="16"
+                rx="2"
+                fill="currentColor"
+                className="text-purple-200"
+              />
+              <rect
+                x="5"
+                y="6"
+                width="14"
+                height="2"
+                rx="1"
+                fill="currentColor"
+                className="text-purple-400"
+              />
+              <rect
+                x="5"
+                y="9"
+                width="10"
+                height="1.5"
+                rx="0.75"
+                fill="currentColor"
+                className="text-purple-500"
+              />
+              <rect
+                x="5"
+                y="11.5"
+                width="12"
+                height="1.5"
+                rx="0.75"
+                fill="currentColor"
+                className="text-purple-500"
+              />
+              <rect
+                x="5"
+                y="14"
+                width="8"
+                height="1.5"
+                rx="0.75"
+                fill="currentColor"
+                className="text-purple-500"
+              />
+              <circle
+                cx="19"
+                cy="7"
+                r="2"
+                fill="currentColor"
+                className="text-green-400"
+              />
+              <path
+                d="M18 7L18.7 7.7L20.3 6.1"
+                stroke="white"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                style={{
+                  animation: 'pulse 2s ease-in-out infinite',
+                }}
+              />
+            </svg>
+            Project Management
           </Badge>
-          <Badge className="bg-green-100 text-green-700 px-4 py-2 text-sm font-semibold">
-            🤖 AI Powered
+          <Badge
+            className="bg-gradient-to-r from-green-100 to-emerald-200 text-green-700 px-5 py-3 text-sm font-semibold border border-green-200 hover:from-green-200 hover:to-emerald-300 transition-all duration-300 transform hover:scale-105 shadow-sm hover:shadow-md flex items-center gap-2 animate-bounce"
+            style={{ animationDuration: '3s', animationDelay: '1.5s' }}
+          >
+            <svg
+              className="w-5 h-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="8"
+                fill="currentColor"
+                className="text-green-200"
+              />
+              <circle
+                cx="12"
+                cy="12"
+                r="6"
+                fill="currentColor"
+                className="text-green-300"
+              />
+              <circle
+                cx="12"
+                cy="12"
+                r="4"
+                fill="currentColor"
+                className="text-green-400"
+              />
+              <circle
+                cx="12"
+                cy="12"
+                r="2"
+                fill="currentColor"
+                className="text-green-600"
+                style={{
+                  animation: 'pulse 2.5s ease-in-out infinite',
+                }}
+              />
+              <circle
+                cx="8"
+                cy="8"
+                r="1"
+                fill="currentColor"
+                className="text-blue-400"
+                style={{
+                  transformOrigin: '12px 12px',
+                  animation: 'spin 8s linear infinite',
+                }}
+              />
+              <circle
+                cx="16"
+                cy="8"
+                r="1"
+                fill="currentColor"
+                className="text-purple-400"
+                style={{
+                  transformOrigin: '12px 12px',
+                  animation: 'spin 8s linear infinite',
+                  animationDelay: '0.5s',
+                }}
+              />
+              <circle
+                cx="16"
+                cy="16"
+                r="1"
+                fill="currentColor"
+                className="text-orange-400"
+                style={{
+                  transformOrigin: '12px 12px',
+                  animation: 'spin 8s linear infinite',
+                  animationDelay: '1s',
+                }}
+              />
+            </svg>
+            AI Powered
           </Badge>
         </div>
       </div>
