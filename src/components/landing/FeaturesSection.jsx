@@ -390,22 +390,6 @@ const FeaturesSection = () => {
                         : 'bg-gradient-whatsapp'
                     }/10 text-gray-700 text-xs font-medium px-3 py-1 border border-gray-200 transition-all duration-200 group-hover:bg-opacity-20 group-hover:border-gray-300 flex-shrink-0 flex items-center gap-1`}
                   >
-                    {/* Small status dot */}
-                    <div
-                      className={`w-1 h-1 ${
-                        index === 0
-                          ? 'bg-gradient-highlight'
-                          : index === 1
-                          ? 'bg-gradient-primary'
-                          : index === 2
-                          ? 'bg-gradient-accent'
-                          : index === 3
-                          ? 'bg-gradient-warm'
-                          : index === 4
-                          ? 'bg-gradient-highlight'
-                          : 'bg-gradient-whatsapp'
-                      } rounded-full`}
-                    ></div>
                     {feature.metric}
                   </Badge>
                 </div>
