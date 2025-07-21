@@ -147,49 +147,31 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Enhanced Scroll Indicator */}
-      <div className="flex justify-center mt-8 sm:mt-12">
-        <div className="flex flex-col items-center space-y-3 scroll-indicator cursor-pointer group">
-          <span className="text-sm text-gray-500 font-medium group-hover:text-blue-600 transition-colors duration-300">
-            Discover More Below
+      {/* Minimal Scroll Indicator */}
+      <div className="flex justify-center mt-12 sm:mt-16">
+        <div className="flex flex-col items-center space-y-3 group cursor-pointer">
+          {/* Simple text cue */}
+          <span className="text-xs text-gray-400 uppercase tracking-wider font-medium group-hover:text-gray-600 transition-colors duration-300">
+            Scroll below to know more
           </span>
-          <div className="flex flex-col items-center space-y-2">
-            <div className="relative">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center scroll-glow group-hover:scale-110 transition-transform duration-300">
-                <svg
-                  className="w-4 h-4 text-white scroll-pulse"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                  />
-                </svg>
-              </div>
-              {/* Ripple effect */}
-              <div className="absolute inset-0 rounded-full bg-blue-400 opacity-20 animate-ping"></div>
-            </div>
-            <div className="w-px h-8 bg-gradient-to-b from-blue-500 via-purple-500 to-transparent opacity-60"></div>
-            <div className="flex space-x-1">
-              <div
-                className="w-1 h-1 bg-blue-400 rounded-full animate-bounce"
-                style={{ animationDelay: '0ms' }}
-              ></div>
-              <div
-                className="w-1 h-1 bg-purple-400 rounded-full animate-bounce"
-                style={{ animationDelay: '150ms' }}
-              ></div>
-              <div
-                className="w-1 h-1 bg-blue-400 rounded-full animate-bounce"
-                style={{ animationDelay: '300ms' }}
-              ></div>
-            </div>
-          </div>
+
+          {/* Clean arrow */}
+          <svg
+            className="w-4 h-4 text-gray-300 group-hover:text-gray-500 group-hover:translate-y-1 transition-all duration-300"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+
+          {/* Subtle line */}
+          <div className="w-px h-8 bg-gray-200 opacity-60"></div>
         </div>
       </div>
     </div>
