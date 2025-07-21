@@ -1,6 +1,7 @@
 import { Button } from '../ui/button.jsx'
+import { memo } from 'react'
 
-const Header = ({ onLogin, onRegister }) => {
+const Header = memo(({ onLogin, onRegister }) => {
   return (
     <header className="container mx-auto px-4 py-6 relative z-10">
       <div className="flex items-center justify-between">
@@ -33,6 +34,6 @@ const Header = ({ onLogin, onRegister }) => {
       </div>
     </header>
   )
-}
+})
 
 export default Header

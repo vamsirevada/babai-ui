@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom'
+import PrefetchLink from '../PrefetchLink'
+import { prefetch } from '../../App'
 
 const Footer = () => {
   return (
@@ -146,12 +147,13 @@ const Footer = () => {
             </div>
 
             <div className="flex flex-wrap justify-center md:justify-end space-x-6 text-sm">
-              <Link
+              <PrefetchLink
                 to="/privacy-policy"
+                prefetch={prefetch.privacyPolicy}
                 className="text-gray-500 hover:text-blue-600 transition-colors duration-200"
               >
                 Privacy Policy
-              </Link>
+              </PrefetchLink>
               <a
                 href="#"
                 className="text-gray-500 hover:text-blue-600 transition-colors duration-200"

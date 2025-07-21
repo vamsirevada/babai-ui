@@ -54,11 +54,14 @@ const IntelligenceSection = () => {
               muted
               loop
               playsInline
+              loading="lazy"
+              poster="/SiteOps-poster.png"
               style={{
                 maxHeight: '200px',
                 objectFit: 'cover',
               }}
             >
+              <source src="/SiteOps.webm" type="video/webm" />
               <source src="/SiteOps.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
@@ -100,11 +103,14 @@ const IntelligenceSection = () => {
               muted
               loop
               playsInline
+              loading="lazy"
+              poster="/Procure-poster.png"
               style={{
                 maxHeight: '200px',
                 objectFit: 'cover',
               }}
             >
+              <source src="/Procure.webm" type="video/webm" />
               <source src="/Procure.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
@@ -146,11 +152,14 @@ const IntelligenceSection = () => {
               muted
               loop
               playsInline
+              loading="lazy"
+              poster="/Credit-poster.png"
               style={{
                 maxHeight: '200px',
                 objectFit: 'cover',
               }}
             >
+              <source src="/Credit.webm" type="video/webm" />
               <source src="/Credit.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>

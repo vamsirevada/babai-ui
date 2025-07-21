@@ -15,11 +15,13 @@ const HeroSection = () => {
                 muted
                 loop
                 playsInline
+                poster="/intro-poster.png"
                 style={{
                   maxHeight: '400px',
                   objectFit: 'cover',
                 }}
               >
+                <source src="/intro.webm" type="video/webm" />
                 <source src="/intro.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
@@ -124,67 +126,6 @@ const HeroSection = () => {
           </Badge>
         </div>
       </div>
-
-      <style jsx>{`
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap');
-
-        @keyframes slideInRight {
-          0% {
-            opacity: 0;
-            transform: translateX(30px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes slideInLeft {
-          0% {
-            opacity: 0;
-            transform: translateX(-30px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes babaiGlow {
-          0% {
-            text-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
-            transform: translateX(0) scale(1);
-          }
-          100% {
-            text-shadow: 0 0 20px rgba(147, 51, 234, 0.4),
-              0 0 30px rgba(59, 130, 246, 0.2);
-            transform: translateX(0) scale(1.02);
-          }
-        }
-
-        @keyframes helloGlow {
-          0% {
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-            transform: translateX(0) scale(1);
-          }
-          100% {
-            text-shadow: 0 0 15px rgba(0, 0, 0, 0.4),
-              0 0 25px rgba(55, 65, 81, 0.3);
-            transform: translateX(0) scale(1.02);
-          }
-        }
-
-        @keyframes fadeInUp {
-          0% {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </div>
   )
 }

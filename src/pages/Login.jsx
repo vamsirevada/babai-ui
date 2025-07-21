@@ -19,6 +19,8 @@ import {
 } from 'lucide-react'
 import { useState } from 'react'
 import { useToast } from '@/hooks/use-toast'
+import PrefetchLink from '@/components/PrefetchLink'
+import { prefetch } from '@/App'
 
 // WhatsApp Logo Component
 const WhatsAppIcon = ({ className = 'w-5 h-5' }) => (
@@ -592,11 +594,13 @@ const Login = () => {
               <p className="text-sm text-gray-600">
                 Don't have an account?{' '}
                 <Button
+                  asChild
                   variant="link"
-                  onClick={() => navigate('/register')}
                   className="px-0 text-blue-600 hover:text-blue-800 font-medium"
                 >
-                  Sign up
+                  <PrefetchLink to="/register" prefetch={prefetch.register}>
+                    Sign up
+                  </PrefetchLink>
                 </Button>
               </p>
             </div>

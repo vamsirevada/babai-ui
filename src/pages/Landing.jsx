@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import ThreeBackground from '../components/ThreeBackground'
+import { useCallback, lazy, Suspense } from 'react'
 
 // Import section components
 import Header from '../components/landing/Header'
@@ -13,20 +13,23 @@ import TestimonialsSection from '../components/landing/TestimonialsSection'
 import CTASection from '../components/landing/CTASection'
 import Footer from '../components/landing/Footer'
 
+// Lazily load the heavy 3D background component
+const ThreeBackground = lazy(() => import('../components/ThreeBackground'))
+
 const Landing = () => {
   const navigate = useNavigate()
 
-  const handleGetStarted = () => {
+  const handleGetStarted = useCallback(() => {
     navigate('/dashboard')
-  }
+  }, [navigate])
 
-  const handleLogin = () => {
+  const handleLogin = useCallback(() => {
     navigate('/login')
-  }
+  }, [navigate])
 
-  const handleRegister = () => {
+  const handleRegister = useCallback(() => {
     navigate('/register')
-  }
+  }, [navigate])
 
   return (
     <div
@@ -37,7 +40,9 @@ const Landing = () => {
       }}
     >
       {/* 3D Background */}
-      <ThreeBackground />
+      <Suspense fallback={null}>
+        <ThreeBackground />
+      </Suspense>
 
       {/* Header */}
       <Header onLogin={handleLogin} onRegister={handleRegister} />
