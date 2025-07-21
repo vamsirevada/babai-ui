@@ -2,6 +2,7 @@ import PhoneModel from '../PhoneModel'
 import { useState, useEffect, useRef } from 'react'
 import '../../devices.min.css'
 import Mockup from '../Mockup'
+import '../../styles/demo-section.css'
 
 // Animated counter component
 const AnimatedCounter = ({
@@ -112,81 +113,6 @@ const DemoSection = () => {
 
   return (
     <div className="text-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-      <style jsx>{`
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap');
-
-        @keyframes typewriter {
-          0% {
-            width: 0;
-            border-right: 3px solid #374151;
-          }
-          99% {
-            border-right: 3px solid #374151;
-          }
-          100% {
-            width: auto;
-            border-right: 3px solid transparent;
-          }
-        }
-
-        @keyframes slideInRight {
-          0% {
-            opacity: 0;
-            transform: translateX(30px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes slideInLeft {
-          0% {
-            opacity: 0;
-            transform: translateX(-30px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes babaiGlow {
-          0% {
-            text-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
-            transform: translateX(0) scale(1);
-          }
-          100% {
-            text-shadow: 0 0 20px rgba(147, 51, 234, 0.4),
-              0 0 30px rgba(59, 130, 246, 0.2);
-            transform: translateX(0) scale(1.02);
-          }
-        }
-
-        @keyframes helloGlow {
-          0% {
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-            transform: translateX(0) scale(1);
-          }
-          100% {
-            text-shadow: 0 0 15px rgba(0, 0, 0, 0.4),
-              0 0 25px rgba(55, 65, 81, 0.3);
-            transform: translateX(0) scale(1.02);
-          }
-        }
-
-        @keyframes fadeInUp {
-          0% {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
-
       {/* Demo Section with Enhanced Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
         {/* Left Side - Header, Description, CTA, and Stats */}
