@@ -164,3 +164,104 @@ All colors MUST be HSL.
   border-right: 8px solid rgba(255, 255, 255, 0.95);
   border-top: 8px solid transparent;
 }
+
+/* Responsive utilities for better mobile experience */
+@layer utilities {
+  .section-spacing {
+    @apply py-12 sm:py-16 lg:py-20;
+  }
+
+  .container-responsive {
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .text-responsive-lg {
+    @apply text-lg sm:text-xl;
+  }
+
+  .text-responsive-xl {
+    @apply text-xl sm:text-2xl;
+  }
+
+  .text-responsive-2xl {
+    @apply text-2xl sm:text-3xl lg:text-4xl;
+  }
+
+  .text-responsive-3xl {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
+  }
+
+  .gap-responsive {
+    @apply gap-4 sm:gap-6 lg:gap-8;
+  }
+
+  .mb-responsive {
+    @apply mb-6 sm:mb-8 lg:mb-12;
+  }
+
+  .px-responsive {
+    @apply px-4 sm:px-0;
+  }
+}
+
+/* Improved mobile touch targets */
+@media (max-width: 640px) {
+  button,
+  .btn,
+  a[role='button'] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Enhanced scroll indicator animations */
+@keyframes scrollBounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-8px);
+  }
+  60% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes scrollPulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes scrollGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.6),
+      0 0 30px rgba(59, 130, 246, 0.4);
+  }
+}
+
+.scroll-indicator {
+  animation: scrollBounce 2s infinite ease-in-out;
+}
+
+.scroll-pulse {
+  animation: scrollPulse 2s infinite ease-in-out;
+}
+
+.scroll-glow {
+  animation: scrollGlow 3s infinite ease-in-out;
+}

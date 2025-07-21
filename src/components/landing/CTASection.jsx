@@ -10,8 +10,8 @@ import { ArrowRight } from 'lucide-react'
 
 const CTASection = ({ onGetStarted }) => {
   return (
-    <div className="mb-20">
-      <Card className="container mx-auto max-w-6xl bg-gradient-primary border-0 text-white relative overflow-hidden shadow-2xl">
+    <div>
+      <Card className="w-full max-w-6xl mx-auto bg-gradient-primary border-0 text-white relative overflow-hidden shadow-2xl">
         {/* Enhanced background decoration */}
         <div className="absolute inset-0 bg-gradient-primary/95"></div>
         <div
@@ -27,11 +27,11 @@ const CTASection = ({ onGetStarted }) => {
           style={{ animationDuration: '5s' }}
         ></div>
 
-        <CardHeader className="relative z-10 px-4 py-12 lg:px-12">
+        <CardHeader className="relative z-10 px-4 sm:px-6 lg:px-12 py-8 sm:py-12">
           <div className="text-center mb-6">
-            <div className="inline-flex items-center px-4 py-2 bg-white/20 rounded-full text-sm font-medium mb-6 backdrop-blur-sm">
+            <div className="inline-flex items-center px-3 sm:px-4 py-2 bg-white/20 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 backdrop-blur-sm">
               <svg
-                className="w-4 h-4 mr-2 text-yellow-300"
+                className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-yellow-300"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -40,11 +40,11 @@ const CTASection = ({ onGetStarted }) => {
               Trusted by 500+ Construction Teams
             </div>
           </div>
-          <CardTitle className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight text-center">
+          <CardTitle className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 leading-tight text-center px-4 sm:px-0">
             Ready to Revolutionize Your Construction Projects with{' '}
             <span className="text-gray-200 font-extrabold">bab.ai?</span>
           </CardTitle>
-          <CardDescription className="text-blue-100 text-xl max-w-3xl mx-auto leading-relaxed text-center">
+          <CardDescription className="text-blue-100 text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed text-center px-4 sm:px-0">
             Join leading builders who've increased project efficiency by 40% and
             reduced delays by 60% using Bab.ai's WhatsApp-native construction
             intelligence platform.

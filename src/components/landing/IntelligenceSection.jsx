@@ -6,22 +6,22 @@ const IntelligenceSection = () => {
   const [cardsRef, cardsVisible] = useScrollAnimation()
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+    <div className="w-full max-w-7xl mx-auto">
       <div
         ref={titleRef}
-        className={`text-center mb-16 transition-all duration-1000 transform ${
+        className={`text-center mb-6 sm:mb-8 transition-all duration-1000 transform ${
           titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}
       >
         {/* SEO-optimized heading with construction keywords */}
         {/* Market positioning badge */}
-        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-100 to-red-100 px-6 py-3 rounded-full mb-6 shadow-sm border border-orange-200">
+        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-100 to-red-100 px-4 sm:px-6 py-2 sm:py-3 rounded-full mb-4 sm:mb-6 shadow-sm border border-orange-200">
           <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-          <span className="text-sm font-semibold text-red-700 uppercase tracking-wider">
+          <span className="text-xs sm:text-sm font-semibold text-red-700 uppercase tracking-wider">
             #1 Construction AI in India
           </span>
         </div>
-        <p className="text-xl lg:text-2xl text-gray-600 max-w-5xl mx-auto leading-relaxed mb-10 italic font-semibold px-4">
+        <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 max-w-5xl mx-auto leading-relaxed mb-8 sm:mb-10 italic font-semibold px-4">
           "India's first AI-powered construction management platform that
           converts your WhatsApp conversations into actionable project
           intelligence. Get real-time site monitoring, vendor coordination, and

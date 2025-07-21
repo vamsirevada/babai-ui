@@ -50,24 +50,24 @@ const TargetAudienceSection = () => {
   ]
 
   return (
-    <div className="max-w-7xl mx-auto px-4 mt-20">
-      <div className="text-center mb-16">
-        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 px-4 py-2 rounded-full mb-6">
-          <Star className="w-5 h-5 text-green-600" />
-          <span className="text-sm font-semibold text-green-700 uppercase tracking-wider">
+    <div className="w-full max-w-7xl mx-auto">
+      <div className="text-center mb-6 sm:mb-8">
+        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 px-3 sm:px-4 py-2 rounded-full mb-4 sm:mb-6">
+          <Star className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
+          <span className="text-xs sm:text-sm font-semibold text-green-700 uppercase tracking-wider">
             Who Benefits
           </span>
         </div>
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 px-4 sm:px-0">
           Built for Construction Professionals
         </h2>
-        <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+        <p className="text-lg text-gray-600 max-w-3xl mx-auto px-4 sm:px-0">
           Bab.ai seamlessly integrates into your existing WhatsApp workflows,
           empowering every stakeholder in the construction ecosystem
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 px-4 sm:px-0">
         {audiences.map((audience, index) => {
           const IconComponent = audience.icon
           return (

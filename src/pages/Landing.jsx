@@ -48,15 +48,29 @@ const Landing = () => {
       <Header onLogin={handleLogin} onRegister={handleRegister} />
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-12 relative z-10">
-        <HeroSection />
-        <IntelligenceSection />
-        <DemoSection />
-        <ProblemSection />
-        <FeaturesSection />
-        <TargetAudienceSection />
+      <main className="relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+          <HeroSection />
+        </div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+          <IntelligenceSection />
+        </div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+          <DemoSection />
+        </div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+          <ProblemSection />
+        </div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+          <FeaturesSection />
+        </div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+          <TargetAudienceSection />
+        </div>
         <TestimonialsSection />
-        <CTASection onGetStarted={handleGetStarted} />
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+          <CTASection onGetStarted={handleGetStarted} />
+        </div>
       </main>
 
       {/* Footer */}

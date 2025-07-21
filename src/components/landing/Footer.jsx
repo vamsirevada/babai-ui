@@ -9,16 +9,16 @@ const Footer = () => {
       <div className="absolute top-0 left-0 w-64 h-64 bg-blue-100/20 rounded-full -translate-y-32 -translate-x-32"></div>
       <div className="absolute bottom-0 right-0 w-48 h-48 bg-purple-100/20 rounded-full translate-y-24 translate-x-24"></div>
 
-      <div className="container mx-auto px-4 py-16 relative z-10">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 relative z-10">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 mb-8 sm:mb-12">
           {/* Left Side - Company Info & Social Media */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             <div>
-              <h3 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
+              <h3 className="text-xl sm:text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-3 sm:mb-4">
                 bab.ai
               </h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-6 max-w-md">
+              <p className="text-gray-600 text-sm leading-relaxed mb-4 sm:mb-6 max-w-md">
                 Transforming WhatsApp into intelligent construction management
                 platform. AI-powered insights for smarter project decisions.
               </p>
@@ -26,10 +26,10 @@ const Footer = () => {
 
             {/* Social Media */}
             <div>
-              <h4 className="text-lg font-semibold text-gray-900 mb-4">
+              <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
                 Follow Us
               </h4>
-              <div className="flex space-x-4 mb-6">
+              <div className="flex space-x-3 sm:space-x-4 mb-4 sm:mb-6">
                 <a
                   href="#"
                   className="w-12 h-12 bg-white hover:bg-blue-600 text-gray-600 hover:text-white rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 border border-gray-200 shadow-sm hover:shadow-md"

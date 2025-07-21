@@ -65,20 +65,20 @@ const FeaturesSection = () => {
   ]
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="w-full max-w-7xl mx-auto">
       {/* Trust Indicators */}
       <div
         ref={titleRef}
-        className={`text-center mb-16 transition-all duration-1000 transform ${
+        className={`text-center mb-6 sm:mb-8 transition-all duration-1000 transform ${
           titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}
       >
-        <p className="text-gray-500 text-sm mb-6">
+        <p className="text-gray-500 text-xs sm:text-sm mb-4 sm:mb-6 px-4">
           TRUSTED BY LEADING BUILDERS & DEVELOPERS
         </p>
-        <div className="flex flex-wrap justify-center items-center gap-6 opacity-90">
+        <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-6 opacity-90 px-4">
           <Badge
-            className="bg-gradient-to-r from-blue-100 to-blue-200 text-blue-700 px-5 py-3 text-sm font-semibold border border-blue-200 hover:from-blue-200 hover:to-blue-300 transition-all duration-300 transform hover:scale-105 shadow-sm hover:shadow-md flex items-center gap-2 animate-bounce"
+            className="bg-gradient-to-r from-blue-100 to-blue-200 text-blue-700 px-3 sm:px-5 py-2 sm:py-3 text-xs sm:text-sm font-semibold border border-blue-200 hover:from-blue-200 hover:to-blue-300 transition-all duration-300 transform hover:scale-105 shadow-sm hover:shadow-md flex items-center gap-2 animate-bounce"
             style={{ animationDuration: '3s', animationDelay: '0s' }}
           >
             <svg

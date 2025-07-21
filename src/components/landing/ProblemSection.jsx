@@ -85,13 +85,13 @@ const AnimatedCounter = ({
 
 const ProblemSection = () => {
   return (
-    <div className="bg-gradient-to-b from-white to-gray-50 py-16">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="bg-gradient-to-b from-white to-gray-50 py-6 sm:py-8">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-red-50 border border-red-200 px-4 py-2 rounded-full mb-6">
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="inline-flex items-center gap-2 bg-red-50 border border-red-200 px-3 sm:px-4 py-2 rounded-full mb-4 sm:mb-6">
             <svg
-              className="w-5 h-5 text-red-600"
+              className="w-4 h-4 sm:w-5 sm:h-5 text-red-600"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -104,7 +104,7 @@ const ProblemSection = () => {
                 strokeLinejoin="round"
               />
             </svg>
-            <span className="text-sm font-semibold text-red-700 uppercase tracking-wider">
+            <span className="text-xs sm:text-sm font-semibold text-red-700 uppercase tracking-wider">
               The Problem
             </span>
           </div>

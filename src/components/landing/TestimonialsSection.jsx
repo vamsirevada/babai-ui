@@ -85,21 +85,21 @@ const AnimatedCounter = ({
 
 const TestimonialsSection = () => {
   return (
-    <div className="bg-gray-50 py-16 mt-20">
-      <div className="max-w-6xl mx-auto px-4">
+    <div className="bg-gray-50 py-6 sm:py-8 lg:py-10">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Traction Stats */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-6 sm:mb-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 px-4 sm:px-0">
             Trusted by Construction Leaders
           </h2>
-          <p className="text-lg text-gray-600 mb-8">
+          <p className="text-lg text-gray-600 mb-6 sm:mb-8 px-4 sm:px-0">
             Join the growing community transforming construction through
             WhatsApp AI
           </p>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             <div className="text-center group">
-              <div className="text-3xl font-bold text-blue-600 mb-2 group-hover:scale-110 transition-transform duration-300">
+              <div className="text-2xl sm:text-3xl font-bold text-blue-600 mb-2 group-hover:scale-110 transition-transform duration-300">
                 <AnimatedCounter end={25} suffix="+" duration={2000} />
               </div>
               <div className="text-sm text-gray-600">Pilot Projects</div>
