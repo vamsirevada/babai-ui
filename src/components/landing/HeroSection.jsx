@@ -1,10 +1,21 @@
 import { Badge } from '../ui/badge'
+import { useScrollAnimation } from '../../hooks/use-scroll-animation'
 
 const HeroSection = () => {
+  const [videoRef, videoVisible] = useScrollAnimation()
+  const [contentRef, contentVisible] = useScrollAnimation()
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
       {/* Left Side - GIF and Hello Babai */}
-      <div className="text-center">
+      <div
+        ref={videoRef}
+        className={`text-center transition-all duration-1000 transform ${
+          videoVisible
+            ? 'opacity-100 translate-x-0'
+            : 'opacity-0 -translate-x-12'
+        }`}
+      >
         {/* Intro Video */}
         <div className="flex justify-center mb-8">
           <div className="relative w-full max-w-lg">
@@ -70,7 +81,14 @@ const HeroSection = () => {
       </div>
 
       {/* Right Side - Hero Content */}
-      <div className="text-center lg:text-left">
+      <div
+        ref={contentRef}
+        className={`text-center lg:text-left transition-all duration-1000 transform ${
+          contentVisible
+            ? 'opacity-100 translate-x-0'
+            : 'opacity-0 translate-x-12'
+        }`}
+      >
         {/* Market positioning badge */}
         <div className="inline-flex items-center gap-2 bg-gradient-warm px-4 py-2 rounded-full mb-4">
           <svg

@@ -1,9 +1,18 @@
 import { Card } from '../ui/card.jsx'
+import { useScrollAnimation } from '../../hooks/use-scroll-animation'
 
 const IntelligenceSection = () => {
+  const [titleRef, titleVisible] = useScrollAnimation()
+  const [cardsRef, cardsVisible] = useScrollAnimation()
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-      <div className="text-center mb-16">
+      <div
+        ref={titleRef}
+        className={`text-center mb-16 transition-all duration-1000 transform ${
+          titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}
+      >
         {/* SEO-optimized heading with construction keywords */}
         {/* Market positioning badge */}
         <div className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-100 to-red-100 px-6 py-3 rounded-full mb-6 shadow-sm border border-orange-200">
@@ -43,7 +52,14 @@ const IntelligenceSection = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 px-4">
+      <div
+        ref={cardsRef}
+        className={`grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 px-4 transition-all duration-1000 transform ${
+          cardsVisible
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 translate-y-12'
+        }`}
+      >
         {/* SiteOps AI */}
         <Card className="p-8 text-center hover:shadow-2xl transition-all duration-300 group border-2 border-green-100 bg-gradient-to-br from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100 hover:border-green-200 rounded-2xl">
           {/* SiteOps Video */}

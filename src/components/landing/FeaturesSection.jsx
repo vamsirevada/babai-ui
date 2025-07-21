@@ -7,8 +7,12 @@ import {
 } from '../ui/card.jsx'
 import { Badge } from '../ui/badge'
 import { Camera, Sparkles, Brain, Lightbulb, Heart, Users } from 'lucide-react'
+import { useScrollAnimation } from '../../hooks/use-scroll-animation'
 
 const FeaturesSection = () => {
+  const [titleRef, titleVisible] = useScrollAnimation()
+  const [featuresRef, featuresVisible] = useScrollAnimation()
+
   const features = [
     {
       icon: Camera,
@@ -63,7 +67,12 @@ const FeaturesSection = () => {
   return (
     <div className="max-w-6xl mx-auto">
       {/* Trust Indicators */}
-      <div className="text-center mb-16">
+      <div
+        ref={titleRef}
+        className={`text-center mb-16 transition-all duration-1000 transform ${
+          titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}
+      >
         <p className="text-gray-500 text-sm mb-6">
           TRUSTED BY LEADING BUILDERS & DEVELOPERS
         </p>
@@ -338,7 +347,14 @@ const FeaturesSection = () => {
         thousands of WhatsApp interactions.
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div
+        ref={featuresRef}
+        className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-1000 transform ${
+          featuresVisible
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 translate-y-12'
+        }`}
+      >
         {features.map((feature, index) => {
           const IconComponent = feature.icon
           return (
