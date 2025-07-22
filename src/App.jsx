@@ -12,6 +12,7 @@ const Dashboard = lazy(() => import('./pages/Dashboard.jsx'))
 const Login = lazy(() => import('./pages/Login.jsx'))
 const Register = lazy(() => import('./pages/Register.jsx'))
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy.jsx'))
+const PlaceOrder = lazy(() => import('./pages/PlaceOrder.jsx'))
 const NotFound = lazy(() => import('./pages/NotFound.jsx'))
 
 // 2. Create prefetch functions to be used with our prefetching link
@@ -21,6 +22,7 @@ export const prefetch = {
   login: () => import('./pages/Login.jsx'),
   register: () => import('./pages/Register.jsx'),
   privacyPolicy: () => import('./pages/PrivacyPolicy.jsx'),
+  placeOrder: () => import('./pages/PlaceOrder.jsx'),
 }
 
 const queryClient = new QueryClient()
@@ -45,6 +47,7 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/place-order" element={<PlaceOrder />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
