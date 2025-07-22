@@ -6,6 +6,15 @@ import { Card } from '../components/ui/card'
 import { Input } from '../components/ui/input'
 import { Separator } from '../components/ui/separator'
 
+// Static projects data - would be fetched from database in real implementation
+const USER_PROJECTS = [
+  { id: 1, name: 'Sunrise Apartments - Phase 1' },
+  { id: 2, name: 'Golden Heights Commercial' },
+  { id: 3, name: 'Green Valley Residential' },
+  { id: 4, name: 'Metro Mall Construction' },
+  { id: 5, name: 'Skyline Towers - Building A' },
+]
+
 // Static data - will be replaced with PostgreSQL data later
 const PREFILLED_ITEMS = [
   {
@@ -15,6 +24,7 @@ const PREFILLED_ITEMS = [
     unit: 'bags',
     price: 450,
     quantity: 50,
+    minQuantity: 1,
   },
   {
     id: 2,
@@ -23,6 +33,7 @@ const PREFILLED_ITEMS = [
     unit: 'tonnes',
     price: 65000,
     quantity: 2,
+    minQuantity: 10,
   },
   {
     id: 3,
@@ -66,6 +77,9 @@ const PlaceOrder = () => {
     phone: '',
     site: '',
     address: '',
+    // Simulated WhatsApp fetched data
+    whatsappName: 'Rajesh Kumar',
+    whatsappPhone: '+91 98765 43210',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [totalAmount, setTotalAmount] = useState(0)
@@ -75,12 +89,13 @@ const PlaceOrder = () => {
   useEffect(() => {
     const initializeData = () => {
       try {
-        // Get customer info from URL params
+        // Get customer info from URL params (keeping site and address)
         const urlCustomerInfo = {
-          name: searchParams.get('name') || '',
-          phone: searchParams.get('phone') || '',
           site: searchParams.get('site') || '',
           address: searchParams.get('address') || '',
+          // WhatsApp data would be fetched automatically in real implementation
+          whatsappName: searchParams.get('name') || 'Rajesh Kumar',
+          whatsappPhone: searchParams.get('phone') || '+91 98765 43210',
         }
         setCustomerInfo(urlCustomerInfo)
 
@@ -98,9 +113,7 @@ const PlaceOrder = () => {
                 category: item.category || 'General',
                 unit: item.unit || 'pieces',
                 price: item.price || 0,
-                minQuantity: item.minQuantity || 1,
                 quantity: item.quantity || 1,
-                image: item.image || '/placeholder.svg',
               }))
             }
           } catch (error) {
@@ -135,7 +148,7 @@ const PlaceOrder = () => {
         item.id === id
           ? {
               ...item,
-              quantity: Math.max(item.minQuantity, parseInt(newQuantity) || 0),
+              quantity: Math.max(1, parseInt(newQuantity) || 0),
             }
           : item
       )
@@ -154,7 +167,17 @@ const PlaceOrder = () => {
     await new Promise((resolve) => setTimeout(resolve, 1000))
 
     // Here you would send data to your backend
-    console.log('Order submitted:', { customerInfo, items, totalAmount })
+    const orderData = {
+      customerInfo: {
+        name: customerInfo.whatsappName,
+        phone: customerInfo.whatsappPhone,
+        site: customerInfo.site,
+        address: customerInfo.address,
+      },
+      items,
+      totalAmount,
+    }
+    console.log('Order submitted:', orderData)
 
     // Redirect back to WhatsApp or show success message
     alert('Order placed successfully! We will contact you shortly.')
@@ -191,7 +214,7 @@ const PlaceOrder = () => {
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
-                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.484 3.488" />
+                      <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 3c0 .55.45 1 1 1h1l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h11c.55 0 1-.45 1-1s-.45-1-1-1H7l1.1-2h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H2c-.55 0-1 .45-1 1zm16 15c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
                     </svg>
                   </div>
                   <div className="min-w-0">
@@ -199,7 +222,7 @@ const PlaceOrder = () => {
                       Place Order
                     </h1>
                     <p className="text-xs sm:text-sm text-gray-500 truncate">
-                      Babai Construction Materials
+                      Construction Materials
                     </p>
                   </div>
                 </div>
@@ -219,52 +242,61 @@ const PlaceOrder = () => {
               <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
                 Customer Information
               </h2>
+
+              {/* WhatsApp Logged In Information */}
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                <div className="flex items-center gap-4 mb-3">
+                  {/* WhatsApp Logo Column - Centered Vertically */}
+                  <div className="flex items-center justify-center w-12 h-12 bg-green-600 rounded-full shrink-0">
+                    <svg
+                      className="w-6 h-6 text-white"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.484 3.488" />
+                    </svg>
+                  </div>
+                  
+                  {/* User Info Column - 2 Rows */}
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-medium text-green-800 mb-1">
+                      Logged in as{' '}
+                      <span className="font-semibold">
+                        {customerInfo.whatsappName}
+                      </span>
+                    </div>
+                    <div className="text-sm text-green-700">
+                      {customerInfo.whatsappPhone}
+                    </div>
+                  </div>
+                </div>
+                <div className="text-xs text-green-700 bg-green-100 rounded-md px-3 py-2 text-center">
+                  ✓ Your contact information has been automatically verified
+                  through WhatsApp
+                </div>
+              </div>
+
+              {/* Manual Input Fields */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div className="sm:col-span-1">
                   <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
-                    Full Name *
+                    Select Site/Project *
                   </label>
-                  <Input
-                    required
-                    value={customerInfo.name}
-                    onChange={(e) =>
-                      setCustomerInfo({ ...customerInfo, name: e.target.value })
-                    }
-                    placeholder="Enter your full name"
-                    className="text-sm sm:text-base"
-                  />
-                </div>
-                <div className="sm:col-span-1">
-                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
-                    Phone Number *
-                  </label>
-                  <Input
-                    required
-                    type="tel"
-                    value={customerInfo.phone}
-                    onChange={(e) =>
-                      setCustomerInfo({
-                        ...customerInfo,
-                        phone: e.target.value,
-                      })
-                    }
-                    placeholder="Enter your phone number"
-                    className="text-sm sm:text-base"
-                  />
-                </div>
-                <div className="sm:col-span-1">
-                  <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
-                    Site/Project Name *
-                  </label>
-                  <Input
+                  <select
                     required
                     value={customerInfo.site}
                     onChange={(e) =>
                       setCustomerInfo({ ...customerInfo, site: e.target.value })
                     }
-                    placeholder="Enter site or project name"
-                    className="text-sm sm:text-base"
-                  />
+                    className="w-full px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white"
+                  >
+                    <option value="">Choose your project...</option>
+                    {USER_PROJECTS.map((project) => (
+                      <option key={project.id} value={project.name}>
+                        {project.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <div className="sm:col-span-1">
                   <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
@@ -297,61 +329,73 @@ const PlaceOrder = () => {
                 </Badge>
               </div>
 
-              <div className="space-y-3 sm:space-y-4">
+              <div className="space-y-4">
                 {items.map((item, index) => (
-                  <div key={item.id}>
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gray-50 rounded-lg">
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-gray-900 text-sm sm:text-base mb-2">
+                  <div
+                    key={item.id}
+                    className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden"
+                  >
+                    {/* Header with item name and category */}
+                    <div className="px-4 py-3 bg-gradient-to-r from-gray-50 to-white border-b border-gray-100">
+                      <div className="flex items-center justify-between">
+                        <h3 className="font-semibold text-gray-900 text-base truncate pr-3">
                           {item.name}
                         </h3>
-                        <div className="flex flex-row items-center gap-3 sm:gap-4">
-                          <Badge
-                            variant="outline"
-                            className="text-xs px-2 py-1 bg-white"
-                          >
-                            {item.category}
-                          </Badge>
-                          <span className="text-xs sm:text-sm text-gray-600 font-medium">
-                            {formatCurrency(item.price)} per {item.unit}
+                        <Badge
+                          variant="secondary"
+                          className="ml-2 shrink-0 bg-blue-50 text-blue-700 border-blue-200"
+                        >
+                          {item.category}
+                        </Badge>
+                      </div>
+                    </div>
+
+                    {/* Body with pricing and controls */}
+                    <div className="px-4 py-4">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="text-sm text-gray-600">
+                          <span className="font-medium text-gray-900 text-base">
+                            {formatCurrency(item.price)}
                           </span>
+                          <span className="text-gray-500 ml-1">
+                            per {item.unit}
+                          </span>
+                        </div>
+                        <div className="text-right">
+                          {/* <div className="text-xs text-gray-500 uppercase tracking-wide font-medium mb-1">
+                            Total
+                          </div> */}
+                          <div className="font-bold text-green-600 text-lg">
+                            {formatCurrency(item.price * item.quantity)}
+                          </div>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto justify-between sm:justify-end">
-                        <div className="text-center">
-                          <label className="block text-xs text-gray-500 mb-1 font-medium">
-                            Quantity
+                      {/* Quantity controls */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <label className="text-sm font-medium text-gray-700">
+                            Quantity:
                           </label>
                           <Input
                             type="number"
-                            min={item.minQuantity}
+                            min="1"
                             value={item.quantity}
                             onChange={(e) =>
                               updateQuantity(item.id, e.target.value)
                             }
-                            className="w-20 sm:w-24 text-center text-sm font-semibold"
+                            className="w-24 text-center font-semibold border-gray-300 focus:border-green-500 focus:ring-green-500"
                           />
                         </div>
-
-                        <div className="text-center sm:text-right min-w-[90px] sm:min-w-[110px]">
-                          <div className="text-xs text-gray-500 mb-1 font-medium">
-                            Total
-                          </div>
-                          <div className="font-bold text-gray-900 text-sm sm:text-base">
-                            {formatCurrency(item.price * item.quantity)}
-                          </div>
-                        </div>
-
                         <Button
                           type="button"
                           variant="ghost"
                           size="sm"
                           onClick={() => removeItem(item.id)}
-                          className="text-red-500 hover:text-red-700 hover:bg-red-50 shrink-0 h-8 w-8 p-0 rounded-full"
+                          className="text-red-500 hover:text-red-700 hover:bg-red-50 px-3 py-2 rounded-lg transition-colors duration-200"
                         >
                           <svg
-                            className="w-4 h-4"
+                            className="w-4 h-4 mr-1"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -366,7 +410,6 @@ const PlaceOrder = () => {
                         </Button>
                       </div>
                     </div>
-                    {index < items.length - 1 && <Separator className="my-2" />}
                   </div>
                 ))}
               </div>
