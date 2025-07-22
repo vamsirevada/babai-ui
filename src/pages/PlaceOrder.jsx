@@ -302,21 +302,25 @@ const PlaceOrder = () => {
                   <div key={item.id}>
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gray-50 rounded-lg">
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-gray-900 text-sm sm:text-base mb-1">
+                        <h3 className="font-semibold text-gray-900 text-sm sm:text-base mb-2">
                           {item.name}
                         </h3>
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
-                          <Badge variant="outline" className="text-xs w-fit">
+                        <div className="flex flex-row items-center gap-3 sm:gap-4">
+                          <Badge
+                            variant="outline"
+                            className="text-xs px-2 py-1 bg-white"
+                          >
                             {item.category}
                           </Badge>
-                          <span className="text-xs sm:text-sm text-gray-500">
+                          <span className="text-xs sm:text-sm text-gray-600 font-medium">
                             {formatCurrency(item.price)} per {item.unit}
                           </span>
                         </div>
                       </div>
-                      <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
-                        <div className="text-center flex-1 sm:flex-none">
-                          <label className="block text-xs text-gray-500 mb-1">
+
+                      <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto justify-between sm:justify-end">
+                        <div className="text-center">
+                          <label className="block text-xs text-gray-500 mb-1 font-medium">
                             Quantity
                           </label>
                           <Input
@@ -326,15 +330,15 @@ const PlaceOrder = () => {
                             onChange={(e) =>
                               updateQuantity(item.id, e.target.value)
                             }
-                            className="w-full sm:w-20 lg:w-24 text-center text-sm"
+                            className="w-20 sm:w-24 text-center text-sm font-semibold"
                           />
                         </div>
 
-                        <div className="text-center flex-1 sm:flex-none sm:min-w-[80px] lg:min-w-[100px]">
-                          <div className="text-xs text-gray-500 mb-1">
+                        <div className="text-center sm:text-right min-w-[90px] sm:min-w-[110px]">
+                          <div className="text-xs text-gray-500 mb-1 font-medium">
                             Total
                           </div>
-                          <div className="font-semibold text-gray-900 text-sm sm:text-base">
+                          <div className="font-bold text-gray-900 text-sm sm:text-base">
                             {formatCurrency(item.price * item.quantity)}
                           </div>
                         </div>
@@ -344,7 +348,7 @@ const PlaceOrder = () => {
                           variant="ghost"
                           size="sm"
                           onClick={() => removeItem(item.id)}
-                          className="text-red-500 hover:text-red-700 shrink-0 h-8 w-8 p-0 sm:h-auto sm:w-auto sm:p-2"
+                          className="text-red-500 hover:text-red-700 hover:bg-red-50 shrink-0 h-8 w-8 p-0 rounded-full"
                         >
                           <svg
                             className="w-4 h-4"
