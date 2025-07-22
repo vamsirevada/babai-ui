@@ -18,14 +18,24 @@ RUN npm run build
 # Production stage
 FROM nginx:alpine
 
+# Install envsubst if not available
+RUN apk add --no-cache gettext
+
 # Copy built files to nginx
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Copy nginx configuration for SPA routing
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copy startup script
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
+# Copy nginx configuration template
+COPY nginx.conf.template /etc/nginx/templates/default.conf.template
 
 # Expose port 8080 (Cloud Run requirement)
 EXPOSE 8080
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Set default port if not provided
+ENV PORT=8080
+
+# Use startup script
+CMD ["/start.sh"]
