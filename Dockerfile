@@ -15,27 +15,26 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Production stage
+# Production stage - Use a simpler approach
 FROM nginx:alpine
 
-# Install envsubst if not available
-RUN apk add --no-cache gettext
+# Remove default nginx config
+RUN rm /etc/nginx/conf.d/default.conf
 
 # Copy built files to nginx
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Copy startup script
-COPY start.sh /start.sh
-RUN chmod +x /start.sh
+# Copy simple nginx config
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copy nginx configuration template
-COPY nginx.conf.template /etc/nginx/templates/default.conf.template
+# Create a startup script that handles the PORT variable
+RUN echo '#!/bin/sh' > /start.sh && \
+    echo 'sed -i "s/listen 8080/listen $PORT/g" /etc/nginx/conf.d/default.conf' >> /start.sh && \
+    echo 'nginx -g "daemon off;"' >> /start.sh && \
+    chmod +x /start.sh
 
 # Expose port 8080 (Cloud Run requirement)
 EXPOSE 8080
 
-# Set default port if not provided
-ENV PORT=8080
-
-# Use startup script
+# Start with our script
 CMD ["/start.sh"]
