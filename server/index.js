@@ -26,6 +26,16 @@ app.get('/projects', async (req, res) => {
 		}
 })
 
+app.get('/inventory', async (req, res) => {
+		try {
+				const result = await pool.query('SELECT * FROM inventory')
+				res.json(result.rows)
+		} catch (error) {
+				console.error(error)
+				res.status(500).send('Server error')
+		}
+})
+
 app.get('/items', async (req, res) => {
 		try {
 				const result = await pool.query('SELECT * FROM items')
