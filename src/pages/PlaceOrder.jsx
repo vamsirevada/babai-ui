@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useMemo} from 'react'
 import {useSearchParams} from 'react-router-dom'
 import {Badge} from '../components/ui/badge'
 import {Button} from '../components/ui/button'
@@ -7,6 +7,47 @@ import {Input} from '../components/ui/input'
 import {Separator} from '../components/ui/separator'
 import CheckmarkIcon from '../assets/icons/checkmark.svg?react'
 import CloseIcon from '../assets/icons/close.svg?react'
+
+// Debounce hook
+function useDebouncedValue(value, delay) {
+		const [debounced, setDebounced] = useState(value)
+		useEffect(() => {
+				const handler = setTimeout(() => setDebounced(value), delay)
+				return () => clearTimeout(handler)
+		}, [value, delay])
+		return debounced
+}
+
+// Suggestion dropdown component
+function SuggestionDropdown({inputValue, prefilledItems, setEditingItemName}) {
+		const debouncedInput = useDebouncedValue(inputValue, 250)
+		const filteredSuggestions = useMemo(() => {
+				if (!debouncedInput) return []
+				return prefilledItems
+						.filter(
+								(suggestion) =>
+										suggestion.name.toLowerCase().includes(debouncedInput.toLowerCase()) &&
+										suggestion.name !== debouncedInput
+						)
+						.slice(0, 5)
+		}, [debouncedInput, prefilledItems])
+
+		if (filteredSuggestions.length === 0) return null
+
+		return (
+				<ul className="absolute top-full left-0 w-full bg-white border rounded shadow mt-1 z-10">
+						{filteredSuggestions.map((suggestion) => (
+								<li
+										key={suggestion.id}
+										className="px-3 py-2 cursor-pointer hover:bg-gray-100"
+										onClick={() => setEditingItemName(suggestion.name)}
+								>
+										{suggestion.name}
+								</li>
+						))}
+				</ul>
+		)
+}
 
 const PlaceOrder = () => {
 		const [userProjects, setUserProjects] = useState([])
@@ -27,13 +68,13 @@ const PlaceOrder = () => {
 		const [editingItemId, setEditingItemId] = useState(null)
 		const [editingItemName, setEditingItemName] = useState('')
 
-		// Fetch projects and items from backend
+
 		useEffect(() => {
 				const fetchData = async () => {
 						try {
 								const [projectsRes, itemsRes] = await Promise.all([
-										fetch('http://localhost:4000/projects'),
-										fetch('http://localhost:4000/items'),
+										fetch('http://10.101.56.159:4000/projects'),
+										fetch('http://10.101.56.159:4000/items'),
 								])
 								const projects = await projectsRes.json()
 								const items = await itemsRes.json()
@@ -48,7 +89,6 @@ const PlaceOrder = () => {
 				fetchData()
 		}, [])
 
-		// Initialize data on component mount
 		useEffect(() => {
 				if (prefilledItems.length === 0) return
 				const initializeData = () => {
@@ -290,20 +330,30 @@ const PlaceOrder = () => {
 																				<div className="px-4 py-3 bg-gradient-to-r from-gray-50 to-white border-b border-gray-100">
 																						<div className="flex items-center justify-between gap-4">
 																								{editingItemId === item.id ? (
-																										<div className="flex-grow flex items-center gap-2">
-																												<Input
-																														value={editingItemName}
-																														onChange={(e) =>
-																																setEditingItemName(e.target.value)
-																														}
-																														className="h-9 text-base"
-																														autoFocus
-																														onKeyDown={(e) => {
-																																if (e.key === 'Enter')
-																																		updateItemName(item.id, editingItemName)
-																																if (e.key === 'Escape') handleCancelClick()
-																														}}
-																												/>
+																										<div className="flex-grow flex items-center gap-2 relative">
+																												<div className='relative w-full'>
+																														<Input
+																																value={editingItemName}
+																																onChange={(e) =>
+																																		setEditingItemName(e.target.value)
+																																}
+																																className="h-9 text-base"
+																																autoFocus
+																																onKeyDown={(e) => {
+																																		if (e.key === 'Enter')
+																																				updateItemName(item.id, editingItemName)
+																																		if (e.key === 'Escape') handleCancelClick()
+																																}}
+																														/>
+																														{/* Optimized suggestion dropdown */}
+																														{editingItemName && (
+																																<SuggestionDropdown
+																																		inputValue={editingItemName}
+																																		prefilledItems={prefilledItems}
+																																		setEditingItemName={setEditingItemName}
+																																/>
+																														)}
+																												</div>
 																												<Button
 																														type="button"
 																														size="sm"
