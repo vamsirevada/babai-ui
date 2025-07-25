@@ -8,6 +8,11 @@ import {Separator} from '../components/ui/separator'
 import CheckmarkIcon from '../assets/icons/checkmark.svg?react'
 import CloseIcon from '../assets/icons/close.svg?react'
 
+const API_BASE_URL =
+		process.env.NODE_ENV === 'production'
+				? 'http://localhost:4000'
+				: 'http://10.101.56.159:4000'
+
 // Debounce hook
 function useDebouncedValue(value, delay) {
 		const [debounced, setDebounced] = useState(value)
@@ -73,8 +78,8 @@ const PlaceOrder = () => {
 				const fetchData = async () => {
 						try {
 								const [projectsRes, itemsRes] = await Promise.all([
-										fetch('http://10.101.56.159:4000/projects'),
-										fetch('http://10.101.56.159:4000/items'),
+										fetch(`${API_BASE_URL}/projects`),
+										fetch(`${API_BASE_URL}/items`),
 								])
 								const projects = await projectsRes.json()
 								const items = await itemsRes.json()
