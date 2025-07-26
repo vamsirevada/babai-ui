@@ -18,7 +18,7 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
   ssl: {
-    rejectUnauthorized: process.env.NODE_ENV === 'production',
+    rejectUnauthorized: false, // Accept self-signed certificates
   },
 })
 
@@ -44,8 +44,8 @@ app.get('/projects', async (req, res) => {
     const result = await pool.query('SELECT id, name FROM projects')
     res.json(result.rows)
   } catch (error) {
-    console.error(error)
-    res.status(500).send('Server error')
+    console.error('Database error:', error)
+    res.status(500).json({ error: 'Server error' })
   }
 })
 
@@ -54,40 +54,7 @@ app.get('/inventory', async (req, res) => {
     const result = await pool.query('SELECT * FROM inventory')
     res.json(result.rows)
   } catch (error) {
-    console.error(error)
-    res.status(500).send('Server error')
-  }
-})
-
-// GET endpoint to fetch single inventory item by ID
-app.get('/review-order/:id', async (req, res) => {
-  try {
-    const { id } = req.params
-
-    if (!id) {
-      return res
-        .status(400)
-        .json({ error: 'Inventory ID parameter is required' })
-    }
-
-    console.log('Fetching inventory item for ID:', id)
-
-    // Query the database for specific inventory item
-    const result = await pool.query('SELECT * FROM inventory WHERE id = $1', [
-      id,
-    ])
-
-    if (result.rows.length === 0) {
-      return res.status(404).json({
-        error: 'Inventory item not found',
-        id: id,
-      })
-    }
-
-    // Return the found inventory item
-    res.json(result.rows[0])
-  } catch (error) {
-    console.error('Error in /inventory/:id:', error)
+    console.error('Database error:', error)
     res.status(500).json({ error: 'Server error' })
   }
 })
@@ -97,8 +64,37 @@ app.get('/items', async (req, res) => {
     const result = await pool.query('SELECT * FROM items')
     res.json(result.rows)
   } catch (error) {
-    console.error(error)
-    res.status(500).send('Server error')
+    console.error('Database error:', error)
+    res.status(500).json({ error: 'Server error' })
+  }
+})
+
+// GET endpoint to fetch review order data by ID (path parameter)
+app.get('/review-order/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+
+    if (!id) {
+      return res.status(400).json({ error: 'ID parameter is required' })
+    }
+
+    console.log('Fetching review order for ID:', id)
+
+    const result = await pool.query('SELECT * FROM inventory WHERE id = $1', [
+      id,
+    ])
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        error: 'Review order not found',
+        id: id,
+      })
+    }
+
+    res.json(result.rows[0])
+  } catch (error) {
+    console.error('Error in /review-order/:id:', error)
+    res.status(500).json({ error: 'Server error' })
   }
 })
 

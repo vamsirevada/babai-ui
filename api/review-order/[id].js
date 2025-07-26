@@ -1,4 +1,4 @@
-// api/inventory/[id].js - Vercel serverless function for getting inventory item by ID
+// api/review-order/[id].js - Vercel serverless function for review order by ID
 import { Pool } from 'pg'
 
 export default async function handler(req, res) {
@@ -39,12 +39,10 @@ export default async function handler(req, res) {
     const { id } = req.query
 
     if (!id) {
-      return res
-        .status(400)
-        .json({ error: 'Inventory ID parameter is required' })
+      return res.status(400).json({ error: 'ID parameter is required' })
     }
 
-    console.log('Fetching inventory item for ID:', id)
+    console.log('Fetching review order for ID:', id)
 
     // Create a connection pool
     const pool = new Pool({
@@ -69,15 +67,15 @@ export default async function handler(req, res) {
 
     if (result.rows.length === 0) {
       return res.status(404).json({
-        error: 'Inventory item not found',
+        error: 'Review order not found',
         id: id,
       })
     }
 
-    // Return the found inventory item
+    // Return the found review order
     res.json(result.rows[0])
 
-    console.log('Inventory Item Data:', result.rows[0])
+    console.log('Review Order Data:', result.rows[0])
   } catch (error) {
     console.error('Database error:', error)
     res.status(500).json({

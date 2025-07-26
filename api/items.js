@@ -54,6 +54,7 @@ export default async function handler(req, res) {
 
     await pool.end()
     res.json(result.rows)
+    console.log('Items data sent successfully:', result.rows)
   } catch (error) {
     console.error('Database error:', error)
     res.status(500).json({
