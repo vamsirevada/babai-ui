@@ -321,28 +321,6 @@ const ReviewOrder = () => {
 																))}
 														</div>
 												</Card>
-												<Card className="p-4 sm:p-6 mb-4 sm:mb-6">
-														<h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
-																Order Summary
-														</h2>
-														<div className="space-y-2 sm:space-y-3">
-																<div className="flex justify-between text-sm sm:text-base">
-																		<span>Items ({items.length})</span>
-																		<span>{formatCurrency(totalAmount)}</span>
-																</div>
-																<div className="flex justify-between text-sm sm:text-base">
-																		<span>Delivery Charges</span>
-																		<span className="text-green-600 font-medium">FREE</span>
-																</div>
-																<Separator/>
-																<div className="flex justify-between text-base sm:text-lg font-semibold">
-																		<span>Total Amount</span>
-																		<span className="text-green-600">
-                    {formatCurrency(totalAmount)}
-                  </span>
-																</div>
-														</div>
-												</Card>
 												<div
 														className="flex flex-col sm:flex-row gap-3 sm:gap-4 sticky bottom-0 bg-gray-50 py-4 -mx-3 lg:-mx-6 px-3 lg:px-6 border-t border-gray-200 sm:border-t-0 sm:bg-transparent sm:relative sm:py-0 sm:mx-0"
 												>
@@ -361,9 +339,7 @@ const ReviewOrder = () => {
 																className="w-full sm:flex-1 bg-green-600 hover:bg-green-700 h-12 sm:h-10 text-sm sm:text-base font-medium"
 																aria-label="Confirm Order"
 														>
-																{isSubmitting
-																		? 'Confirming Order...'
-																		: `Confirm Order • ${formatCurrency(totalAmount)}`}
+																Get Quote
 														</Button>
 												</div>
 										</form>

@@ -172,21 +172,6 @@ const OrderItemCard = ({
 								</div>
 						</div>
 						<div className="px-4 py-4">
-								<div className="flex items-center justify-between mb-4">
-										<div className="text-sm text-gray-600">
-            <span className="font-medium text-gray-900 text-base">
-              {formatCurrency(item.price)}
-            </span>
-												<span className="text-gray-500 ml-1">
-              per {item.unit}
-            </span>
-										</div>
-										<div className="text-right">
-												<div className="font-bold text-green-600 text-lg">
-														{formatCurrency(item.price * item.quantity)}
-												</div>
-										</div>
-								</div>
 								<div className="flex items-center justify-between">
 										<div className="flex items-center gap-3">
 												<label className="text-sm font-medium text-gray-700" htmlFor={`quantity-${item.id}`}>
