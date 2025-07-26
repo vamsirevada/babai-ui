@@ -59,6 +59,7 @@ export default async function handler(req, res) {
 
     await pool.end()
     res.json(reviewOrder.rows)
+    console.log('Review Order Data:', reviewOrder.rows)
   } catch (error) {
     console.error('Database error:', error)
     res.status(500).json({
