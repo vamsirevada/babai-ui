@@ -52,9 +52,7 @@ const ReviewOrder = () => {
 								setIsLoading(false)
 						}
 				}
-				fetchData().then(r =>
-						console.log(r)
-				)
+				fetchData()
 		}, [])
 
 		useEffect(() => {
