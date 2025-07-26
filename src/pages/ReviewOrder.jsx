@@ -10,7 +10,7 @@ import OrderItemCard from './OrderItemCard.jsx'
 const API_BASE_URL =
   process.env.NODE_ENV === 'production'
     ? '/api' // Vercel monorepo - backend API routes
-    : 'http://10.101.56.159:4000' || 'http://localhost:4000' // Local development
+    : 'http://10.101.56.159:4000' // Local development only
 
 const ReviewOrder = () => {
   const [userProjects, setUserProjects] = useState([])
@@ -45,11 +45,8 @@ const ReviewOrder = () => {
             projectsRes.status,
             itemsRes.status
           )
-          console.error(
-            'Response headers:',
-            projectsRes.headers,
-            itemsRes.headers
-          )
+          console.error('Projects response:', await projectsRes.text())
+          console.error('Items response:', await itemsRes.text())
           return
         }
 
