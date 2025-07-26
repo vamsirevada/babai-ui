@@ -5,7 +5,7 @@ import { Button } from '../components/ui/button'
 import { Card } from '../components/ui/card'
 import { Input } from '../components/ui/input'
 import OrderItemCard from './OrderItemCard.jsx'
-import { apiCall, getApiStatus } from '../utils/api.js'
+import { apiCall } from '../utils/api.js'
 
 const ReviewOrder = () => {
   // State management
