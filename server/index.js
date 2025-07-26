@@ -59,8 +59,6 @@ app.get('/inventory', async (req, res) => {
   }
 })
 
-app
-
 app.get('/items', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM items')
@@ -71,21 +69,40 @@ app.get('/items', async (req, res) => {
   }
 })
 
-// GET endpoint to fetch data by UUID
+// GET endpoint to fetch review order data by UUID
 app.get('/review-order/:uuid', async (req, res) => {
   try {
     const { uuid } = req.params
-    console.log(`uuid: ${uuid}`)
+    console.log(`Fetching review order for UUID: ${uuid}`)
+
+    // You can query multiple tables or a specific orders table
+    // For now, returning a basic structure that matches what the frontend expects
     const result = await pool.query('SELECT * FROM inventory WHERE id = $1', [
       uuid,
     ])
-    console.log(`result: ${JSON.stringify(result.rows)}`)
+
+    console.log(`Query result: ${JSON.stringify(result.rows)}`)
+
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: 'Item not found' })
+      // Return empty object or default structure instead of 404
+      // since the frontend seems to expect some data structure
+      return res.json({
+        uuid: uuid,
+        customerInfo: {},
+        items: [],
+        status: 'not_found',
+      })
     }
-    res.json(result.rows[0])
+
+    // Return the found data - you might want to structure this differently
+    // based on your database schema
+    res.json({
+      uuid: uuid,
+      data: result.rows[0],
+      status: 'found',
+    })
   } catch (error) {
-    console.error(error)
+    console.error('Error in /review-order/:uuid:', error)
     res.status(500).json({ error: 'Server error' })
   }
 })
