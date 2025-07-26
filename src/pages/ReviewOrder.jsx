@@ -4,7 +4,6 @@ import { Badge } from '../components/ui/badge'
 import { Button } from '../components/ui/button'
 import { Card } from '../components/ui/card'
 import { Input } from '../components/ui/input'
-import { Separator } from '../components/ui/separator'
 import OrderItemCard from './OrderItemCard.jsx'
 import { apiCall, getApiStatus } from '../utils/api.js'
 
@@ -15,7 +14,7 @@ const ReviewOrder = () => {
   const [items, setItems] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [apiStatus, setApiStatus] = useState(getApiStatus())
+  const [totalAmount, setTotalAmount] = useState(0)
 
   // URL parameters
   const [searchParams] = useSearchParams()
@@ -31,38 +30,17 @@ const ReviewOrder = () => {
     whatsappPhone: '',
   })
 
-  // Order management
-  const [orderStatus, setOrderStatus] = useState('draft')
-  const [orderNotes, setOrderNotes] = useState('')
-  const [deliveryDate, setDeliveryDate] = useState('')
-  const [discountPercentage, setDiscountPercentage] = useState(0)
-  const [taxPercentage, setTaxPercentage] = useState(18) // GST
-  const [totalAmount, setTotalAmount] = useState(0)
-  const [finalTotal, setFinalTotal] = useState(0)
-
   // Item editing
   const [editingItemId, setEditingItemId] = useState(null)
   const [editingItemName, setEditingItemName] = useState('')
 
   console.log('UUID from search params:', uuid)
 
-  // Calculate final total with tax and discount
-  useEffect(() => {
-    const subtotal = totalAmount
-    const discountAmount = (subtotal * discountPercentage) / 100
-    const taxableAmount = subtotal - discountAmount
-    const taxAmount = (taxableAmount * taxPercentage) / 100
-    const final = taxableAmount + taxAmount
-    setFinalTotal(final)
-  }, [totalAmount, discountPercentage, taxPercentage])
-
   // Fetch initial data
   useEffect(() => {
     ;(async () => {
       try {
         setIsLoading(true)
-        setApiStatus(getApiStatus())
-
         // Always fetch projects and items
         const fetchPromises = [apiCall('projects'), apiCall('items')]
 
@@ -107,9 +85,6 @@ const ReviewOrder = () => {
         }
       } catch (error) {
         console.error('Error fetching data:', error)
-        alert(
-          'Unable to load data. Please check your connection and try again.'
-        )
       } finally {
         setIsLoading(false)
       }
@@ -205,82 +180,10 @@ const ReviewOrder = () => {
     handleCancelClick()
   }
 
-  // Enhanced functionality
-  const saveDraft = async () => {
-    try {
-      const draftData = {
-        uuid,
-        customerInfo,
-        items,
-        orderNotes,
-        deliveryDate,
-        discountPercentage,
-        taxPercentage,
-        status: 'draft',
-        totalAmount: finalTotal,
-      }
-
-      const response = await apiCall('review-order/save-draft', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(draftData),
-      })
-
-      if (response.ok) {
-        alert('Draft saved successfully!')
-      } else {
-        throw new Error('Failed to save draft')
-      }
-    } catch (error) {
-      console.error('Error saving draft:', error)
-      alert('Failed to save draft. Please try again.')
-    }
-  }
-
-  const generatePDF = async () => {
-    try {
-      const response = await apiCall(`review-order/${uuid}/pdf`)
-
-      if (response.ok) {
-        const blob = await response.blob()
-        const url = window.URL.createObjectURL(blob)
-        const a = document.createElement('a')
-        a.href = url
-        a.download = `order-${uuid || 'draft'}.pdf`
-        a.click()
-        window.URL.revokeObjectURL(url)
-      } else {
-        throw new Error('Failed to generate PDF')
-      }
-    } catch (error) {
-      console.error('Error generating PDF:', error)
-      alert('PDF generation is not available at the moment.')
-    }
-  }
-
-  const sendWhatsApp = () => {
-    const message = `Order Details:\nCustomer: ${
-      customerInfo.whatsappName
-    }\nTotal: ₹${finalTotal.toFixed(2)}\nItems: ${items.length}\nDelivery: ${
-      deliveryDate || 'Not specified'
-    }`
-    const phoneNumber =
-      customerInfo.whatsappPhone?.replace(/[^\d]/g, '') || customerInfo.phone
-    if (phoneNumber) {
-      const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-        message
-      )}`
-      window.open(whatsappUrl, '_blank')
-    } else {
-      alert('Please provide a valid phone number.')
-    }
-  }
-
   // Form submission
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
-
     try {
       const orderData = {
         uuid,
@@ -291,32 +194,10 @@ const ReviewOrder = () => {
           address: customerInfo.address,
         },
         items,
-        orderNotes,
-        deliveryDate,
-        discountPercentage,
-        taxPercentage,
-        totalAmount: finalTotal,
-        status: 'confirmed',
+        totalAmount,
       }
-
-      // Save the order
-      const response = await apiCall('orders/create', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(orderData),
-      })
-
       if (response.ok) {
-        setOrderStatus('confirmed')
         console.log('Order submitted:', orderData)
-        alert('Order confirmed successfully! We will contact you shortly.')
-
-        // Optionally update inventory
-        await apiCall('inventory/update-stock', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ items }),
-        })
       } else {
         throw new Error('Failed to submit order')
       }
@@ -354,7 +235,7 @@ const ReviewOrder = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header with API Status */}
+      {/* Header */}
       <div className="bg-white border-b border-gray-200 sticky top-0 z-10 shadow-sm">
         <div className="max-w-6xl mx-auto px-3 sm:px-4 lg:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
@@ -380,6 +261,9 @@ const ReviewOrder = () => {
                 </p>
               </div>
             </div>
+            <Badge className="bg-green-100 text-green-700 border-green-200 text-xs sm:text-sm px-2 sm:px-3 py-1">
+              Order Confirmation
+            </Badge>
           </div>
         </div>
       </div>
@@ -500,116 +384,6 @@ const ReviewOrder = () => {
           </div>
         </Card>
 
-        {/* Enhanced Order Summary */}
-        <Card className="p-4 sm:p-6 mb-4 sm:mb-6">
-          <h3 className="text-lg font-semibold mb-4">Order Summary</h3>
-
-          {/* Discount and Tax Controls */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Discount (%)
-              </label>
-              <Input
-                type="number"
-                min="0"
-                max="100"
-                value={discountPercentage}
-                onChange={(e) => setDiscountPercentage(Number(e.target.value))}
-                className="w-full"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Tax/GST (%)
-              </label>
-              <Input
-                type="number"
-                min="0"
-                max="30"
-                value={taxPercentage}
-                onChange={(e) => setTaxPercentage(Number(e.target.value))}
-                className="w-full"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Expected Delivery Date
-              </label>
-              <Input
-                type="date"
-                value={deliveryDate}
-                onChange={(e) => setDeliveryDate(e.target.value)}
-                className="w-full"
-                min={new Date().toISOString().split('T')[0]}
-              />
-            </div>
-          </div>
-
-          {/* Order Notes */}
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Order Notes
-            </label>
-            <textarea
-              value={orderNotes}
-              onChange={(e) => setOrderNotes(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
-              rows="3"
-              placeholder="Special instructions, delivery notes, etc."
-            />
-          </div>
-
-          {/* Total Calculation */}
-          <div className="bg-gray-50 p-4 rounded-lg">
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <span>Subtotal:</span>
-                <span>{formatCurrency(totalAmount)}</span>
-              </div>
-              {discountPercentage > 0 && (
-                <div className="flex justify-between text-green-600">
-                  <span>Discount ({discountPercentage}%):</span>
-                  <span>
-                    -{formatCurrency((totalAmount * discountPercentage) / 100)}
-                  </span>
-                </div>
-              )}
-              {taxPercentage > 0 && (
-                <div className="flex justify-between">
-                  <span>Tax/GST ({taxPercentage}%):</span>
-                  <span>
-                    {formatCurrency(
-                      ((totalAmount -
-                        (totalAmount * discountPercentage) / 100) *
-                        taxPercentage) /
-                        100
-                    )}
-                  </span>
-                </div>
-              )}
-              <Separator />
-              <div className="flex justify-between font-bold text-lg">
-                <span>Final Total:</span>
-                <span>{formatCurrency(finalTotal)}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex flex-wrap gap-2 mt-6">
-            <Button onClick={saveDraft} variant="outline" type="button">
-              💾 Save Draft
-            </Button>
-            <Button onClick={generatePDF} variant="outline" type="button">
-              📄 Generate PDF
-            </Button>
-            <Button onClick={sendWhatsApp} variant="outline" type="button">
-              📱 Share WhatsApp
-            </Button>
-          </div>
-        </Card>
-
         {/* Submit Buttons */}
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 sticky bottom-0 bg-gray-50 py-4 -mx-3 lg:-mx-6 px-3 lg:px-6 border-t border-gray-200 sm:border-t-0 sm:bg-transparent sm:relative sm:py-0 sm:mx-0">
           <Button
@@ -619,28 +393,15 @@ const ReviewOrder = () => {
             onClick={() => window.history.back()}
             aria-label="Back to WhatsApp"
           >
-            ← Back to WhatsApp
+            Back to WhatsApp
           </Button>
           <Button
             type="submit"
             disabled={isSubmitting || items.length === 0}
-            className={`w-full sm:flex-1 h-12 sm:h-10 text-sm sm:text-base font-medium ${
-              orderStatus === 'confirmed'
-                ? 'bg-green-600 hover:bg-green-700'
-                : 'bg-blue-600 hover:bg-blue-700'
-            }`}
+            className="w-full sm:flex-1 bg-green-600 hover:bg-green-700 h-12 sm:h-10 text-sm sm:text-base font-medium"
             aria-label="Confirm Order"
           >
-            {isSubmitting ? (
-              <>
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                Processing...
-              </>
-            ) : orderStatus === 'confirmed' ? (
-              '✅ Order Confirmed'
-            ) : (
-              '📋 Get Quote'
-            )}
+            Get Quote
           </Button>
         </div>
       </form>
