@@ -39,6 +39,14 @@ const checkDbConnection = async () => {
 checkDbConnection()
 // --- END: Database Connection Check ---
 
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'OK',
+    server: 'local',
+    timestamp: new Date().toISOString(),
+  })
+})
+
 app.get('/projects', async (req, res) => {
   try {
     const result = await pool.query('SELECT id, name FROM projects')
