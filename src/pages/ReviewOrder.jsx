@@ -17,6 +17,7 @@ const ReviewOrder = () => {
   const [prefilledItems, setPrefilledItems] = useState([])
   const [searchParams] = useSearchParams()
   const uuid = searchParams.get('uuid')
+  console.log('UUID from search params:', uuid)
   const [items, setItems] = useState([])
   const [customerInfo, setCustomerInfo] = useState({
     name: '',

@@ -51,10 +51,9 @@ export default async function handler(req, res) {
     console.log(req.query.uuid)
 
     console.log('Attempting to connect to database...')
-    const reviewOrder = await pool.query(
-      'SELECT * FROM review_order WHERE id = $1',
-      [req.query.uuid]
-    )
+    const reviewOrder = await pool.query('SELECT * FROM items WHERE id = $1', [
+      req.query.uuid,
+    ])
     console.log('Database query successful, rows:', reviewOrder.rows.length)
 
     await pool.end()
