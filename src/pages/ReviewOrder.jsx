@@ -380,19 +380,6 @@ const ReviewOrder = () => {
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              {/* API Status Indicator */}
-              <Badge
-                variant={
-                  apiStatus.currentApi === 'local' ? 'default' : 'secondary'
-                }
-              >
-                {apiStatus.currentApi === 'local' ? '🟢 Local' : '🟡 Cloud'}
-              </Badge>
-              <Badge className="bg-green-100 text-green-700 border-green-200 text-xs sm:text-sm px-2 sm:px-3 py-1">
-                {orderStatus === 'confirmed' ? 'Confirmed' : 'Draft'}
-              </Badge>
-            </div>
           </div>
         </div>
       </div>
