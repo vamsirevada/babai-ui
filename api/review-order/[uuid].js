@@ -1,4 +1,4 @@
-// api/items.js - Vercel serverless function (converted from your Express route)
+// api/review-order/[uuid].js - Vercel serverless function for path parameter
 import { Pool } from 'pg'
 
 export default async function handler(req, res) {
@@ -35,7 +35,7 @@ export default async function handler(req, res) {
       })
     }
 
-    // Get UUID from query parameter
+    // Get UUID from path parameter
     const { uuid } = req.query
 
     if (!uuid) {

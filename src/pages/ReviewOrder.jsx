@@ -36,11 +36,19 @@ const ReviewOrder = () => {
   useEffect(() => {
     ;(async () => {
       try {
-        const [projectsRes, itemsRes, reviewOrderRes] = await Promise.all([
+        // Always fetch projects and items
+        const fetchPromises = [
           fetch(`${API_BASE_URL}/projects`),
           fetch(`${API_BASE_URL}/items`),
-          fetch(`${API_BASE_URL}/review-order/${uuid}`), // Fetch inventory if needed
-        ])
+        ]
+
+        // Only fetch review order if UUID exists
+        if (uuid) {
+          fetchPromises.push(fetch(`${API_BASE_URL}/review-order?uuid=${uuid}`))
+        }
+
+        const responses = await Promise.all(fetchPromises)
+        const [projectsRes, itemsRes, reviewOrderRes] = responses
 
         if (!projectsRes.ok || !itemsRes.ok) {
           console.error(
@@ -55,7 +63,20 @@ const ReviewOrder = () => {
 
         const projects = await projectsRes.json()
         const items = await itemsRes.json()
-        const reviewOrder = await reviewOrderRes.json()
+        let reviewOrder = null
+
+        // Process review order response if it exists
+        if (reviewOrderRes) {
+          if (reviewOrderRes.ok) {
+            reviewOrder = await reviewOrderRes.json()
+          } else {
+            console.error(
+              'Review Order response failed:',
+              reviewOrderRes.status,
+              await reviewOrderRes.text()
+            )
+          }
+        }
 
         console.log('Review Order Data:', reviewOrder)
 
@@ -67,7 +88,7 @@ const ReviewOrder = () => {
         setIsLoading(false)
       }
     })()
-  }, [])
+  }, [uuid])
 
   useEffect(() => {
     if (prefilledItems.length === 0) return
