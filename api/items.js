@@ -50,10 +50,15 @@ export default async function handler(req, res) {
 
     console.log('Attempting to connect to database...')
     const result = await pool.query('SELECT * FROM items')
+    const reviewOrder = await pool.query(
+      'SELECT * FROM review_order WHERE id = $1',
+      [req.query.uuid]
+    )
     console.log('Database query successful, rows:', result.rows.length)
 
     await pool.end()
     res.json(result.rows)
+    res.json(reviewOrder.rows)
   } catch (error) {
     console.error('Database error:', error)
     res.status(500).json({
