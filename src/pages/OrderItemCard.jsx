@@ -73,7 +73,6 @@ const OrderItemCard = ({
         const response = await apiCall('inventory')
         if (!response.ok) return
         const data = await response.json()
-        console.log('Fetched suggestions:', data)
         if (isMounted) setSuggestions(data)
       } catch (error) {
         console.error('Error fetching suggestions:', error)
