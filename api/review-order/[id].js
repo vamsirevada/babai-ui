@@ -1,4 +1,4 @@
-// api/review-order/[uuid].js - Vercel serverless function for path parameter
+// api/inventory/[id].js - Vercel serverless function for getting inventory item by ID
 import { Pool } from 'pg'
 
 export default async function handler(req, res) {
@@ -35,14 +35,16 @@ export default async function handler(req, res) {
       })
     }
 
-    // Get UUID from path parameter
-    const { uuid } = req.query
+    // Get ID from path parameter
+    const { id } = req.query
 
-    if (!uuid) {
-      return res.status(400).json({ error: 'UUID parameter is required' })
+    if (!id) {
+      return res
+        .status(400)
+        .json({ error: 'Inventory ID parameter is required' })
     }
 
-    console.log('Fetching order for UUID:', uuid)
+    console.log('Fetching inventory item for ID:', id)
 
     // Create a connection pool
     const pool = new Pool({
@@ -58,31 +60,24 @@ export default async function handler(req, res) {
     })
 
     console.log('Attempting to connect to database...')
-    const reviewOrder = await pool.query(
-      'SELECT * FROM inventory WHERE id = $1',
-      [uuid]
-    )
-    console.log('Database query successful, rows:', reviewOrder.rows.length)
+    const result = await pool.query('SELECT * FROM inventory WHERE id = $1', [
+      id,
+    ])
+    console.log('Database query successful, rows:', result.rows.length)
 
     await pool.end()
 
-    // Return structured response
-    if (reviewOrder.rows.length === 0) {
-      res.json({
-        uuid: uuid,
-        customerInfo: {},
-        items: [],
-        status: 'not_found',
-      })
-    } else {
-      res.json({
-        uuid: uuid,
-        data: reviewOrder.rows,
-        status: 'found',
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        error: 'Inventory item not found',
+        id: id,
       })
     }
 
-    console.log('Review Order Data:', reviewOrder.rows)
+    // Return the found inventory item
+    res.json(result.rows[0])
+
+    console.log('Inventory Item Data:', result.rows[0])
   } catch (error) {
     console.error('Database error:', error)
     res.status(500).json({

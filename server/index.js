@@ -59,6 +59,39 @@ app.get('/inventory', async (req, res) => {
   }
 })
 
+// GET endpoint to fetch single inventory item by ID
+app.get('/review-order/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+
+    if (!id) {
+      return res
+        .status(400)
+        .json({ error: 'Inventory ID parameter is required' })
+    }
+
+    console.log('Fetching inventory item for ID:', id)
+
+    // Query the database for specific inventory item
+    const result = await pool.query('SELECT * FROM inventory WHERE id = $1', [
+      id,
+    ])
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        error: 'Inventory item not found',
+        id: id,
+      })
+    }
+
+    // Return the found inventory item
+    res.json(result.rows[0])
+  } catch (error) {
+    console.error('Error in /inventory/:id:', error)
+    res.status(500).json({ error: 'Server error' })
+  }
+})
+
 app.get('/items', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM items')
@@ -66,86 +99,6 @@ app.get('/items', async (req, res) => {
   } catch (error) {
     console.error(error)
     res.status(500).send('Server error')
-  }
-})
-
-// GET endpoint to fetch review order data by UUID (query parameter)
-app.get('/review-order', async (req, res) => {
-  try {
-    const { uuid } = req.query
-
-    if (!uuid) {
-      return res.status(400).json({ error: 'UUID parameter is required' })
-    }
-
-    console.log('Fetching review order for UUID:', uuid)
-
-    // Validate UUID format (optional but recommended)
-    const uuidRegex =
-      /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-    if (!uuidRegex.test(uuid)) {
-      return res.status(400).json({ error: 'Invalid UUID format' })
-    }
-
-    // Query the database
-    const result = await pool.query('SELECT * FROM inventory WHERE id = $1', [
-      uuid,
-    ])
-
-    if (result.rows.length === 0) {
-      // Return empty structure instead of 404 to match production behavior
-      return res.json({
-        uuid: uuid,
-        customerInfo: {},
-        items: [],
-        status: 'not_found',
-      })
-    }
-
-    // Return the found data
-    res.json({
-      uuid: uuid,
-      data: result.rows,
-      status: 'found',
-    })
-  } catch (error) {
-    console.error('Error in /review-order:', error)
-    res.status(500).json({ error: 'Server error' })
-  }
-})
-
-// GET endpoint to fetch review order data by UUID (path parameter - legacy)
-app.get('/review-order/:uuid', async (req, res) => {
-  try {
-    const { uuid } = req.params
-
-    // You can query multiple tables or a specific orders table
-    // For now, returning a basic structure that matches what the frontend expects
-    const result = await pool.query('SELECT * FROM inventory WHERE id = $1', [
-      uuid,
-    ])
-
-    if (result.rows.length === 0) {
-      // Return empty object or default structure instead of 404
-      // since the frontend seems to expect some data structure
-      return res.json({
-        uuid: uuid,
-        customerInfo: {},
-        items: [],
-        status: 'not_found',
-      })
-    }
-
-    // Return the found data - you might want to structure this differently
-    // based on your database schema
-    res.json({
-      uuid: uuid,
-      data: result.rows[0],
-      status: 'found',
-    })
-  } catch (error) {
-    console.error('Error in /review-order/:uuid:', error)
-    res.status(500).json({ error: 'Server error' })
   }
 })
 
