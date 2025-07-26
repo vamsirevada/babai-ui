@@ -75,7 +75,6 @@ app.get('/items', async (req, res) => {
 app.get('/review-order/:uuid', async (req, res) => {
   try {
     const { uuid } = req.params
-
     const result = await pool.query('SELECT * FROM items WHERE id = $1', [uuid])
     console.log(`result: ${JSON.stringify(result.rows)}`)
     if (result.rows.length === 0) {
