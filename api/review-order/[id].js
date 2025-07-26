@@ -2,6 +2,12 @@
 import { Pool } from 'pg'
 
 export default async function handler(req, res) {
+  // CRITICAL DEBUG: Confirm this handler is being called
+  console.log('🚀 REVIEW ORDER HANDLER INVOKED!')
+  console.log('Request URL:', req.url)
+  console.log('Request method:', req.method)
+  console.log('Full req.query object:', JSON.stringify(req.query, null, 2))
+
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader(
@@ -35,8 +41,11 @@ export default async function handler(req, res) {
       })
     }
 
-    // Get ID from path parameter
+    // Get ID from path parameter (Vercel dynamic route)
     const { id } = req.query
+
+    console.log('Request query:', req.query)
+    console.log('Extracted ID:', id)
 
     if (!id) {
       return res.status(400).json({ error: 'ID parameter is required' })
