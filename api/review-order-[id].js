@@ -1,13 +1,12 @@
-// api/review-order/[id].js - Vercel serverless function for review order by ID
+// api/review-order-[id].js - Vercel dynamic route (flat structure)
 import { Pool } from 'pg'
 
 export default async function handler(req, res) {
   // CRITICAL DEBUG: Confirm this handler is being called
-  console.log('🚀 REVIEW ORDER DYNAMIC ROUTE HANDLER INVOKED!')
+  console.log('🚀 REVIEW ORDER [ID] HANDLER INVOKED!')
   console.log('Request URL:', req.url)
   console.log('Request method:', req.method)
   console.log('Full req.query object:', JSON.stringify(req.query, null, 2))
-  console.log('Environment check - VERCEL_ENV:', process.env.VERCEL_ENV)
 
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*')
@@ -18,13 +17,11 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
 
   if (req.method === 'OPTIONS') {
-    console.log('Responding to OPTIONS request')
     res.status(200).end()
     return
   }
 
   if (req.method !== 'GET') {
-    console.log('Method not allowed:', req.method)
     res.status(405).json({ error: 'Method not allowed' })
     return
   }
@@ -51,7 +48,6 @@ export default async function handler(req, res) {
     console.log('Extracted ID:', id)
 
     if (!id) {
-      console.log('No ID found in request')
       return res.status(400).json({ error: 'ID parameter is required' })
     }
 
@@ -79,7 +75,6 @@ export default async function handler(req, res) {
     await pool.end()
 
     if (result.rows.length === 0) {
-      console.log('No review order found with ID:', id)
       return res.status(404).json({
         error: 'Review order not found',
         id: id,
@@ -87,8 +82,9 @@ export default async function handler(req, res) {
     }
 
     // Return the found review order
-    console.log('Review Order Data:', result.rows[0])
     res.json(result.rows[0])
+
+    console.log('Review Order Data:', result.rows[0])
   } catch (error) {
     console.error('Database error:', error)
     res.status(500).json({
