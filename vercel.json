@@ -1,11 +1,11 @@
 {
   "rewrites": [
     {
-      "source": "/api/review-order/([^/]+)",
-      "destination": "/api/review-order?id=$1"
+      "source": "/api/review-order/:id",
+      "destination": "/api/review-order?id=:id"
     },
     {
-      "source": "/((?!api).*))",
+      "source": "/((?!api).*)",
       "destination": "/index.html"
     }
   ]
