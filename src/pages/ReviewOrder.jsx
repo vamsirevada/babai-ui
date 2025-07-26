@@ -44,7 +44,9 @@ const ReviewOrder = () => {
 
         // Only fetch review order if UUID exists
         if (uuid) {
-          fetchPromises.push(fetch(`${API_BASE_URL}/review-order?uuid=${uuid}`))
+          fetchPromises.push(
+            fetchPromises.push(fetch(`${API_BASE_URL}/review-order/${uuid}`))
+          )
         }
 
         const responses = await Promise.all(fetchPromises)

@@ -44,13 +44,6 @@ export default async function handler(req, res) {
 
     console.log('Fetching review order for UUID:', uuid)
 
-    // Validate UUID format (optional but recommended)
-    const uuidRegex =
-      /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-    if (!uuidRegex.test(uuid)) {
-      return res.status(400).json({ error: 'Invalid UUID format' })
-    }
-
     // Create a connection pool
     const pool = new Pool({
       user: process.env.DB_USER,
