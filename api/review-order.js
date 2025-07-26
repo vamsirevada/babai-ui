@@ -48,6 +48,8 @@ export default async function handler(req, res) {
       connectionTimeoutMillis: 10000, // 10 second timeout
     })
 
+    console.log(req.query.uuid)
+
     console.log('Attempting to connect to database...')
     const reviewOrder = await pool.query(
       'SELECT * FROM review_order WHERE id = $1',
