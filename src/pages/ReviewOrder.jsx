@@ -32,7 +32,7 @@ const ReviewOrder = () => {
 		const [editingItemName, setEditingItemName] = useState('')
 
 		useEffect(() => {
-				const fetchData = async () => {
+				;(async () => {
 						try {
 								const [projectsRes, itemsRes] = await Promise.all([
 										fetch(`${API_BASE_URL}/projects`),
@@ -51,8 +51,7 @@ const ReviewOrder = () => {
 						} finally {
 								setIsLoading(false)
 						}
-				}
-				fetchData()
+				})()
 		}, [])
 
 		useEffect(() => {
