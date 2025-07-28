@@ -149,6 +149,9 @@ const ReviewOrder = () => {
     initializeData()
   }, [searchParams, prefilledItems])
 
+  console.log('Initialized customer info:', customerInfo)
+  console.log('Initialized items:', items)
+
   // Calculate total amount
   useEffect(() => {
     setTotalAmount(
