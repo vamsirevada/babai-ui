@@ -4,7 +4,6 @@ import { Button } from '../components/ui/button'
 import CheckmarkIcon from '../assets/icons/checkmark.svg?react'
 import CloseIcon from '../assets/icons/close.svg?react'
 import { apiCall } from '../utils/api.js'
-import { Label } from 'recharts'
 
 const useDebouncedValue = (value, delay) => {
   const [debounced, setDebounced] = useState(value)
@@ -70,6 +69,8 @@ const OrderItemCard = ({
   setEditingItemName,
 }) => {
   const [suggestions, setSuggestions] = useState([])
+
+  console.log('OrderItemCard rendered:', item)
 
   useEffect(() => {
     let isMounted = true
