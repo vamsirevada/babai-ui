@@ -11,18 +11,9 @@ const app = express()
 // Enable CORS for all routes
 app.use(
   cors({
-    origin: [
-      'http://localhost:8080',
-      'http://192.168.29.20:8080',
-      'https://bab-ai-dashboard.vercel.app',
-      'https://*.vercel.app',
-    ], // Add your frontend URLs
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: [
-      'Content-Type',
-      'Authorization',
-      'ngrok-skip-browser-warning',
-    ],
+    origin: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH', 'HEAD'],
+    allowedHeaders: ['*'],
     credentials: true,
   })
 )
