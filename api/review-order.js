@@ -86,8 +86,8 @@ export default async function handler(req, res) {
       })
     }
 
-    console.log('Review Order Data:', result.rows[0])
-    res.json(result.rows[0])
+    console.log('Review Order Data:', result.rows)
+    res.json(result.rows)
   } catch (error) {
     console.error('Database error:', error)
     res.status(500).json({
