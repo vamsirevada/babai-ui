@@ -8,7 +8,18 @@ dotenv.config()
 const { Pool } = pkg
 
 const app = express()
-app.use(cors())
+// Enable CORS for all routes
+app.use(
+  cors({
+    origin: ['http://localhost:8080', 'http://192.168.29.20:3000'], // Add your frontend URLs
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'ngrok-skip-browser-warning',
+    ],
+  })
+)
 app.use(express.json())
 
 const pool = new Pool({

@@ -70,8 +70,6 @@ const OrderItemCard = ({
 }) => {
   const [suggestions, setSuggestions] = useState([])
 
-  console.log('OrderItemCard rendered:', item)
-
   useEffect(() => {
     let isMounted = true
     ;(async () => {

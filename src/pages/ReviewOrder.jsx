@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import { Badge } from '../components/ui/badge'
 import { Button } from '../components/ui/button'
 import { Card } from '../components/ui/card'
 import { Input } from '../components/ui/input'
 import OrderItemCard from './OrderItemCard.jsx'
 import { apiCall } from '../utils/api.js'
-import { set } from 'date-fns'
 
 const ReviewOrder = () => {
   // State management
@@ -16,6 +15,7 @@ const ReviewOrder = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [totalAmount, setTotalAmount] = useState(0)
+  const navigate = useNavigate()
 
   // URL parameters
   const [searchParams] = useSearchParams()
@@ -196,25 +196,80 @@ const ReviewOrder = () => {
     e.preventDefault()
     setIsSubmitting(true)
     try {
+      // Generate unique IDs for request and project
+      const requestId = crypto.randomUUID
+        ? crypto.randomUUID()
+        : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            const r = (Math.random() * 16) | 0
+            const v = c == 'x' ? r : (r & 0x3) | 0x8
+            return v.toString(16)
+          })
+
+      const projectId = crypto.randomUUID
+        ? crypto.randomUUID()
+        : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            const r = (Math.random() * 16) | 0
+            const v = c == 'x' ? r : (r & 0x3) | 0x8
+            return v.toString(16)
+          })
+
+      // Format order data according to API specification
       const orderData = {
-        uuid,
+        request_id: requestId,
+        project_id: projectId,
+        sender_id: customerInfo.whatsappPhone.replace(/\D/g, ''), // Remove non-digits
+        status: 'DRAFT',
+        delivery_location: customerInfo.address || 'Construction Site',
+        notes: `Order placed via BAB.AI Dashboard for ${
+          customerInfo.site || 'construction project'
+        }. Customer: ${customerInfo.whatsappName}`,
+        expected_delivery_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split('T')[0], // 7 days from now
+        user_editable: true,
+        items: items.map((item) => ({
+          material_name: item.material_name,
+          sub_type: item.sub_type || null,
+          dimensions: item.dimensions || null,
+          dimension_units: item.dimension_units || null,
+          quantity: item.quantity,
+          quantity_units: item.quantity_units || 'units',
+          unit_price: item.price || null,
+          status: 'DRAFT',
+          vendor_notes: null,
+        })),
+        // Keep original data for backward compatibility
         customerInfo: {
           name: customerInfo.whatsappName,
           phone: customerInfo.whatsappPhone,
-          site: customerInfo.site,
-          address: customerInfo.address,
+          site: customerInfo.site || 'Construction Site',
+          address: customerInfo.address || 'Delivery Address',
         },
-        items,
-        totalAmount,
+        uuid,
+        timestamp: new Date().toISOString(),
       }
-      if (response.ok) {
-        console.log('Order submitted:', orderData)
-      } else {
-        throw new Error('Failed to submit order')
+
+      try {
+        localStorage.setItem('orderData', JSON.stringify(orderData))
+        // Verify the data was stored correctly
+        const storedData = localStorage.getItem('orderData')
+        if (storedData) {
+          const parsedData = JSON.parse(storedData)
+          console.log('✅ Order data cached successfully:', parsedData)
+        } else {
+          throw new Error('Failed to store data in localStorage')
+        }
+      } catch (cacheError) {
+        console.error('❌ Cache error:', cacheError)
+        throw new Error('Failed to cache order data')
       }
+
+      console.log('🚀 Navigating to GetQuote page...')
+      navigate(`/get-quote?uuid=${uuid}`, {
+        state: { orderData },
+      })
     } catch (error) {
       console.error('Order submission failed:', error)
-      alert('Order submission failed. Please try again.')
     } finally {
       setIsSubmitting(false)
     }
@@ -327,7 +382,7 @@ const ReviewOrder = () => {
               </label>
               <select
                 id="site"
-                required
+                // required
                 value={customerInfo.site}
                 onChange={(e) =>
                   setCustomerInfo({ ...customerInfo, site: e.target.value })
@@ -351,7 +406,7 @@ const ReviewOrder = () => {
               </label>
               <Input
                 id="address"
-                required
+                // required
                 value={customerInfo.address}
                 onChange={(e) =>
                   setCustomerInfo({
@@ -406,13 +461,14 @@ const ReviewOrder = () => {
           >
             Back to WhatsApp
           </Button>
+
           <Button
             type="submit"
             disabled={isSubmitting || items.length === 0}
             className="w-full sm:flex-1 bg-green-600 hover:bg-green-700 h-12 sm:h-10 text-sm sm:text-base font-medium"
             aria-label="Confirm Order"
           >
-            Get Quote
+            Select Vendor
           </Button>
         </div>
       </form>
