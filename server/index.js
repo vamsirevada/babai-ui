@@ -69,7 +69,7 @@ app.get('/inventory', async (req, res) => {
 
 app.get('/items', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM items')
+    const result = await pool.query('SELECT * FROM material_request_items')
     res.json(result.rows)
   } catch (error) {
     console.error('Database error:', error)
@@ -88,9 +88,10 @@ app.get('/review-order/:id', async (req, res) => {
 
     console.log('Fetching review order for ID:', id)
 
-    const result = await pool.query('SELECT * FROM inventory WHERE id = $1', [
-      id,
-    ])
+    const result = await pool.query(
+      'SELECT * FROM material_request_items WHERE id = $1',
+      [id]
+    )
 
     if (result.rows.length === 0) {
       return res.status(404).json({
@@ -100,6 +101,7 @@ app.get('/review-order/:id', async (req, res) => {
     }
 
     res.json(result.rows[0])
+    console.log('Review Order Data:', result.rows[0])
   } catch (error) {
     console.error('Error in /review-order/:id:', error)
     res.status(500).json({ error: 'Server error' })

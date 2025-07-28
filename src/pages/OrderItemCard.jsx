@@ -141,7 +141,7 @@ const OrderItemCard = ({
           ) : (
             <>
               <h3 className="font-semibold text-gray-900 text-base truncate pr-2">
-                {item.name}
+                {item.material_name}
               </h3>
               <div className="flex items-center shrink-0">
                 <Button
@@ -181,7 +181,8 @@ const OrderItemCard = ({
             >
               Quantity:
             </label>
-            <Input
+            {item.quantity}
+            {/* <Input
               id={`quantity-${item.id}`}
               type="number"
               min="1"
@@ -189,7 +190,7 @@ const OrderItemCard = ({
               onChange={(e) => updateQuantity(item.id, e.target.value)}
               className="w-24 text-center font-semibold border-gray-300 focus:border-green-500 focus:ring-green-500"
               aria-label={`Quantity for ${item.name}`}
-            />
+            /> */}
           </div>
           <Button
             type="button"
