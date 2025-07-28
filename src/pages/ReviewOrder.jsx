@@ -125,6 +125,8 @@ const ReviewOrder = () => {
     })()
   }, [uuid])
 
+  console.log(uuid, 'UUID from URL:', uuid)
+
   // Initialize form data from URL parameters
   useEffect(() => {
     if (prefilledItems.length === 0) return
