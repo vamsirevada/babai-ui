@@ -39,7 +39,7 @@ const checkDbConnection = async () => {
 checkDbConnection()
 // --- END: Database Connection Check ---
 
-app.get('/health', (req, res) => {
+app.get('/', (req, res) => {
   res.json({
     status: 'OK',
     server: 'local',
@@ -81,27 +81,20 @@ app.get('/items', async (req, res) => {
 app.get('/review-order/:id', async (req, res) => {
   try {
     const { id } = req.params
-
     if (!id) {
       return res.status(400).json({ error: 'ID parameter is required' })
     }
-
-    console.log('Fetching review order for ID:', id)
-
     const result = await pool.query(
-      'SELECT * FROM material_request_items WHERE id = $1',
+      'SELECT * FROM material_request_items WHERE material_request_id = $1',
       [id]
     )
-
     if (result.rows.length === 0) {
       return res.status(404).json({
         error: 'Review order not found',
         id: id,
       })
     }
-
-    res.json(result.rows[0])
-    console.log('Review Order Data:', result.rows[0])
+    res.json(result.rows)
   } catch (error) {
     console.error('Error in /review-order/:id:', error)
     res.status(500).json({ error: 'Server error' })

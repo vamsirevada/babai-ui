@@ -14,7 +14,7 @@ const checkLocalServer = async () => {
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), 2000) // 2 second timeout
 
-    const response = await fetch(`${LOCAL_API}/health`, {
+    const response = await fetch(`${LOCAL_API}`, {
       method: 'GET',
       signal: controller.signal,
     })
