@@ -197,13 +197,6 @@ const ReviewOrder = () => {
     setIsSubmitting(true)
     try {
       // Generate unique IDs for request and project
-      const requestId = crypto.randomUUID
-        ? crypto.randomUUID()
-        : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            const r = (Math.random() * 16) | 0
-            const v = c == 'x' ? r : (r & 0x3) | 0x8
-            return v.toString(16)
-          })
 
       const projectId = crypto.randomUUID
         ? crypto.randomUUID()
@@ -215,7 +208,7 @@ const ReviewOrder = () => {
 
       // Format order data according to API specification
       const orderData = {
-        request_id: requestId,
+        request_id: uuid,
         project_id: projectId,
         sender_id: customerInfo.whatsappPhone.replace(/\D/g, ''), // Remove non-digits
         status: 'DRAFT',
@@ -248,6 +241,8 @@ const ReviewOrder = () => {
         uuid,
         timestamp: new Date().toISOString(),
       }
+
+      console.log('Submitting order data:', orderData)
 
       try {
         localStorage.setItem('orderData', JSON.stringify(orderData))
