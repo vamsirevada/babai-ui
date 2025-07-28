@@ -242,9 +242,7 @@ const OrderItemCard = ({
                         Material Name:{' '}
                       </span>
                       <span className="break-words">
-                        {formatText(
-                          item.material_name || item.name || 'Unknown Item'
-                        )}
+                        {formatText(item.material_name || 'Unknown Item')}
                       </span>
                     </span>
                   </div>
