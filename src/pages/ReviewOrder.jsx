@@ -65,6 +65,7 @@ const ReviewOrder = () => {
           reviewOrderData
         try {
           projects = await projectsRes.json()
+          console.log('Fetched projects:', projects)
           if (!Array.isArray(projects)) {
             console.warn('Projects data is not an array:', projects)
             projects = []
@@ -125,7 +126,7 @@ const ReviewOrder = () => {
     })()
   }, [uuid])
 
-  console.log(uuid, 'UUID from URL:', uuid)
+  console.log(prefilledItems, 'Prefilled items from API:', prefilledItems)
 
   // Initialize form data from URL parameters
   useEffect(() => {
