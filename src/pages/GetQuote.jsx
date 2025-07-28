@@ -147,9 +147,13 @@ const GetQuote = () => {
             headers: {
               'Content-Type': 'application/json',
               'ngrok-skip-browser-warning': 'true',
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+              'Access-Control-Allow-Headers': 'Content-Type',
             },
             body: JSON.stringify(orderData), // Use the enhanced orderData
             signal: controller.signal,
+            mode: 'cors',
           }
         )
         clearTimeout(timeoutId)
