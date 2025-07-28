@@ -90,6 +90,7 @@ const ReviewOrder = () => {
           if (reviewOrderRes.ok) {
             try {
               reviewOrderData = await reviewOrderRes.json()
+              console.log('Fetched review order data:', reviewOrderData)
               let orderItems = []
               if (Array.isArray(reviewOrderData)) {
                 orderItems = reviewOrderData
