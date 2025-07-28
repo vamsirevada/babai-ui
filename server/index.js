@@ -112,4 +112,10 @@ app.get('/review-order/:id', async (req, res) => {
   }
 })
 
+app.post('/submit-order', (req, res) => {
+  // Handle order submission logic here
+  console.log('Order received:', req.body)
+  res.json({ success: true, message: 'Order submitted successfully' })
+})
+
 app.listen(4000, () => console.log('Server running on port 4000'))

@@ -1,10 +1,9 @@
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import { Input } from '../components/ui/input.jsx'
 import { Button } from '../components/ui/button'
-import CheckmarkIcon from '../assets/icons/checkmark.svg?react'
-import CloseIcon from '../assets/icons/close.svg?react'
 import { apiCall } from '../utils/api.js'
 
+// Simple debounce hook
 const useDebouncedValue = (value, delay) => {
   const [debounced, setDebounced] = useState(value)
   useEffect(() => {
@@ -14,6 +13,7 @@ const useDebouncedValue = (value, delay) => {
   return debounced
 }
 
+// Suggestion dropdown component
 const SuggestionDropdown = ({
   inputValue,
   suggestions,
@@ -26,7 +26,7 @@ const SuggestionDropdown = ({
       .filter(
         (suggestion) =>
           suggestion.name
-            .toLowerCase()
+            ?.toLowerCase()
             .includes(debouncedInput.toLowerCase()) &&
           suggestion.name !== debouncedInput
       )
@@ -42,8 +42,6 @@ const SuggestionDropdown = ({
           key={suggestion.id}
           className="px-3 py-2 cursor-pointer hover:bg-gray-100 first:rounded-t-lg last:rounded-b-lg transition-colors text-sm"
           onClick={() => setEditingItemName(suggestion.name)}
-          tabIndex={0}
-          aria-label={`Suggestion: ${suggestion.name}`}
         >
           <div className="font-medium text-gray-900 truncate">
             {suggestion.name}
@@ -70,23 +68,27 @@ const OrderItemCard = ({
 }) => {
   const [suggestions, setSuggestions] = useState([])
 
+  // Fetch suggestions on mount
   useEffect(() => {
     let isMounted = true
-    ;(async () => {
+    const fetchSuggestions = async () => {
       try {
         const response = await apiCall('inventory')
-        if (!response.ok) return
-        const data = await response.json()
-        if (isMounted) setSuggestions(data)
+        if (response.ok && isMounted) {
+          const data = await response.json()
+          setSuggestions(Array.isArray(data) ? data : [])
+        }
       } catch (error) {
         console.error('Error fetching suggestions:', error)
       }
-    })()
+    }
+    fetchSuggestions()
     return () => {
       isMounted = false
     }
   }, [])
 
+  // Event handlers
   const handleInputChange = useCallback(
     (e) => setEditingItemName(e.target.value),
     [setEditingItemName]
@@ -100,7 +102,15 @@ const OrderItemCard = ({
     [item.id, editingItemName, updateItemName, handleCancelClick]
   )
 
-  // Helper function to format text
+  const handleQuantityChange = useCallback(
+    (e) => {
+      const newQuantity = Math.max(1, parseInt(e.target.value, 10) || 1)
+      updateQuantity(item.id, newQuantity)
+    },
+    [item.id, updateQuantity]
+  )
+
+  // Format text helper
   const formatText = (text) => {
     if (!text) return ''
     return text.replace(
@@ -112,36 +122,26 @@ const OrderItemCard = ({
     )
   }
 
+  const isEditing = editingItemId === item.id
+
   return (
-    <div className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden">
-      {/* Header Section - Responsive Name Display */}
-      <div className="px-4 py-3 bg-gradient-to-r from-gray-50 to-white border-b border-gray-100">
-        <div className="flex items-start justify-between gap-2 sm:gap-4 sm:items-center">
-          {editingItemId === item.id ? (
-            // Editing mode - responsive inline edit
-            <div className="flex-grow">
-              {/* Desktop layout */}
-              <div className="hidden sm:flex items-center gap-2">
-                {/* Always show Material Name label */}
+    <div className="bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
+      {/* Header Section */}
+      <div className="px-4 py-3 bg-gray-50 border-b border-gray-100">
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex-1 min-w-0">
+            {isEditing ? (
+              <div className="flex items-center gap-2">
                 <span className="text-sm font-medium text-gray-700 whitespace-nowrap">
                   Material Name:
                 </span>
-                {/* Inline input with auto-sizing */}
-                <div className="relative">
+                <div className="relative flex-1 max-w-xs">
                   <Input
                     value={editingItemName}
                     onChange={handleInputChange}
-                    className="h-8 text-sm border-2 border-blue-300 focus:border-blue-500 px-2"
-                    style={{
-                      width: `${Math.max(
-                        editingItemName.length * 8 + 24,
-                        120
-                      )}px`,
-                      maxWidth: '250px',
-                    }}
-                    autoFocus
                     onKeyDown={handleKeyDown}
-                    aria-label="Edit item name"
+                    className="h-8 text-sm border-2 border-blue-300 focus:border-blue-500"
+                    autoFocus
                     placeholder="Enter item name"
                   />
                   {editingItemName && (
@@ -152,113 +152,45 @@ const OrderItemCard = ({
                     />
                   )}
                 </div>
-
-                {/* Confirm and Cancel buttons */}
-                <div className="flex items-center gap-1 ml-2">
+                <div className="flex items-center gap-1">
                   <Button
                     type="button"
                     size="sm"
                     onClick={() => updateItemName(item.id, editingItemName)}
-                    className="bg-green-600 hover:bg-green-700 h-8 w-8 p-0 flex-shrink-0"
-                    aria-label="Confirm edit"
+                    className="bg-green-600 hover:bg-green-700 h-8 w-8 p-0"
                   >
-                    <CheckmarkIcon className="w-4 h-4" />
+                    ✓
                   </Button>
                   <Button
                     type="button"
                     size="sm"
                     variant="ghost"
                     onClick={handleCancelClick}
-                    className="hover:bg-red-50 text-red-600 h-8 w-8 p-0 flex-shrink-0"
-                    aria-label="Cancel edit"
+                    className="hover:bg-red-50 text-red-600 h-8 w-8 p-0"
                   >
-                    <CloseIcon className="w-4 h-4" />
+                    ✕
                   </Button>
                 </div>
               </div>
-
-              {/* Mobile layout - stacked */}
-              <div className="sm:hidden space-y-3">
+            ) : (
+              <div className="flex items-center justify-between">
                 <div>
-                  <span className="text-sm font-medium text-gray-700 block mb-2">
-                    Material Name:
+                  <span className="text-sm font-medium text-gray-700">
+                    Material Name:{' '}
                   </span>
-                  <div className="relative">
-                    <Input
-                      value={editingItemName}
-                      onChange={handleInputChange}
-                      className="h-10 text-sm border-2 border-blue-300 focus:border-blue-500 px-3 w-full"
-                      autoFocus
-                      onKeyDown={handleKeyDown}
-                      aria-label="Edit item name"
-                      placeholder="Enter item name"
-                    />
-                    {editingItemName && (
-                      <SuggestionDropdown
-                        inputValue={editingItemName}
-                        suggestions={suggestions}
-                        setEditingItemName={setEditingItemName}
-                      />
-                    )}
-                  </div>
+                  <span className="font-semibold text-gray-900">
+                    {formatText(item.material_name || 'Unknown Item')}
+                  </span>
                 </div>
-
-                {/* Mobile action buttons */}
-                <div className="flex items-center gap-3 justify-center">
-                  <Button
-                    type="button"
-                    size="sm"
-                    onClick={() => updateItemName(item.id, editingItemName)}
-                    className="bg-green-600 hover:bg-green-700 px-4 py-2 text-sm"
-                    aria-label="Confirm edit"
-                  >
-                    <CheckmarkIcon className="w-4 h-4" />
-                    <span>Save</span>
-                  </Button>
-                  <Button
-                    type="button"
-                    size="sm"
-                    variant="outline"
-                    onClick={handleCancelClick}
-                    className="border-red-300 text-red-600 hover:bg-red-50 px-4 py-2 text-sm"
-                    aria-label="Cancel edit"
-                  >
-                    <CloseIcon />
-                    <span>Cancel</span>
-                  </Button>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <>
-              <div className="flex-1 min-w-0">
-                {/* Material name display */}
-                <div className="flex items-start gap-2 sm:gap-3 text-sm">
-                  <div className="flex-1 min-w-0">
-                    <span className="font-semibold text-gray-900 block">
-                      <span className="text-sm font-medium text-gray-700">
-                        Material Name:{' '}
-                      </span>
-                      <span className="break-words">
-                        {formatText(item.material_name || 'Unknown Item')}
-                      </span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Edit Button */}
-              <div className="flex items-start shrink-0">
                 <Button
                   type="button"
                   variant="ghost"
                   size="sm"
                   onClick={() => handleEditClick(item)}
-                  className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 px-2 py-1 sm:px-3 sm:py-2"
-                  aria-label={`Edit ${item.material_name}`}
+                  className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
                 >
                   <svg
-                    className="w-4 h-4 sm:mr-1.5"
+                    className="w-4 h-4 mr-1"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -270,71 +202,92 @@ const OrderItemCard = ({
                       d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L14.732 3.732z"
                     />
                   </svg>
-                  <span className="hidden sm:inline">Edit</span>
+                  Edit
                 </Button>
               </div>
-            </>
-          )}
+            )}
+          </div>
         </div>
       </div>
 
-      {/* Details Section - Responsive layout */}
-      <div className="px-4 py-4">
-        {/* Desktop layout */}
-        <div className="hidden sm:flex items-center justify-between">
-          {/* Quantity Display */}
-          <div className="flex items-center gap-3 flex-wrap">
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-gray-700">
-                Quantity:
-              </span>
-              <span className="font-semibold text-gray-900">
-                {item.quantity} {item.quantity_units || 'units'}
-              </span>
-            </div>
-
-            {/* Separator and Sub Type */}
-            {item.sub_type && (
-              <>
-                <div className="text-gray-400">|</div>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium text-gray-700">
-                    Sub Type:
-                  </span>
-                  <span className="text-gray-700 font-medium">
-                    {formatText(item.sub_type)}
-                  </span>
-                </div>
-              </>
-            )}
-
-            {/* Separator and Dimensions */}
-            {item.dimensions && (
-              <>
-                <div className="text-gray-400">|</div>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium text-gray-700">
-                    Dimensions:
-                  </span>
-                  <span className="text-gray-600 font-medium">
-                    {item.dimensions}
-                  </span>
-                </div>
-              </>
-            )}
+      {/* Details Section */}
+      <div className="px-4 py-4 space-y-3">
+        {/* Quantity */}
+        <div className="flex items-center justify-between">
+          <span className="text-sm font-medium text-gray-700">Quantity:</span>
+          <div className="flex items-center gap-2">
+            <Input
+              type="number"
+              min="1"
+              value={item.quantity || 1}
+              onChange={handleQuantityChange}
+              className="w-20 h-8 text-center text-sm"
+            />
+            <span className="text-sm text-gray-600">
+              {item.quantity_units || 'units'}
+            </span>
           </div>
+        </div>
 
-          {/* Remove Button */}
+        {/* Sub Type */}
+        {item.sub_type && (
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium text-gray-700">Sub Type:</span>
+            <span className="text-sm text-gray-900 font-medium">
+              {formatText(item.sub_type)}
+            </span>
+          </div>
+        )}
+
+        {/* Dimensions */}
+        {item.dimensions && (
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium text-gray-700">
+              Dimensions:
+            </span>
+            <span className="text-sm text-gray-900 font-medium">
+              {item.dimensions}
+            </span>
+          </div>
+        )}
+
+        {/* Unit Price */}
+        {item.unit_price && (
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium text-gray-700">
+              Unit Price:
+            </span>
+            <span className="text-sm text-gray-900 font-medium">
+              {formatCurrency
+                ? formatCurrency(item.unit_price)
+                : `₹${item.unit_price}`}
+            </span>
+          </div>
+        )}
+
+        {/* Total Price */}
+        {item.unit_price && item.quantity && (
+          <div className="flex items-center justify-between pt-2 border-t border-gray-100">
+            <span className="text-sm font-semibold text-gray-700">Total:</span>
+            <span className="text-sm font-bold text-green-600">
+              {formatCurrency
+                ? formatCurrency(item.unit_price * item.quantity)
+                : `₹${(item.unit_price * item.quantity).toLocaleString()}`}
+            </span>
+          </div>
+        )}
+
+        {/* Remove Button */}
+        <div className="pt-2">
           <Button
             type="button"
-            variant="ghost"
+            variant="outline"
             size="sm"
             onClick={() => removeItem(item.id)}
-            className="text-red-500 hover:text-red-700 hover:bg-red-50 px-3 py-2 rounded-lg transition-colors duration-200 flex-shrink-0"
-            aria-label={`Remove ${item.material_name}`}
+            className="w-full text-red-600 border-red-200 hover:bg-red-50 hover:border-red-300"
           >
             <svg
-              className="w-4 h-4 mr-1"
+              className="w-4 h-4 mr-2"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -346,78 +299,8 @@ const OrderItemCard = ({
                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
               />
             </svg>
-            Remove
+            Remove Item
           </Button>
-        </div>
-
-        {/* Mobile layout - stacked with better spacing */}
-        <div className="sm:hidden space-y-4">
-          {/* Quantity in its own card */}
-          <div className="bg-gray-50 p-3 rounded-lg">
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-gray-700">
-                Quantity:
-              </span>
-              <span className="font-semibold text-gray-900">
-                {item.quantity} {item.quantity_units || 'units'}
-              </span>
-            </div>
-          </div>
-
-          {/* Sub Type in its own card */}
-          {item.sub_type && (
-            <div className="bg-gray-50 p-3 rounded-lg">
-              <div className="flex items-center justify-between space-y-1">
-                <span className="text-sm font-medium text-gray-700 block">
-                  Sub Type:
-                </span>
-                <span className="text-gray-700 font-medium text-sm block break-words">
-                  {formatText(item.sub_type)}
-                </span>
-              </div>
-            </div>
-          )}
-
-          {/* Dimensions in its own card */}
-          {item.dimensions && (
-            <div className="bg-gray-50 p-3 rounded-lg">
-              <div className="flex items-center justify-between space-y-1">
-                <span className="text-sm font-medium text-gray-700 block">
-                  Dimensions:
-                </span>
-                <span className="text-gray-600 font-medium text-sm block break-words">
-                  {item.dimensions}
-                </span>
-              </div>
-            </div>
-          )}
-
-          {/* Remove button in its own row */}
-          <div className="pt-2">
-            <Button
-              type="button"
-              variant="destructive"
-              size="sm"
-              onClick={() => removeItem(item.id)}
-              className="bg-red-500 hover:bg-red-600 text-white w-full"
-              aria-label={`Remove ${item.material_name}`}
-            >
-              <svg
-                className="w-4 h-4 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                />
-              </svg>
-              Remove Item
-            </Button>
-          </div>
         </div>
       </div>
     </div>
