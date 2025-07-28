@@ -71,7 +71,7 @@ export default async function handler(req, res) {
 
     console.log('Attempting to connect to database...')
     const result = await pool.query(
-      'SELECT * FROM material_requests WHERE material_request_id = $1',
+      'SELECT * FROM material_request_items WHERE material_request_id = $1',
       [id]
     )
     console.log('Database query successful, rows:', result.rows.length)
