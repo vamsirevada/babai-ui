@@ -15,10 +15,11 @@ export const EditModal = ({
   suggestions = [],
   isLoading = false,
 }) => {
+  console.log('EditModal rendered with item:', item)
   const [formData, setFormData] = useState({
-    item: '',
-    subtype: '',
-    size: '',
+    material_name: '',
+    sub_type: '',
+    dimensions: '',
     quantity: 1,
   })
   const [showSuggestions, setShowSuggestions] = useState(false)
@@ -28,9 +29,9 @@ export const EditModal = ({
   useEffect(() => {
     if (isOpen && item) {
       setFormData({
-        item: item.item || '',
-        subtype: item.subtype || '',
-        size: item.size || '',
+        material_name: item.material_name || '', // Use API field names
+        sub_type: item.sub_type || '', // Use API field names
+        dimensions: item.dimensions || '', // Use API field names
         quantity: item.quantity || 1,
       })
       setErrors({})
@@ -69,8 +70,8 @@ export const EditModal = ({
   const validateForm = () => {
     const newErrors = {}
 
-    if (!formData.item.trim()) {
-      newErrors.item = 'Item name is required'
+    if (!formData.material_name.trim()) {
+      newErrors.material_name = 'Material name is required'
     }
 
     if (!formData.quantity || formData.quantity < 1) {
@@ -88,15 +89,15 @@ export const EditModal = ({
   }
 
   const handleSuggestionSelect = (suggestion) => {
-    handleInputChange('item', suggestion)
+    handleInputChange('material_name', suggestion)
     setShowSuggestions(false)
   }
 
   const filteredSuggestions = suggestions
     .filter(
       (s) =>
-        s.toLowerCase().includes(formData.item.toLowerCase()) &&
-        s.toLowerCase() !== formData.item.toLowerCase()
+        s.toLowerCase().includes(formData.material_name.toLowerCase()) &&
+        s.toLowerCase() !== formData.material_name.toLowerCase()
     )
     .slice(0, 5)
 
@@ -131,15 +132,24 @@ export const EditModal = ({
             <div className="relative">
               <Input
                 type="text"
-                value={formData.item}
-                onChange={(e) => handleInputChange('item', e.target.value)}
-                placeholder="Enter item name"
-                className={`h-12 ${errors.item ? 'border-red-500' : ''}`}
-                aria-describedby={errors.item ? 'item-error' : undefined}
+                value={formData.material_name}
+                onChange={(e) =>
+                  handleInputChange('material_name', e.target.value)
+                }
+                placeholder="Enter material name"
+                className={`h-12 ${
+                  errors.material_name ? 'border-red-500' : ''
+                }`}
+                aria-describedby={
+                  errors.material_name ? 'material_name-error' : undefined
+                }
               />
-              {errors.item && (
-                <p id="item-error" className="text-sm text-red-600 mt-1">
-                  {errors.item}
+              {errors.material_name && (
+                <p
+                  id="material_name-error"
+                  className="text-sm text-red-600 mt-1"
+                >
+                  {errors.material_name}
                 </p>
               )}
 
@@ -166,7 +176,7 @@ export const EditModal = ({
             <label className="text-sm font-medium text-gray-700">Subtype</label>
             <Input
               type="text"
-              value={formData.subtype}
+              value={formData.sub_type}
               onChange={(e) => handleInputChange('subtype', e.target.value)}
               placeholder="Enter subtype"
               className="h-12"
@@ -180,8 +190,8 @@ export const EditModal = ({
             </label>
             <Input
               type="text"
-              value={formData.size}
-              onChange={(e) => handleInputChange('size', e.target.value)}
+              value={formData.dimensions}
+              onChange={(e) => handleInputChange('dimensions', e.target.value)}
               placeholder="Enter size or unit"
               className="h-12"
             />
