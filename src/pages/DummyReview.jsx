@@ -5,8 +5,17 @@ import { Badge } from '../components/ui/badge'
 import { Card } from '../components/ui/card'
 import { EditModal } from '../components/ui/edit-modal'
 import { useIsMobile } from '../hooks/use-media-query'
-import { useNavigate } from 'react-router-dom'
-import { Edit2, Trash2, Plus, Minus } from 'lucide-react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { apiCall } from '../utils/api'
+import {
+  Edit2,
+  Trash2,
+  Plus,
+  Minus,
+  RefreshCw,
+  AlertCircle,
+} from 'lucide-react'
+import { use } from 'react'
 
 /**
  * Responsive TableRow component for desktop view
@@ -345,6 +354,9 @@ const ItemCard = memo(({ item, onEdit, onDelete }) => {
  * Automatically switches between table (desktop) and card (mobile) layouts
  */
 const DummyReview = () => {
+  // URL parameters and navigation
+  const { searchParams } = useSearchParams()
+  const navigate = useNavigate()
   // State management
   const [orderData, setOrderData] = useState([
     {
@@ -389,7 +401,7 @@ const DummyReview = () => {
 
   // Responsive hook
   const isMobile = useIsMobile()
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   // Customer info state
   const [customerInfo] = useState({
@@ -696,7 +708,7 @@ const DummyReview = () => {
             {isSubmitting ? (
               <>
                 <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2" />
-                Preparing Order...
+                Listing Vendors...
               </>
             ) : (
               'Select Vendor'
