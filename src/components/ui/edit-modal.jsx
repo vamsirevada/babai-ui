@@ -277,7 +277,7 @@ export const EditModal = ({
             <Button
               onClick={handleSave}
               disabled={isLoading}
-              className="flex-1 h-12 bg-green-600 hover:bg-green-700"
+              className="flex-1 h-12 bg-black hover:bg-gray-800 text-white"
             >
               {isLoading ? (
                 <>

@@ -7,7 +7,6 @@ import { EditModal } from '../components/ui/edit-modal'
 import { useIsMobile } from '../hooks/use-media-query'
 import { useNavigate } from 'react-router-dom'
 import { Edit2, Trash2, Plus, Minus } from 'lucide-react'
-import '../styles/dummy-review-responsive.css'
 
 /**
  * Responsive TableRow component for desktop view
@@ -85,9 +84,11 @@ const TableRow = memo(
       (field, value) => {
         const isEditing = editingCell === `${row.id}-${field}`
         const cellId = `cell-${row.id}-${field}`
+        const isAnyEditing = editingCell && editingCell.startsWith(row.id)
+        const shouldShowEditIcon = !isEditing && (!isAnyEditing || !editingCell)
 
         return (
-          <td className="table-cell px-4 py-3 border-b border-gray-200 relative">
+          <td className="bg-white hover:bg-gray-50 transition-colors duration-150 cursor-pointer px-4 py-3 border-b border-gray-200 relative group">
             {/* Changed from group to table-cell for individual hover */}
             <div className="flex items-center justify-between min-h-[32px]">
               {isEditing ? (
@@ -99,7 +100,7 @@ const TableRow = memo(
                     onChange={(e) => setTempValue(e.target.value)}
                     onBlur={() => saveEdit(field)}
                     onKeyDown={(e) => handleKeyPress(e, field)}
-                    className="inline-edit-input h-8 text-sm focus-ring"
+                    className="w-full border border-gray-300 rounded px-3 py-2 bg-white text-gray-900 placeholder-gray-500 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 focus:border-gray-500 hover:border-gray-400 h-8 text-sm"
                     autoFocus
                     min={field === 'quantity' ? 1 : undefined}
                     aria-label={`Edit ${field}`}
@@ -146,15 +147,17 @@ const TableRow = memo(
                           </span>
                         )}
                   </span>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => startEdit(field)}
-                    className="ml-2 h-6 w-6 p-0 edit-button touch-target"
-                    aria-label={`Edit ${field}`}
-                  >
-                    <Edit2 className="h-3 w-3" />
-                  </Button>
+                  {shouldShowEditIcon && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => startEdit(field)}
+                      className="ml-2 h-6 w-6 p-0 hover:bg-gray-100 hover:scale-105 active:scale-95 min-h-[44px] min-w-[44px] rounded border border-gray-300 bg-white shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                      aria-label={`Edit ${field}`}
+                    >
+                      <Edit2 className="h-3 w-3" />
+                    </Button>
+                  )}
                 </>
               )}
             </div>
@@ -176,6 +179,9 @@ const TableRow = memo(
 
     const renderQuantityCell = useCallback(
       (value) => {
+        const isAnyEditing = editingCell && editingCell.startsWith(row.id)
+        const shouldShowEditIcon = !isAnyEditing || !editingCell
+
         const handleIncrement = () =>
           onCellEdit(row.id, 'quantity', (value || 0) + 1)
         const handleDecrement = () => {
@@ -191,7 +197,7 @@ const TableRow = memo(
         }
 
         return (
-          <td className="table-cell px-4 py-3 border-b border-gray-200 relative">
+          <td className="bg-white hover:bg-gray-50 transition-colors duration-150 cursor-pointer px-4 py-3 border-b border-gray-200 relative">
             <div className="flex items-center justify-between min-h-[32px]">
               {/* Desktop: Increment/Decrement Controls */}
               <div className="hidden md:flex items-center gap-1 w-fit">
@@ -229,15 +235,17 @@ const TableRow = memo(
                 <span className="text-sm font-medium text-gray-900">
                   {value || 1}
                 </span>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => startEdit('quantity')}
-                  className="edit-button touch-target h-6 w-6 p-0"
-                  aria-label="Edit quantity"
-                >
-                  <Edit2 className="h-3 w-3" />
-                </Button>
+                {shouldShowEditIcon && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => startEdit('quantity')}
+                    className="hover:bg-gray-100 hover:scale-105 active:scale-95 min-h-[44px] min-w-[44px] rounded border border-gray-300 bg-white shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                    aria-label="Edit quantity"
+                  >
+                    <Edit2 className="h-3 w-3" />
+                  </Button>
+                )}
               </div>
             </div>
           </td>
@@ -247,7 +255,7 @@ const TableRow = memo(
     )
 
     return (
-      <tr className="table-row desktop-hover responsive-transition">
+      <tr className="border-b border-gray-200 hover:bg-gray-50 transition-colors duration-150">
         {renderCell('item', row.item)}
         {renderCell('subtype', row.subtype)}
         {renderCell('size', row.size)}
@@ -274,7 +282,7 @@ const TableRow = memo(
  */
 const ItemCard = memo(({ item, onEdit, onDelete }) => {
   return (
-    <Card className="mobile-card p-4 mb-4 responsive-transition">
+    <Card className="bg-white rounded-lg shadow-sm border border-gray-200 transition-all duration-200 p-4 mb-4 hover:shadow-md focus-within:shadow-md focus-within:ring-2 focus-within:ring-gray-500 focus-within:ring-opacity-25">
       <div className="space-y-3">
         {/* Header */}
         <div className="flex items-start justify-between">
@@ -293,7 +301,7 @@ const ItemCard = memo(({ item, onEdit, onDelete }) => {
               variant="outline"
               size="sm"
               onClick={() => onEdit(item)}
-              className="touch-target h-9 w-9 p-0 focus-ring"
+              className="min-h-[44px] min-w-[44px] rounded border border-gray-300 bg-white shadow-sm transition-all duration-150 hover:bg-gray-100 hover:scale-105 active:scale-95 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 h-9 w-9 p-0"
               aria-label={`Edit ${item.item || 'item'}`}
             >
               <Edit2 className="h-4 w-4" />
@@ -302,7 +310,7 @@ const ItemCard = memo(({ item, onEdit, onDelete }) => {
               variant="outline"
               size="sm"
               onClick={() => onDelete(item.id)}
-              className="touch-target h-9 w-9 p-0 text-red-600 hover:text-red-700 hover:bg-red-50 focus-ring"
+              className="min-h-[44px] min-w-[44px] rounded border border-gray-300 bg-white shadow-sm transition-all duration-150 hover:scale-105 active:scale-95 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 h-9 w-9 p-0 text-red-600 hover:text-red-700 hover:bg-red-50"
               aria-label={`Delete ${item.item || 'item'}`}
             >
               <Trash2 className="h-4 w-4" />
@@ -514,7 +522,7 @@ const DummyReview = () => {
   }, [orderData, customerInfo, navigate])
 
   return (
-    <div className="dummy-review-container">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 px-2 sm:px-4 lg:px-6 xl:px-8 py-6">
       {/* Header - Responsive */}
       <div className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -561,7 +569,7 @@ const DummyReview = () => {
       </div>
 
       {/* Main Content */}
-      <div className="large-desktop-container px-4 sm:px-6 lg:px-8 py-4 sm:py-6 tablet-optimized">
+      <div className="max-w-screen-2xl mx-auto min-h-screen px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-4 sm:py-6 transition-all duration-300 ease-in-out">
         {/* Customer Information Card */}
         <Card className="p-4 sm:p-6 mb-4 sm:mb-6">
           <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">
@@ -611,7 +619,7 @@ const DummyReview = () => {
           {/* Desktop Table View */}
           {!isMobile && (
             <div className="overflow-x-auto">
-              <table className="desktop-table" role="table">
+              <table className="w-full border-collapse bg-white" role="table">
                 <thead>
                   <tr className="border-b-2 border-gray-200">
                     <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
@@ -687,7 +695,7 @@ const DummyReview = () => {
           >
             {isSubmitting ? (
               <>
-                <div className="loading-spinner w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2" />
+                <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2" />
                 Preparing Order...
               </>
             ) : (
