@@ -141,7 +141,7 @@ const GetQuote = () => {
         const controller = new AbortController()
         const timeoutId = setTimeout(() => controller.abort(), 5000)
         const response = await fetch(
-          'https://optimal-shrimp-roughly.ngrok-free.app/submit-order',
+          'https://bug-saving-frog.ngrok-free.app/submit-order',
           {
             method: 'POST',
             headers: {
