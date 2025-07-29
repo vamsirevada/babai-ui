@@ -1,4 +1,4 @@
-import React, { useState, useCallback, memo } from 'react'
+import React, { useState, useCallback, memo, useEffect } from 'react'
 import { Button } from '../components/ui/button'
 import { Input } from '../components/ui/input'
 import { Badge } from '../components/ui/badge'
@@ -7,20 +7,9 @@ import { EditModal } from '../components/ui/edit-modal'
 import { useIsMobile } from '../hooks/use-media-query'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { apiCall } from '../utils/api'
-import {
-  Edit2,
-  Trash2,
-  Plus,
-  Minus,
-  RefreshCw,
-  AlertCircle,
-} from 'lucide-react'
-import { use } from 'react'
+import { Edit2, Trash2, Plus, Minus } from 'lucide-react'
 
-/**
- * Responsive TableRow component for desktop view
- * Features inline editing with accessibility support
- */
+// Simplified TableRow component
 const TableRow = memo(
   ({
     row,
@@ -33,53 +22,29 @@ const TableRow = memo(
     const [tempValue, setTempValue] = useState('')
     const [showSuggestions, setShowSuggestions] = useState(false)
 
-    const startEdit = useCallback(
-      (field) => {
-        setEditingCell(`${row.id}-${field}`)
-        setTempValue(row[field] || '')
-        if (field === 'item') {
-          setShowSuggestions(true)
+    const handleEdit = useCallback(
+      (field, value = row[field] || '') => {
+        const cellKey = `${row.id}-${field}`
+        if (editingCell === cellKey) {
+          // Save edit
+          if (field === 'quantity' && (isNaN(value) || value <= 0)) {
+            alert('Please enter a valid quantity greater than 0')
+            return
+          }
+          onCellEdit(row.id, field, value)
+          setEditingCell(null)
+          setShowSuggestions(false)
+        } else {
+          // Start edit
+          setEditingCell(cellKey)
+          setTempValue(value)
+          setShowSuggestions(field === 'material_name')
         }
       },
-      [row.id, row, setEditingCell]
+      [row, editingCell, setEditingCell, onCellEdit, tempValue]
     )
 
-    const saveEdit = useCallback(
-      (field) => {
-        if (field === 'quantity' && (isNaN(tempValue) || tempValue <= 0)) {
-          alert('Please enter a valid quantity greater than 0')
-          return
-        }
-        onCellEdit(row.id, field, tempValue)
-        setEditingCell(null)
-        setShowSuggestions(false)
-      },
-      [row.id, tempValue, onCellEdit, setEditingCell]
-    )
-
-    const cancelEdit = useCallback(() => {
-      setEditingCell(null)
-      setTempValue('')
-      setShowSuggestions(false)
-    }, [setEditingCell])
-
-    const handleKeyPress = useCallback(
-      (e, field) => {
-        if (e.key === 'Enter') {
-          e.preventDefault()
-          saveEdit(field)
-        } else if (e.key === 'Escape') {
-          e.preventDefault()
-          cancelEdit()
-        }
-      },
-      [saveEdit, cancelEdit]
-    )
-
-    const selectSuggestion = useCallback((suggestion) => {
-      setTempValue(suggestion)
-      setShowSuggestions(false)
-    }, [])
+    const isEditing = (field) => editingCell === `${row.id}-${field}`
 
     const filteredSuggestions = suggestions
       .filter(
@@ -89,185 +54,106 @@ const TableRow = memo(
       )
       .slice(0, 5)
 
-    const renderCell = useCallback(
-      (field, value) => {
-        const isEditing = editingCell === `${row.id}-${field}`
-        const cellId = `cell-${row.id}-${field}`
-        const isAnyEditing = editingCell && editingCell.startsWith(row.id)
-        const shouldShowEditIcon = !isEditing && (!isAnyEditing || !editingCell)
-
-        return (
-          <td className="bg-white hover:bg-gray-50 transition-colors duration-150 cursor-pointer px-4 py-3 border-b border-gray-200 relative group">
-            {/* Changed from group to table-cell for individual hover */}
-            <div className="flex items-center justify-between min-h-[32px]">
-              {isEditing ? (
-                <div className="relative flex-1">
-                  <Input
-                    id={cellId}
-                    type={field === 'quantity' ? 'number' : 'text'}
-                    value={tempValue}
-                    onChange={(e) => setTempValue(e.target.value)}
-                    onBlur={() => saveEdit(field)}
-                    onKeyDown={(e) => handleKeyPress(e, field)}
-                    className="w-full border border-gray-300 rounded px-3 py-2 bg-white text-gray-900 placeholder-gray-500 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 focus:border-gray-500 hover:border-gray-400 h-8 text-sm"
-                    autoFocus
-                    min={field === 'quantity' ? 1 : undefined}
-                    aria-label={`Edit ${field}`}
-                  />
-                  {field === 'item' &&
-                    showSuggestions &&
-                    filteredSuggestions.length > 0 && (
-                      <div className="absolute top-full left-0 bg-white border rounded-lg shadow-lg mt-1 z-20 min-w-48 max-w-80">
-                        {filteredSuggestions.map((suggestion, idx) => (
-                          <button
-                            key={idx}
-                            type="button"
-                            className="w-full px-3 py-2 text-left cursor-pointer hover:bg-gray-100 first:rounded-t-lg last:rounded-b-lg transition-colors text-sm"
-                            onClick={() => selectSuggestion(suggestion)}
-                          >
-                            {suggestion}
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                </div>
-              ) : (
-                <>
-                  <span
-                    className="text-sm font-medium text-gray-900 flex-1 cursor-pointer hover:bg-gray-50 px-2 py-1 rounded transition-colors"
-                    onClick={() => startEdit(field)}
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault()
-                        startEdit(field)
-                      }
-                    }}
-                    aria-label={`${field}: ${
-                      value || 'Click to add'
-                    }. Press Enter to edit.`}
-                  >
-                    {field === 'quantity'
-                      ? `${value}`
-                      : value || (
-                          <span className="text-gray-400 italic">
-                            Click to add...
-                          </span>
-                        )}
-                  </span>
-                  {shouldShowEditIcon && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => startEdit(field)}
-                      className="ml-2 h-6 w-6 p-0 hover:bg-gray-100 hover:scale-105 active:scale-95 min-h-[44px] min-w-[44px] rounded border border-gray-300 bg-white shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                      aria-label={`Edit ${field}`}
+    const renderCell = (field, value) => (
+      <td
+        className="bg-white hover:bg-gray-50 px-4 py-3 border-b border-gray-200 cursor-pointer group"
+        onClick={() => handleEdit(field)}
+      >
+        {isEditing(field) ? (
+          <div className="relative">
+            <Input
+              type={field === 'quantity' ? 'number' : 'text'}
+              value={tempValue}
+              onChange={(e) => setTempValue(e.target.value)}
+              onBlur={() => handleEdit(field, tempValue)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') handleEdit(field, tempValue)
+                if (e.key === 'Escape') setEditingCell(null)
+              }}
+              className="h-8 text-sm"
+              autoFocus
+              min={field === 'quantity' ? 1 : undefined}
+            />
+            {field === 'material_name' &&
+              showSuggestions &&
+              filteredSuggestions.length > 0 && (
+                <div className="absolute top-full left-0 bg-white border rounded-lg shadow-lg mt-1 z-20 min-w-48">
+                  {filteredSuggestions.map((suggestion, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      className="w-full px-3 py-2 text-left hover:bg-gray-100 first:rounded-t-lg last:rounded-b-lg text-sm"
+                      onClick={() => {
+                        setTempValue(suggestion)
+                        setShowSuggestions(false)
+                      }}
                     >
-                      <Edit2 className="h-3 w-3" />
-                    </Button>
-                  )}
-                </>
+                      {suggestion}
+                    </button>
+                  ))}
+                </div>
               )}
-            </div>
-          </td>
-        )
-      },
-      [
-        editingCell,
-        row.id,
-        tempValue,
-        showSuggestions,
-        filteredSuggestions,
-        startEdit,
-        saveEdit,
-        handleKeyPress,
-        selectSuggestion,
-      ]
+          </div>
+        ) : (
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium text-gray-900">
+              {field === 'quantity'
+                ? value
+                : value || (
+                    <span className="text-gray-400 italic">
+                      Click to add...
+                    </span>
+                  )}
+            </span>
+            <Edit2 className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+          </div>
+        )}
+      </td>
     )
 
-    const renderQuantityCell = useCallback(
-      (value) => {
-        const isAnyEditing = editingCell && editingCell.startsWith(row.id)
-        const shouldShowEditIcon = !isAnyEditing || !editingCell
-
-        const handleIncrement = () =>
-          onCellEdit(row.id, 'quantity', (value || 0) + 1)
-        const handleDecrement = () => {
-          if ((value || 0) > 1) {
-            onCellEdit(row.id, 'quantity', (value || 0) - 1)
-          }
-        }
-        const handleDirectEdit = (newValue) => {
-          const numValue = parseInt(newValue) || 1
-          if (numValue >= 1) {
-            onCellEdit(row.id, 'quantity', numValue)
-          }
-        }
-
-        return (
-          <td className="bg-white hover:bg-gray-50 transition-colors duration-150 cursor-pointer px-4 py-3 border-b border-gray-200 relative">
-            <div className="flex items-center justify-between min-h-[32px]">
-              {/* Desktop: Increment/Decrement Controls */}
-              <div className="hidden md:flex items-center gap-1 w-fit">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleDecrement}
-                  disabled={(value || 0) <= 1}
-                  className="h-8 w-8 p-0 text-gray-600 hover:text-gray-800"
-                  aria-label="Decrease quantity"
-                >
-                  <Minus className="h-3 w-3" />
-                </Button>
-                <Input
-                  type="number"
-                  value={value || 1}
-                  onChange={(e) => handleDirectEdit(e.target.value)}
-                  className="h-8 w-16 text-center text-sm"
-                  min="1"
-                  aria-label="Quantity"
-                />
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleIncrement}
-                  className="h-8 w-8 p-0 text-gray-600 hover:text-gray-800"
-                  aria-label="Increase quantity"
-                >
-                  <Plus className="h-3 w-3" />
-                </Button>
-              </div>
-
-              {/* Mobile: Simple display with edit option */}
-              <div className="md:hidden flex items-center justify-between w-full">
-                <span className="text-sm font-medium text-gray-900">
-                  {value || 1}
-                </span>
-                {shouldShowEditIcon && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => startEdit('quantity')}
-                    className="hover:bg-gray-100 hover:scale-105 active:scale-95 min-h-[44px] min-w-[44px] rounded border border-gray-300 bg-white shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                    aria-label="Edit quantity"
-                  >
-                    <Edit2 className="h-3 w-3" />
-                  </Button>
-                )}
-              </div>
-            </div>
-          </td>
-        )
-      },
-      [row.id, onCellEdit, startEdit]
+    const renderQuantityCell = (value) => (
+      <td className="bg-white hover:bg-gray-50 px-4 py-3 border-b border-gray-200">
+        <div className="hidden md:flex items-center gap-1">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() =>
+              onCellEdit(row.id, 'quantity', Math.max(1, (value || 1) - 1))
+            }
+            disabled={value <= 1}
+            className="h-8 w-8 p-0"
+          >
+            <Minus className="h-3 w-3" />
+          </Button>
+          <Input
+            type="number"
+            value={value || 1}
+            onChange={(e) =>
+              onCellEdit(row.id, 'quantity', parseInt(e.target.value) || 1)
+            }
+            className="h-8 w-16 text-center text-sm"
+            min="1"
+          />
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => onCellEdit(row.id, 'quantity', (value || 1) + 1)}
+            className="h-8 w-8 p-0"
+          >
+            <Plus className="h-3 w-3" />
+          </Button>
+        </div>
+        <div className="md:hidden" onClick={() => handleEdit('quantity')}>
+          <span className="text-sm font-medium">{value || 1}</span>
+        </div>
+      </td>
     )
 
     return (
-      <tr className="border-b border-gray-200 hover:bg-gray-50 transition-colors duration-150">
-        {renderCell('item', row.item)}
-        {renderCell('subtype', row.subtype)}
-        {renderCell('size', row.size)}
+      <tr className="border-b border-gray-200 hover:bg-gray-50">
+        {renderCell('material_name', row.material_name)}
+        {renderCell('sub_type', row.sub_type)}
+        {renderCell('dimensions', row.dimensions)}
         {renderQuantityCell(row.quantity)}
         <td className="px-4 py-3 border-b border-gray-200 text-center">
           <Button
@@ -275,7 +161,6 @@ const TableRow = memo(
             size="sm"
             onClick={() => onDeleteRow(row.id)}
             className="text-red-600 hover:text-red-700 hover:bg-red-50 h-8 w-8 p-0"
-            aria-label={`Delete item ${row.item || 'untitled'}`}
           >
             <Trash2 className="h-4 w-4" />
           </Button>
@@ -285,133 +170,86 @@ const TableRow = memo(
   }
 )
 
-/**
- * Mobile-optimized ItemCard component
- * Features card-based layout with touch-friendly interactions
- */
-const ItemCard = memo(({ item, onEdit, onDelete }) => {
-  return (
-    <Card className="bg-white rounded-lg shadow-sm border border-gray-200 transition-all duration-200 p-4 mb-4 hover:shadow-md focus-within:shadow-md focus-within:ring-2 focus-within:ring-gray-500 focus-within:ring-opacity-25">
-      <div className="space-y-3">
-        {/* Header */}
-        <div className="flex items-start justify-between">
-          <div className="flex-1 min-w-0">
-            <h3 className="font-medium text-gray-900 truncate">
-              {item.item || (
-                <span className="text-gray-400 italic">Unnamed item</span>
-              )}
-            </h3>
-            {item.subtype && (
-              <p className="text-sm text-gray-600 mt-1">{item.subtype}</p>
-            )}
-          </div>
-          <div className="flex gap-2 ml-3">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => onEdit(item)}
-              className="min-h-[44px] min-w-[44px] rounded border border-gray-300 bg-white shadow-sm transition-all duration-150 hover:bg-gray-100 hover:scale-105 active:scale-95 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 h-9 w-9 p-0"
-              aria-label={`Edit ${item.item || 'item'}`}
-            >
-              <Edit2 className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => onDelete(item.id)}
-              className="min-h-[44px] min-w-[44px] rounded border border-gray-300 bg-white shadow-sm transition-all duration-150 hover:scale-105 active:scale-95 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 h-9 w-9 p-0 text-red-600 hover:text-red-700 hover:bg-red-50"
-              aria-label={`Delete ${item.item || 'item'}`}
-            >
-              <Trash2 className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-
-        {/* Details */}
-        <div className="flex justify-between items-start text-sm">
-          <div>
-            <span className="text-gray-500">Size/Unit:</span>
-            <p className="font-medium text-gray-900 mt-1">
-              {item.size || (
-                <span className="text-gray-400 italic">Not specified</span>
-              )}
-            </p>
-          </div>
-          <div className="text-right">
-            <span className="text-gray-500">Quantity:</span>
-            <p className="font-medium text-gray-900 mt-1">
-              {item.quantity || 1}
-            </p>
-          </div>
-        </div>
+// Simplified ItemCard component
+const ItemCard = memo(({ item, onEdit, onDelete }) => (
+  <Card className="p-4 mb-4 hover:shadow-md transition-shadow">
+    <div className="flex justify-between items-start mb-3">
+      <div className="flex-1">
+        <h3 className="font-medium text-gray-900">
+          {item.material_name || (
+            <span className="text-gray-400 italic">Unnamed item</span>
+          )}
+        </h3>
+        {item.sub_type && (
+          <p className="text-sm text-gray-600 mt-1">{item.sub_type}</p>
+        )}
       </div>
-    </Card>
-  )
-})
+      <div className="flex gap-2">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => onEdit(item)}
+          className="h-9 w-9 p-0"
+        >
+          <Edit2 className="h-4 w-4" />
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => onDelete(item.id)}
+          className="h-9 w-9 p-0 text-red-600 hover:text-red-700 hover:bg-red-50"
+        >
+          <Trash2 className="h-4 w-4" />
+        </Button>
+      </div>
+    </div>
+    <div className="flex justify-between text-sm">
+      <div>
+        <span className="text-gray-500">Size/Unit:</span>
+        <p className="font-medium mt-1">
+          {item.dimensions || (
+            <span className="text-gray-400 italic">Not specified</span>
+          )}
+        </p>
+      </div>
+      <div className="text-right">
+        <span className="text-gray-500">Quantity:</span>
+        <p className="font-medium mt-1">{item.quantity || 1}</p>
+      </div>
+    </div>
+  </Card>
+))
 
-/**
- * Main DummyReview component with responsive design
- * Automatically switches between table (desktop) and card (mobile) layouts
- */
+// Main component
 const DummyReview = () => {
-  // URL parameters and navigation
-  const { searchParams } = useSearchParams()
+  const [searchParams] = useSearchParams()
   const navigate = useNavigate()
-  // State management
-  const [orderData, setOrderData] = useState([
-    {
-      id: 1,
-      item: 'Cement',
-      subtype: 'OPC 53 Grade',
-      size: '50 kg Bag',
-      quantity: 100,
-      unitPrice: 500,
-    },
-    {
-      id: 2,
-      item: 'Concrete Block',
-      subtype: 'Solid',
-      size: '16 x 8 x 8 in',
-      quantity: 500,
-      unitPrice: 25,
-    },
-    {
-      id: 3,
-      item: 'Steel Bar',
-      subtype: 'TMT Rebar',
-      size: '12 mm',
-      quantity: 250,
-      unitPrice: 65,
-    },
-    {
-      id: 4,
-      item: 'Sand',
-      subtype: 'River Sand',
-      size: 'Per Ton',
-      quantity: 20,
-      unitPrice: 1500,
-    },
-  ])
-
-  const [editingCell, setEditingCell] = useState(null)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [editModalOpen, setEditModalOpen] = useState(false)
-  const [editingItem, setEditingItem] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
-
-  // Responsive hook
   const isMobile = useIsMobile()
-  // const navigate = useNavigate()
+  const uuid = searchParams.get('uuid')
 
-  // Customer info state
-  const [customerInfo] = useState({
-    name: 'Rajesh Kumar',
-    phone: '+91 98765 43210',
-    site: 'Residential Construction - Phase 2',
-    address: '123 Construction Site, Bangalore, Karnataka 560001',
+  // Consolidated state
+  const [state, setState] = useState({
+    orderData: [],
+    userProjects: [],
+    isLoading: true,
+    editingCell: null,
+    isSubmitting: false,
+    editModalOpen: false,
+    editingItem: null,
   })
 
-  // Material suggestions for autocomplete
+  // Customer info - simplified
+  const [customerInfo, setCustomerInfo] = useState({
+    name: searchParams.get('name') || 'Rajesh Kumar',
+    phone: searchParams.get('phone') || '+91 98765 43210',
+    site: searchParams.get('site') || 'Residential Construction - Phase 2',
+    address:
+      searchParams.get('address') ||
+      '123 Construction Site, Bangalore, Karnataka 560001',
+    whatsappName: searchParams.get('name') || 'Rajesh Kumar',
+    whatsappPhone: searchParams.get('phone') || '+91 98765 43210',
+  })
+
   const materialSuggestions = [
     'Cement',
     'Steel Bar',
@@ -425,81 +263,130 @@ const DummyReview = () => {
     'Tiles',
     'Marble',
     'Wood',
-    'Glass',
-    'Aluminum',
-    'Copper Pipes',
-    'Insulation Material',
   ]
 
-  // Event handlers
-  const handleCellEdit = useCallback((rowId, field, value) => {
-    setOrderData((prevData) =>
-      prevData.map((item) =>
-        item.id === rowId ? { ...item, [field]: value } : item
-      )
-    )
-  }, [])
+  // Simplified data loading
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const promises = [apiCall('projects'), apiCall('items')]
+        if (uuid) promises.push(apiCall(`review-order/${uuid}`))
 
-  const handleDeleteRow = useCallback((rowId) => {
-    setOrderData((prevData) => prevData.filter((item) => item.id !== rowId))
-  }, [])
+        const [projectsRes, itemsRes, reviewOrderRes] = await Promise.all(
+          promises
+        )
+
+        let projects = []
+        if (projectsRes?.ok) {
+          try {
+            projects = await projectsRes.json()
+            if (!Array.isArray(projects)) projects = []
+          } catch (err) {
+            console.error('Projects response error:', err)
+          }
+        }
+
+        let orderItems = []
+        if (uuid && reviewOrderRes?.ok) {
+          try {
+            const reviewOrderData = await reviewOrderRes.json()
+            orderItems = Array.isArray(reviewOrderData)
+              ? reviewOrderData.map((item, index) => ({
+                  id: item.id || index + 1,
+                  ...item,
+                }))
+              : [{ id: 1, ...reviewOrderData }]
+          } catch (err) {
+            console.error('ReviewOrder response error:', err)
+          }
+        }
+
+        setState((prev) => ({
+          ...prev,
+          userProjects: projects,
+          orderData: orderItems,
+          isLoading: false,
+        }))
+      } catch (error) {
+        console.error('Error loading data:', error)
+        setState((prev) => ({ ...prev, isLoading: false }))
+      }
+    }
+    loadData()
+  }, [uuid])
+
+  // Event handlers - simplified
+  const updateState = useCallback(
+    (updates) => setState((prev) => ({ ...prev, ...updates })),
+    []
+  )
+
+  const handleCellEdit = useCallback(
+    (rowId, field, value) => {
+      updateState({
+        orderData: state.orderData.map((item) =>
+          item.id === rowId ? { ...item, [field]: value } : item
+        ),
+      })
+    },
+    [state.orderData, updateState]
+  )
+
+  const handleDeleteRow = useCallback(
+    (rowId) => {
+      updateState({
+        orderData: state.orderData.filter((item) => item.id !== rowId),
+      })
+    },
+    [state.orderData, updateState]
+  )
 
   const handleAddRow = useCallback(() => {
-    const newId = Math.max(...orderData.map((item) => item.id), 0) + 1
+    const newId = Math.max(...state.orderData.map((item) => item.id), 0) + 1
     const newRow = {
       id: newId,
-      item: '',
-      subtype: '',
-      size: '',
+      material_name: '',
+      sub_type: '',
+      dimensions: '',
       quantity: 1,
-      unitPrice: 0,
+      unit_price: 0,
     }
-    setOrderData((prev) => [...prev, newRow])
 
-    // Open edit modal for new item on mobile
+    updateState({ orderData: [...state.orderData, newRow] })
+
     if (isMobile) {
-      setEditingItem(newRow)
-      setEditModalOpen(true)
+      updateState({ editingItem: newRow, editModalOpen: true })
     }
-  }, [orderData, isMobile])
+  }, [state.orderData, isMobile, updateState])
 
-  const handleEditItem = useCallback((item) => {
-    setEditingItem(item)
-    setEditModalOpen(true)
-  }, [])
+  const handleEditItem = useCallback(
+    (item) => {
+      updateState({ editingItem: item, editModalOpen: true })
+    },
+    [updateState]
+  )
 
   const handleSaveItem = useCallback(
     async (formData) => {
-      setIsLoading(true)
+      updateState({ isLoading: true })
+      await new Promise((resolve) => setTimeout(resolve, 500)) // Simulate API delay
 
-      try {
-        // Simulate API delay
-        await new Promise((resolve) => setTimeout(resolve, 500))
-
-        if (editingItem) {
-          setOrderData((prevData) =>
-            prevData.map((item) =>
-              item.id === editingItem.id ? { ...item, ...formData } : item
-            )
-          )
-        }
-
-        setEditModalOpen(false)
-        setEditingItem(null)
-      } catch (error) {
-        console.error('Error saving item:', error)
-        alert('Failed to save item. Please try again.')
-      } finally {
-        setIsLoading(false)
-      }
+      updateState({
+        orderData: state.orderData.map((item) =>
+          item.id === state.editingItem.id ? { ...item, ...formData } : item
+        ),
+        editModalOpen: false,
+        editingItem: null,
+        isLoading: false,
+      })
     },
-    [editingItem]
+    [state.orderData, state.editingItem, updateState]
   )
 
   const handleSubmit = useCallback(async () => {
-    // Validation
-    const invalidItems = orderData.filter(
-      (item) => !item.item?.trim() || !item.quantity || item.quantity <= 0
+    const invalidItems = state.orderData.filter(
+      (item) =>
+        !item.material_name?.trim() || !item.quantity || item.quantity <= 0
     )
 
     if (invalidItems.length > 0) {
@@ -507,35 +394,65 @@ const DummyReview = () => {
       return
     }
 
-    setIsSubmitting(true)
+    if (!customerInfo.address.trim()) {
+      alert('Please enter a delivery address.')
+      return
+    }
+
+    updateState({ isSubmitting: true })
 
     try {
-      // Simulate API call to prepare order data
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      // Store order data for vendor selection
-      const orderSummary = {
+      const projectId = crypto.randomUUID?.() || Date.now().toString()
+      const orderDataPayload = {
+        request_id: uuid,
+        project_id: projectId,
+        sender_id: customerInfo.whatsappPhone.replace(/\D/g, ''),
+        status: 'DRAFT',
+        delivery_location: customerInfo.address,
+        notes: `Order placed via BAB.AI Dashboard for ${customerInfo.site}. Customer: ${customerInfo.whatsappName}`,
+        expected_delivery_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split('T')[0],
+        user_editable: true,
+        items: state.orderData.map((item) => ({
+          material_name: item.material_name,
+          sub_type: item.sub_type || null,
+          dimensions: item.dimensions || null,
+          quantity: item.quantity || 1,
+          quantity_units: 'units',
+          unit_price: item.unit_price || null,
+          status: 'DRAFT',
+        })),
         customerInfo,
-        items: orderData,
         timestamp: new Date().toISOString(),
       }
 
-      // Store in localStorage for the vendor selection page
-      localStorage.setItem('orderSummary', JSON.stringify(orderSummary))
-
-      // Navigate to vendor selection
-      navigate('/select-vendors')
+      localStorage.setItem('orderData', JSON.stringify(orderDataPayload))
+      navigate(`/select-vendors?uuid=${uuid || projectId}`, {
+        state: { orderData: orderDataPayload },
+      })
     } catch (error) {
-      console.error('Error preparing order:', error)
-      alert('Failed to prepare order. Please try again.')
+      console.error('Order submission failed:', error)
+      alert(`Order submission failed: ${error.message}`)
     } finally {
-      setIsSubmitting(false)
+      updateState({ isSubmitting: false })
     }
-  }, [orderData, customerInfo, navigate])
+  }, [state.orderData, customerInfo, navigate, uuid, updateState])
+
+  if (state.isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-4 border-gray-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-gray-600">Loading your order...</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 px-2 sm:px-4 lg:px-6 xl:px-8 py-6">
-      {/* Header - Responsive */}
+      {/* Header */}
       <div className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
@@ -556,7 +473,6 @@ const DummyReview = () => {
                 <p className="text-xs sm:text-sm text-gray-500">Order Review</p>
               </div>
             </div>
-
             <div className="flex items-center gap-3">
               <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-gray-800 rounded-full">
                 <svg
@@ -581,28 +497,50 @@ const DummyReview = () => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-screen-2xl mx-auto min-h-screen px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-4 sm:py-6 transition-all duration-300 ease-in-out">
-        {/* Customer Information Card */}
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-4 sm:py-6">
+        {/* Site Information */}
         <Card className="p-4 sm:p-6 mb-4 sm:mb-6">
           <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">
-            Customer Information
+            Site Information
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-            <div className="space-y-1 sm:space-y-2">
-              <p className="text-sm">
-                <strong>Name:</strong> {customerInfo.name}
-              </p>
-              <p className="text-sm">
-                <strong>Phone:</strong> {customerInfo.phone}
-              </p>
-            </div>
-            <div className="space-y-1 sm:space-y-2">
-              <p className="text-sm">
-                <strong>Site:</strong> {customerInfo.site}
-              </p>
-              <p className="text-sm">
-                <strong>Address:</strong> {customerInfo.address}
-              </p>
+            <div className="space-y-3">
+              <div>
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
+                  Select Site/Project *
+                </label>
+                <select
+                  value={customerInfo.site}
+                  onChange={(e) =>
+                    setCustomerInfo({ ...customerInfo, site: e.target.value })
+                  }
+                  className="w-full px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-md focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
+                >
+                  <option value="">Choose your project...</option>
+                  {state.userProjects.map((project) => (
+                    <option key={project.id} value={project.name}>
+                      {project.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
+                  Delivery Address *
+                </label>
+                <Input
+                  value={customerInfo.address}
+                  onChange={(e) =>
+                    setCustomerInfo({
+                      ...customerInfo,
+                      address: e.target.value,
+                    })
+                  }
+                  placeholder="Enter delivery address"
+                  className="text-sm sm:text-base"
+                  required
+                />
+              </div>
             </div>
           </div>
         </Card>
@@ -615,7 +553,7 @@ const DummyReview = () => {
                 Order Items
               </h2>
               <Badge className="bg-gray-100 text-gray-700 px-2 sm:px-3 py-1 text-xs sm:text-sm">
-                {orderData.length} items
+                {state.orderData.length} items
               </Badge>
             </div>
             <Button
@@ -628,20 +566,20 @@ const DummyReview = () => {
             </Button>
           </div>
 
-          {/* Desktop Table View */}
+          {/* Desktop Table */}
           {!isMobile && (
             <div className="overflow-x-auto">
-              <table className="w-full border-collapse bg-white" role="table">
+              <table className="w-full border-collapse bg-white">
                 <thead>
                   <tr className="border-b-2 border-gray-200">
                     <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
-                      Item
+                      Material Name
                     </th>
                     <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
-                      Subtype
+                      Sub Type
                     </th>
                     <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
-                      Size/Unit
+                      Dimensions
                     </th>
                     <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">
                       Quantity
@@ -652,12 +590,14 @@ const DummyReview = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {orderData.map((row) => (
+                  {state.orderData.map((row) => (
                     <TableRow
                       key={row.id}
                       row={row}
-                      editingCell={editingCell}
-                      setEditingCell={setEditingCell}
+                      editingCell={state.editingCell}
+                      setEditingCell={(cell) =>
+                        updateState({ editingCell: cell })
+                      }
                       onCellEdit={handleCellEdit}
                       onDeleteRow={handleDeleteRow}
                       suggestions={materialSuggestions}
@@ -668,16 +608,16 @@ const DummyReview = () => {
             </div>
           )}
 
-          {/* Mobile Card View */}
+          {/* Mobile Cards */}
           {isMobile && (
             <div className="space-y-3">
-              {orderData.length === 0 ? (
+              {state.orderData.length === 0 ? (
                 <div className="text-center py-8 text-gray-500">
                   <p>No items added yet.</p>
                   <p className="text-sm mt-1">Tap "Add" to get started.</p>
                 </div>
               ) : (
-                orderData.map((item) => (
+                state.orderData.map((item) => (
                   <ItemCard
                     key={item.id}
                     item={item}
@@ -690,22 +630,22 @@ const DummyReview = () => {
           )}
         </Card>
 
-        {/* Action Buttons - Responsive */}
+        {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 sticky bottom-0 bg-gray-50 py-4 -mx-4 px-4 border-t border-gray-200 sm:border-t-0 sm:bg-transparent sm:relative sm:py-0 sm:mx-0">
           <Button
             variant="outline"
-            className="flex-1 h-12 sm:h-12"
+            className="flex-1 h-12"
             onClick={() => window.history.back()}
-            disabled={isSubmitting}
+            disabled={state.isSubmitting}
           >
             Back to WhatsApp
           </Button>
           <Button
             onClick={handleSubmit}
-            disabled={isSubmitting || orderData.length === 0}
-            className="flex-1 bg-black hover:bg-gray-800 h-12 sm:h-12 font-medium text-white"
+            disabled={state.isSubmitting || state.orderData.length === 0}
+            className="flex-1 bg-black hover:bg-gray-800 h-12 font-medium text-white"
           >
-            {isSubmitting ? (
+            {state.isSubmitting ? (
               <>
                 <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2" />
                 Listing Vendors...
@@ -717,17 +657,14 @@ const DummyReview = () => {
         </div>
       </div>
 
-      {/* Mobile Edit Modal */}
+      {/* Edit Modal */}
       <EditModal
-        isOpen={editModalOpen}
-        onClose={() => {
-          setEditModalOpen(false)
-          setEditingItem(null)
-        }}
-        item={editingItem}
+        isOpen={state.editModalOpen}
+        onClose={() => updateState({ editModalOpen: false, editingItem: null })}
+        item={state.editingItem}
         onSave={handleSaveItem}
         suggestions={materialSuggestions}
-        isLoading={isLoading}
+        isLoading={state.isLoading}
       />
     </div>
   )
