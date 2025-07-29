@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Loader2 } from 'lucide-react'
+import DummyReview from './pages/DummyReview.jsx'
 
 // 1. Lazily import page components
 const Index = lazy(() => import('./pages/Index.jsx'))
@@ -51,6 +52,7 @@ const App = () => (
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/review-order" element={<ReviewOrder />} />
             <Route path="/get-quote" element={<GetQuote />} />
+            <Route path="/dummy-review" element={<DummyReview />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
