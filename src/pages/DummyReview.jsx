@@ -9,6 +9,24 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { apiCall } from '../utils/api'
 import { Edit2, Trash2, Plus, Minus } from 'lucide-react'
 
+// Logo component adapted for DummyReview theme
+const Logo = memo(() => (
+  <div className="flex items-center gap-3">
+    <div className="relative">
+      <div className="w-8 h-8 bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl flex items-center justify-center shadow-md">
+        <span className="text-white font-bold text-sm">B</span>
+      </div>
+      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-gradient-to-br from-gray-600 to-gray-700 rounded-full flex items-center justify-center">
+        <span className="text-white text-xs font-bold">ai</span>
+      </div>
+    </div>
+    <div>
+      <h1 className="text-lg sm:text-xl font-bold text-gray-900">bab.ai</h1>
+      <p className="text-xs sm:text-sm text-gray-500">Order Review</p>
+    </div>
+  </div>
+))
+
 // Simplified TableRow component
 const TableRow = memo(
   ({
@@ -456,23 +474,7 @@ const DummyReview = () => {
       <div className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center">
-                <svg
-                  className="w-5 h-5 text-white"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 3c0 .55.45 1 1 1h1l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h11c.55 0 1-.45 1-1s-.45-1-1-1H7l1.1-2h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H2c-.55 0-1 .45-1 1zm16 15c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
-                </svg>
-              </div>
-              <div>
-                <h1 className="text-lg sm:text-xl font-bold text-gray-900">
-                  bab.ai
-                </h1>
-                <p className="text-xs sm:text-sm text-gray-500">Order Review</p>
-              </div>
-            </div>
+            <Logo />
             <div className="flex items-center gap-3">
               <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-gray-800 rounded-full">
                 <svg

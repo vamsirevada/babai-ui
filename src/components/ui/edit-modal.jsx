@@ -15,7 +15,6 @@ export const EditModal = ({
   suggestions = [],
   isLoading = false,
 }) => {
-  console.log('EditModal rendered with item:', item)
   const [formData, setFormData] = useState({
     material_name: '',
     sub_type: '',
