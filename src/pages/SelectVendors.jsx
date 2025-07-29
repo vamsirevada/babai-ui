@@ -287,8 +287,8 @@ const SelectVendors = () => {
                           <span
                             className={`px-2 py-1 rounded-full text-xs font-medium ${
                               vendor.isAuthorized
-                                ? 'bg-green-100 text-green-700'
-                                : 'bg-blue-100 text-blue-700'
+                                ? 'bg-gray-200 text-gray-800 border border-gray-300' // Softer authorized badge
+                                : 'bg-gray-100 text-gray-600'
                             }`}
                           >
                             {vendor.type}
@@ -335,8 +335,8 @@ const SelectVendors = () => {
                           <span
                             className={`px-2 py-0.5 rounded-full text-xs font-medium ${
                               vendor.isAuthorized
-                                ? 'bg-green-100 text-green-700'
-                                : 'bg-blue-100 text-blue-700'
+                                ? 'bg-gray-200 text-gray-800 border border-gray-300' // Softer authorized badge
+                                : 'bg-gray-100 text-gray-600'
                             }`}
                           >
                             {vendor.type}
