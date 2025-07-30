@@ -390,8 +390,8 @@ const SelectVendors = () => {
 
         {/* Selection Summary */}
         {selectedVendors.size > 0 && (
-          <div className="mt-3 sm:mt-4 p-3 sm:p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <p className="text-blue-800 text-sm">
+          <div className="mt-3 sm:mt-4 p-3 sm:p-4 bg-brand-white border border-brand-primary rounded-lg">
+            <p className="text-brand-charcoal text-sm">
               {selectedVendors.size} vendor
               {selectedVendors.size !== 1 ? 's' : ''} selected
             </p>

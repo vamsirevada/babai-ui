@@ -4,8 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "dev:all": "concurrently \"vite\" \"nodemon server/index.js\"",
+    "dev": "concurrently \"vite\" \"nodemon server/index.js\"",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",

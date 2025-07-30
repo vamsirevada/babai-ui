@@ -13,8 +13,8 @@ const TargetAudienceSection = () => {
         'Automated progress tracking',
         'Vendor performance insights',
       ],
-      gradient: 'from-blue-500 to-indigo-600',
-      bgGradient: 'from-blue-50 to-indigo-50',
+      gradient: 'from-blue-500 to-blue-600',
+      bgGradient: 'from-blue-50 to-slate-50',
       borderColor: 'border-blue-200',
     },
     {
@@ -28,8 +28,8 @@ const TargetAudienceSection = () => {
         'Order status tracking',
         'Payment visibility',
       ],
-      gradient: 'from-emerald-500 to-green-600',
-      bgGradient: 'from-emerald-50 to-green-50',
+      gradient: 'from-emerald-500 to-emerald-600',
+      bgGradient: 'from-emerald-50 to-slate-50',
       borderColor: 'border-emerald-200',
     },
     {
@@ -43,25 +43,25 @@ const TargetAudienceSection = () => {
         'Material request tracking',
         'Safety issue reporting',
       ],
-      gradient: 'from-purple-500 to-violet-600',
-      bgGradient: 'from-purple-50 to-violet-50',
-      borderColor: 'border-purple-200',
+      gradient: 'from-slate-500 to-slate-600',
+      bgGradient: 'from-slate-50 to-blue-50',
+      borderColor: 'border-slate-200',
     },
   ]
 
   return (
     <div className="w-full max-w-7xl mx-auto">
       <div className="text-center mb-6 sm:mb-8">
-        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 px-3 sm:px-4 py-2 rounded-full mb-4 sm:mb-6">
-          <Star className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
-          <span className="text-xs sm:text-sm font-semibold text-green-700 uppercase tracking-wider">
+        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-50 to-blue-50 border border-emerald-200 px-3 sm:px-4 py-2 rounded-full mb-4 sm:mb-6">
+          <Star className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
+          <span className="text-xs sm:text-sm font-semibold text-emerald-700 uppercase tracking-wider font-body">
             Who Benefits
           </span>
         </div>
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 px-4 sm:px-0">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-800 mb-4 px-4 sm:px-0 font-heading">
           Built for Construction Professionals
         </h2>
-        <p className="text-lg text-gray-600 max-w-3xl mx-auto px-4 sm:px-0">
+        <p className="text-lg text-slate-600 max-w-3xl mx-auto px-4 sm:px-0 font-body">
           Bab.ai seamlessly integrates into your existing WhatsApp workflows,
           empowering every stakeholder in the construction ecosystem
         </p>
@@ -87,17 +87,17 @@ const TargetAudienceSection = () => {
                     <IconComponent className="w-7 h-7 text-white drop-shadow-sm" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-xl font-bold text-gray-900 mb-1">
+                    <h3 className="text-xl font-bold text-slate-800 mb-1 font-heading">
                       {audience.title}
                     </h3>
-                    <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">
+                    <p className="text-sm font-medium text-slate-500 uppercase tracking-wider font-body">
                       {audience.subtitle}
                     </p>
                   </div>
                 </div>
 
                 {/* Description */}
-                <p className="text-gray-700 mb-6 leading-relaxed">
+                <p className="text-slate-700 mb-6 leading-relaxed font-body">
                   {audience.description}
                 </p>
 
@@ -105,8 +105,8 @@ const TargetAudienceSection = () => {
                 <div className="space-y-3">
                   {audience.benefits.map((benefit, benefitIndex) => (
                     <div key={benefitIndex} className="flex items-center gap-3">
-                      <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                      <span className="text-sm text-gray-600 font-medium">
+                      <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+                      <span className="text-sm text-slate-600 font-medium font-body">
                         {benefit}
                       </span>
                     </div>
@@ -120,10 +120,10 @@ const TargetAudienceSection = () => {
 
       {/* Bottom CTA */}
       <div className="text-center mt-16">
-        <p className="text-gray-500 text-sm mb-4">
+        <p className="text-slate-500 text-sm mb-4 font-body">
           Ready to transform your construction workflow?
         </p>
-        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-blue-600 text-white px-6 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 font-body">
           <span>Get Started with WhatsApp</span>
           <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
             <path

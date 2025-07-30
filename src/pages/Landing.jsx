@@ -32,13 +32,7 @@ const Landing = () => {
   }, [navigate])
 
   return (
-    <div
-      className="min-h-screen relative"
-      style={{
-        background:
-          'linear-gradient(135deg, rgba(219, 234, 254, 0.3) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(243, 232, 255, 0.3) 100%)',
-      }}
-    >
+    <div className="min-h-screen relative bg-gradient-subtle font-body">
       {/* 3D Background */}
       <Suspense fallback={null}>
         <ThreeBackground />

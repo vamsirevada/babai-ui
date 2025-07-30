@@ -48,47 +48,55 @@ function MinimalElements() {
       {/* Main building structure - representing construction projects */}
       <mesh ref={building1} position={[-2, 0, -4]}>
         <boxGeometry args={[0.8, 2.5, 0.8]} />
-        <meshBasicMaterial color="#10b981" transparent opacity={0.04} />
+        <meshBasicMaterial color="#1561ad" transparent opacity={0.04} />{' '}
+        {/* Primary Blue */}
       </mesh>
 
       {/* Secondary building - project portfolio */}
       <mesh ref={building2} position={[2.5, 0, -3.5]}>
         <boxGeometry args={[0.6, 1.8, 0.6]} />
-        <meshBasicMaterial color="#3b82f6" transparent opacity={0.035} />
+        <meshBasicMaterial color="#FFB300" transparent opacity={0.035} />{' '}
+        {/* Accent Gold */}
       </mesh>
 
       {/* Data connection lines - WhatsApp/AI communication */}
       <mesh ref={dataFlow} position={[0, 1, -2.5]}>
         <cylinderGeometry args={[0.02, 0.02, 3]} />
-        <meshBasicMaterial color="#059669" transparent opacity={0.06} />
+        <meshBasicMaterial color="#212121" transparent opacity={0.06} />{' '}
+        {/* Charcoal */}
       </mesh>
 
       {/* AI intelligence core - subtle central element */}
       <mesh ref={aiCore} position={[0, 0, -3]}>
         <sphereGeometry args={[0.4, 16, 16]} />
-        <meshBasicMaterial color="#6366f1" transparent opacity={0.04} />
+        <meshBasicMaterial color="#1561ad" transparent opacity={0.04} />{' '}
+        {/* Primary Blue */}
       </mesh>
 
       {/* Foundation elements - stability and trust */}
       <mesh position={[-1, -1.2, -3]}>
         <boxGeometry args={[3, 0.2, 3]} />
-        <meshBasicMaterial color="#6b7280" transparent opacity={0.02} />
+        <meshBasicMaterial color="#FFFFFF" transparent opacity={0.02} />{' '}
+        {/* White */}
       </mesh>
 
       {/* Minimal floating data points */}
       <mesh position={[1.5, 1.5, -2]}>
         <sphereGeometry args={[0.08, 8, 8]} />
-        <meshBasicMaterial color="#10b981" transparent opacity={0.08} />
+        <meshBasicMaterial color="#FFB300" transparent opacity={0.08} />{' '}
+        {/* Accent Gold */}
       </mesh>
 
       <mesh position={[-1.8, 1.2, -2.2]}>
         <sphereGeometry args={[0.06, 8, 8]} />
-        <meshBasicMaterial color="#3b82f6" transparent opacity={0.06} />
+        <meshBasicMaterial color="#1561ad" transparent opacity={0.06} />{' '}
+        {/* Primary Blue */}
       </mesh>
 
       <mesh position={[0.5, -0.5, -1.8]}>
         <sphereGeometry args={[0.05, 8, 8]} />
-        <meshBasicMaterial color="#8b5cf6" transparent opacity={0.05} />
+        <meshBasicMaterial color="#212121" transparent opacity={0.05} />{' '}
+        {/* Charcoal */}
       </mesh>
     </group>
   )

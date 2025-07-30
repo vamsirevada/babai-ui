@@ -18,7 +18,7 @@ const PhoneModel = () => {
           transform: translateY(0);
         }
       }
-      
+
       @keyframes messageSlideIn {
         from {
           opacity: 0;
@@ -29,7 +29,7 @@ const PhoneModel = () => {
           transform: translateX(0) scale(1);
         }
       }
-      
+
       @keyframes typingDots {
         0%, 60%, 100% {
           transform: translateY(0);
@@ -38,7 +38,7 @@ const PhoneModel = () => {
           transform: translateY(-10px);
         }
       }
-      
+
       @keyframes slideInFromRight {
         from {
           opacity: 0;
@@ -238,7 +238,7 @@ const PhoneModel = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-green-500/30 to-blue-600/30 rounded-[70px] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 
         {/* 3D Phone Model */}
-        <div className="relative bg-[#1a1a1a] rounded-[65px] p-3 shadow-[0_0_50px_rgba(0,0,0,0.15)] transform hover:scale-[1.02] transition-all duration-500 ease-out will-change-transform">
+        <div className="relative bg-brand-charcoal rounded-[65px] p-3 shadow-[0_0_50px_rgba(33,33,33,0.15)] transform hover:scale-[1.02] transition-all duration-500 ease-out will-change-transform">
           <div className="bg-black rounded-[57px] p-2 shadow-inner">
             <div
               className="bg-[#121212] rounded-[53px] overflow-hidden relative"

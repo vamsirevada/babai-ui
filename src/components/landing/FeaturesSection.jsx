@@ -20,7 +20,7 @@ const FeaturesSection = () => {
       description:
         'AI analyzes site photos shared in WhatsApp to track progress, identify safety issues, and measure completion rates automatically',
       metric: 'Photo AI',
-      gradient: 'from-pink-400 to-rose-400',
+      gradient: 'from-blue-500 to-blue-600', // Brand primary
     },
     {
       icon: Sparkles,
@@ -28,7 +28,7 @@ const FeaturesSection = () => {
       description:
         'Automatically extracts quantities, prices, and delivery dates from vendor bills shared in WhatsApp chats',
       metric: 'Auto Extract',
-      gradient: 'from-blue-400 to-cyan-400',
+      gradient: 'from-slate-500 to-slate-600', // Brand secondary
     },
     {
       icon: Brain,
@@ -36,7 +36,7 @@ const FeaturesSection = () => {
       description:
         'Builds intelligence on vendor reliability, delivery patterns, and quality consistency from chat history',
       metric: 'Smart Learning',
-      gradient: 'from-purple-400 to-indigo-400',
+      gradient: 'from-emerald-500 to-emerald-600', // Brand accent
     },
     {
       icon: Lightbulb,
@@ -44,7 +44,7 @@ const FeaturesSection = () => {
       description:
         'Creates and updates a comprehensive mental model of each project from WhatsApp conversations and media',
       metric: 'Live Model',
-      gradient: 'from-yellow-400 to-orange-400',
+      gradient: 'from-blue-600 to-slate-600', // Primary + secondary blend
     },
     {
       icon: Heart,
@@ -52,7 +52,7 @@ const FeaturesSection = () => {
       description:
         'Understands construction context in chat messages to predict delays, budget issues, and quality concerns',
       metric: 'Context AI',
-      gradient: 'from-red-400 to-pink-400',
+      gradient: 'from-slate-600 to-emerald-600', // Secondary + accent blend
     },
     {
       icon: Users,
@@ -60,7 +60,7 @@ const FeaturesSection = () => {
       description:
         'Monitors site team performance and execution patterns through WhatsApp communications and updates',
       metric: 'Team Intel',
-      gradient: 'from-green-400 to-emerald-400',
+      gradient: 'from-emerald-600 to-blue-600', // Accent + primary blend
     },
   ]
 
@@ -73,12 +73,12 @@ const FeaturesSection = () => {
           titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}
       >
-        <p className="text-gray-500 text-xs sm:text-sm mb-4 sm:mb-6 px-4">
+        <p className="text-slate-600 text-xs sm:text-sm mb-4 sm:mb-6 px-4 font-body uppercase tracking-wide">
           TRUSTED BY LEADING BUILDERS & DEVELOPERS
         </p>
         <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-6 opacity-90 px-4">
           <Badge
-            className="bg-gradient-to-r from-blue-100 to-blue-200 text-blue-700 px-3 sm:px-5 py-2 sm:py-3 text-xs sm:text-sm font-semibold border border-blue-200 hover:from-blue-200 hover:to-blue-300 transition-all duration-300 transform hover:scale-105 shadow-sm hover:shadow-md flex items-center gap-2 animate-bounce"
+            className="bg-gradient-to-r from-blue-50 to-blue-100 text-blue-700 px-3 sm:px-5 py-2 sm:py-3 text-xs sm:text-sm font-semibold border border-blue-200 hover:from-blue-100 hover:to-blue-200 transition-all duration-300 transform hover:scale-105 shadow-sm hover:shadow-md flex items-center gap-2 animate-bounce font-body"
             style={{ animationDuration: '3s', animationDelay: '0s' }}
           >
             <svg
@@ -96,7 +96,7 @@ const FeaturesSection = () => {
                 d="M12 2L21 7V21H13V13H11V21H3V7L12 2Z"
                 stroke="currentColor"
                 strokeWidth="2"
-                className="text-blue-500"
+                className="text-blue-700"
                 fill="none"
               />
               <circle
@@ -104,7 +104,7 @@ const FeaturesSection = () => {
                 cy="9"
                 r="1.5"
                 fill="currentColor"
-                className="text-yellow-400"
+                className="text-emerald-500"
                 style={{
                   animation: 'pulse 3s ease-in-out infinite',
                 }}
@@ -113,7 +113,7 @@ const FeaturesSection = () => {
             Real Estate
           </Badge>
           <Badge
-            className="bg-gradient-to-r from-orange-100 to-orange-200 text-orange-700 px-5 py-3 text-sm font-semibold border border-orange-200 hover:from-orange-200 hover:to-orange-300 transition-all duration-300 transform hover:scale-105 shadow-sm hover:shadow-md flex items-center gap-2 animate-bounce"
+            className="bg-gradient-to-r from-slate-50 to-slate-100 text-slate-700 px-5 py-3 text-sm font-semibold border border-slate-200 hover:from-slate-100 hover:to-slate-200 transition-all duration-300 transform hover:scale-105 shadow-sm hover:shadow-md flex items-center gap-2 animate-bounce font-body"
             style={{ animationDuration: '3s', animationDelay: '0.5s' }}
           >
             <svg
@@ -129,7 +129,7 @@ const FeaturesSection = () => {
                 height="18"
                 rx="2"
                 fill="currentColor"
-                className="text-orange-200"
+                className="text-slate-200"
               />
               <rect
                 x="4"
@@ -138,7 +138,7 @@ const FeaturesSection = () => {
                 height="10"
                 rx="1"
                 fill="currentColor"
-                className="text-orange-300"
+                className="text-slate-300"
               />
               <rect
                 x="6"
@@ -147,7 +147,7 @@ const FeaturesSection = () => {
                 height="6"
                 rx="0.5"
                 fill="currentColor"
-                className="text-orange-600"
+                className="text-slate-600"
               />
               <rect
                 x="10"
@@ -156,7 +156,7 @@ const FeaturesSection = () => {
                 height="6"
                 rx="0.5"
                 fill="currentColor"
-                className="text-orange-600"
+                className="text-slate-600"
               />
               <rect
                 x="14"
@@ -165,7 +165,7 @@ const FeaturesSection = () => {
                 height="6"
                 rx="0.5"
                 fill="currentColor"
-                className="text-orange-600"
+                className="text-slate-600"
               />
               <circle
                 cx="12"
@@ -181,7 +181,7 @@ const FeaturesSection = () => {
             Construction
           </Badge>
           <Badge
-            className="bg-gradient-to-r from-purple-100 to-purple-200 text-purple-700 px-5 py-3 text-sm font-semibold border border-purple-200 hover:from-purple-200 hover:to-purple-300 transition-all duration-300 transform hover:scale-105 shadow-sm hover:shadow-md flex items-center gap-2 animate-bounce"
+            className="bg-gradient-to-r from-emerald-50 to-emerald-100 text-emerald-700 px-5 py-3 text-sm font-semibold border border-emerald-200 hover:from-emerald-100 hover:to-emerald-200 transition-all duration-300 transform hover:scale-105 shadow-sm hover:shadow-md flex items-center gap-2 animate-bounce font-body"
             style={{ animationDuration: '3s', animationDelay: '1s' }}
           >
             <svg
@@ -256,7 +256,7 @@ const FeaturesSection = () => {
             Project Management
           </Badge>
           <Badge
-            className="bg-gradient-to-r from-green-100 to-emerald-200 text-green-700 px-5 py-3 text-sm font-semibold border border-green-200 hover:from-green-200 hover:to-emerald-300 transition-all duration-300 transform hover:scale-105 shadow-sm hover:shadow-md flex items-center gap-2 animate-bounce"
+            className="bg-gradient-to-r from-blue-50 to-blue-100 text-blue-700 px-5 py-3 text-sm font-semibold border border-blue-200 hover:from-blue-100 hover:to-blue-200 transition-all duration-300 transform hover:scale-105 shadow-sm hover:shadow-md flex items-center gap-2 animate-bounce font-body"
             style={{ animationDuration: '3s', animationDelay: '1.5s' }}
           >
             <svg
@@ -337,11 +337,11 @@ const FeaturesSection = () => {
         </div>
       </div>
 
-      <h2 className="text-3xl font-bold text-center text-gray-900 mb-4">
+      <h2 className="text-3xl font-bold text-center text-slate-800 mb-4 font-heading">
         WhatsApp-Native Construction Intelligence Platform
       </h2>
 
-      <p className="text-lg text-gray-600 text-center max-w-3xl mx-auto mb-12">
+      <p className="text-lg text-slate-600 text-center max-w-3xl mx-auto mb-12 font-body leading-relaxed">
         Bab.ai continuously builds and updates a comprehensive understanding of
         each project, learning patterns and predicting outcomes based on
         thousands of WhatsApp interactions.

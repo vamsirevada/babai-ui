@@ -218,7 +218,7 @@ const ReviewOrder = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-4 border-green-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <div className="w-8 h-8 border-4 border-brand-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-gray-600">Loading your order...</p>
         </div>
       </div>
@@ -232,7 +232,7 @@ const ReviewOrder = () => {
         <div className="max-w-6xl mx-auto px-3 sm:px-4 lg:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 sm:gap-3">
-              <div className="w-7 h-7 sm:w-8 sm:h-8 bg-green-600 rounded-lg flex items-center justify-center shrink-0">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 bg-brand-primary rounded-lg flex items-center justify-center shrink-0">
                 <svg
                   className="w-4 h-4 sm:w-5 sm:h-5 text-white"
                   fill="currentColor"
@@ -254,7 +254,7 @@ const ReviewOrder = () => {
               Order Confirmation
             </Badge> */}
             <div className="flex items-center gap-2 sm:gap-3">
-              <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-green-600 rounded-full shrink-0">
+              <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-brand-primary rounded-full shrink-0">
                 <svg
                   className="w-4 h-4 sm:w-5 sm:h-5 text-white"
                   fill="currentColor"
@@ -288,8 +288,8 @@ const ReviewOrder = () => {
           </h2>
 
           {/* WhatsApp User Info */}
-          <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
-            <div className="text-xs text-green-700 bg-green-100 rounded-md px-3 py-2 text-center">
+          <div className="bg-brand-white border border-brand-primary rounded-lg p-4 mb-4">
+            <div className="text-xs text-brand-charcoal bg-brand-accent rounded-md px-3 py-2 text-center">
               ✓ Your contact information has been automatically verified through
               WhatsApp
             </div>
@@ -310,7 +310,7 @@ const ReviewOrder = () => {
                 onChange={(e) =>
                   setCustomerInfo({ ...customerInfo, site: e.target.value })
                 }
-                className="w-full px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 bg-white"
+                className="w-full px-3 py-2 text-sm sm:text-base border border-brand-charcoal rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-primary focus:border-brand-primary bg-brand-white"
               >
                 <option value="">Choose your project...</option>
                 {userProjects.map((project) => (
@@ -348,7 +348,7 @@ const ReviewOrder = () => {
             <h2 className="text-base sm:text-lg font-semibold text-gray-900">
               Review Your Items
             </h2>
-            <Badge className="bg-blue-100 text-blue-700 text-xs sm:text-sm px-2 sm:px-3 py-1">
+            <Badge className="bg-brand-white text-brand-primary border-brand-primary text-xs sm:text-sm px-2 sm:px-3 py-1">
               {items.length} items
             </Badge>
           </div>
@@ -397,7 +397,7 @@ const ReviewOrder = () => {
           <Button
             type="submit"
             disabled={isSubmitting || items.length === 0}
-            className="w-full sm:flex-1 bg-green-600 hover:bg-green-700 h-12 sm:h-10 text-sm sm:text-base font-medium"
+            className="w-full sm:flex-1 bg-brand-primary hover:bg-brand-accent h-12 sm:h-10 text-sm sm:text-base font-medium"
           >
             {isSubmitting ? (
               <>

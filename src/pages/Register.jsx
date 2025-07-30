@@ -583,7 +583,7 @@ const Register = () => {
                   setRegistrationMethod('whatsapp')
                   setErrors({})
                 }}
-                className="flex-1 bg-green-500 hover:bg-green-600 text-white border-green-500"
+                className="flex-1 bg-brand-primary hover:bg-brand-accent text-brand-white border-brand-primary"
               >
                 <WhatsAppIcon className="w-4 h-4 mr-1" />
                 WhatsApp
@@ -593,7 +593,7 @@ const Register = () => {
 
           <CardContent>
             {errors.general && (
-              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-md">
+              <div className="mb-4 p-3 bg-brand-white border border-brand-primary rounded-md">
                 <p className="text-sm text-red-600">{errors.general}</p>
               </div>
             )}
@@ -784,7 +784,7 @@ const Register = () => {
                     className="space-y-4"
                   >
                     <div className="text-center mb-4">
-                      <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-2">
+                      <div className="w-16 h-16 bg-brand-primary rounded-full flex items-center justify-center mx-auto mb-2">
                         <WhatsAppIcon className="w-8 h-8 text-white" />
                       </div>
                       <p className="text-sm text-gray-600">
@@ -822,7 +822,7 @@ const Register = () => {
                     <Button
                       type="submit"
                       disabled={isLoading}
-                      className="w-full bg-green-500 hover:bg-green-600 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full bg-brand-primary hover:bg-brand-accent text-brand-white disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {isLoading ? (
                         <>
@@ -841,7 +841,7 @@ const Register = () => {
 
                 {whatsappStep === 2 && (
                   <div className="text-center space-y-6">
-                    <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto">
+                    <div className="w-16 h-16 bg-brand-primary rounded-full flex items-center justify-center mx-auto">
                       <QrCode className="w-8 h-8 text-white" />
                     </div>
 
@@ -855,7 +855,7 @@ const Register = () => {
                       </p>
                     </div>
 
-                    <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                    <div className="p-4 bg-brand-white rounded-lg border border-brand-primary">
                       <p className="text-xs text-gray-600 mb-2">
                         Your verification code:
                       </p>

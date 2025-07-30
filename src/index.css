@@ -2,107 +2,114 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* STRICT 4-COLOR PALETTE ENFORCEMENT
+   Only these colors are allowed: Primary Blue #1561ad, Accent Gold #FFB300, White #FFFFFF, Charcoal #212121
+   All colors are in HSL format for better manipulation
 */
 
 @layer base {
   :root {
-    --background: 220 20% 97%;
-    --foreground: 220 15% 15%;
+    /* CORE PALETTE - Only 4 colors allowed */
+    --palette-primary: 218 70% 38%; /* Primary Blue #1561ad */
+    --palette-accent: 45 100% 50%; /* Accent Gold #FFB300 */
+    --palette-white: 0 0% 100%; /* White #FFFFFF */
+    --palette-charcoal: 0 0% 13%; /* Charcoal #212121 */
 
-    --card: 0 0% 100%;
-    --card-foreground: 220 15% 15%;
+    /* UI ROLE ASSIGNMENTS - All mapped to the 4-color palette */
+    --background: var(--palette-white); /* White backgrounds */
+    --foreground: var(--palette-charcoal); /* Charcoal text */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 15% 15%;
+    --card: var(--palette-white); /* White cards */
+    --card-foreground: var(--palette-charcoal); /* Charcoal text on cards */
 
-    --primary: 220 90% 56%;
-    --primary-foreground: 0 0% 100%;
+    --popover: var(--palette-white); /* White popovers */
+    --popover-foreground: var(--palette-charcoal); /* Charcoal text */
 
-    --secondary: 220 20% 95%;
-    --secondary-foreground: 220 15% 25%;
+    --primary: var(--palette-primary); /* Primary Blue */
+    --primary-foreground: var(--palette-white); /* White text on primary */
 
-    --muted: 220 15% 95%;
-    --muted-foreground: 220 10% 45%;
+    --secondary: var(--palette-white); /* White secondary backgrounds */
+    --secondary-foreground: var(--palette-charcoal); /* Charcoal text */
 
-    --accent: 145 75% 50%;
-    --accent-foreground: 0 0% 100%;
+    --muted: var(--palette-white); /* White muted backgrounds */
+    --muted-foreground: var(--palette-charcoal); /* Charcoal muted text */
 
-    --destructive: 0 75% 55%;
-    --destructive-foreground: 0 0% 100%;
+    --accent: var(--palette-accent); /* Accent Gold */
+    --accent-foreground: var(--palette-charcoal); /* Charcoal text on gold */
 
-    --warning: 35 95% 60%;
-    --warning-foreground: 0 0% 100%;
+    /* STATE COLORS - Using palette colors only */
+    --destructive: var(
+      --palette-primary
+    ); /* Primary Blue for destructive (no red allowed) */
+    --destructive-foreground: var(--palette-white); /* White text */
 
-    --success: 145 75% 50%;
-    --success-foreground: 0 0% 100%;
+    --warning: var(--palette-accent); /* Accent Gold for warnings */
+    --warning-foreground: var(--palette-charcoal); /* Charcoal text */
 
-    --info: 200 90% 60%;
-    --info-foreground: 0 0% 100%;
+    --success: var(
+      --palette-primary
+    ); /* Primary Blue for success (no green allowed) */
+    --success-foreground: var(--palette-white); /* White text */
 
-    --border: 220 15% 88%;
-    --input: 220 15% 88%;
-    --ring: 220 90% 56%;
+    --info: var(--palette-primary); /* Primary Blue for info */
+    --info-foreground: var(--palette-white); /* White text */
+
+    /* FORM ELEMENTS */
+    --border: var(--palette-charcoal); /* Charcoal borders */
+    --input: var(--palette-white); /* White input backgrounds */
+    --ring: var(--palette-primary); /* Primary Blue focus rings */
 
     --radius: 0.75rem;
 
+    /* GRADIENTS - Only using the 4 approved colors */
     --gradient-primary: linear-gradient(
       135deg,
-      hsl(220 90% 56%),
-      hsl(200 90% 60%)
-    );
-    --gradient-success: linear-gradient(
-      135deg,
-      hsl(145 75% 50%),
-      hsl(120 70% 45%)
-    );
-    --gradient-warning: linear-gradient(
-      135deg,
-      hsl(35 95% 60%),
-      hsl(25 90% 55%)
-    );
-    --gradient-whatsapp: linear-gradient(
-      135deg,
-      hsl(142 76% 47%),
-      hsl(142 71% 45%)
+      hsl(var(--palette-primary)),
+      hsl(var(--palette-primary))
     );
     --gradient-accent: linear-gradient(
       135deg,
-      hsl(200 90% 60%),
-      hsl(190 80% 55%)
+      hsl(var(--palette-accent)),
+      hsl(var(--palette-accent))
     );
-    --gradient-warm: linear-gradient(135deg, hsl(25 95% 63%), hsl(330 85% 67%));
-    --gradient-cool: linear-gradient(
+    --gradient-charcoal: linear-gradient(
       135deg,
-      hsl(260 60% 65%),
-      hsl(280 70% 70%)
+      hsl(var(--palette-charcoal)),
+      hsl(var(--palette-charcoal))
     );
-    --gradient-highlight: linear-gradient(
+    --gradient-white: linear-gradient(
       135deg,
-      hsl(45 93% 58%),
-      hsl(55 92% 68%)
+      hsl(var(--palette-white)),
+      hsl(var(--palette-white))
+    );
+    --gradient-primary-accent: linear-gradient(
+      135deg,
+      hsl(var(--palette-primary)),
+      hsl(var(--palette-accent))
+    );
+    --gradient-subtle: linear-gradient(
+      135deg,
+      hsla(var(--palette-primary) / 0.05),
+      hsla(var(--palette-accent) / 0.05)
     );
 
-    --shadow-soft: 0 2px 20px -2px hsl(220 20% 20% / 0.08);
-    --shadow-medium: 0 8px 30px -8px hsl(220 20% 20% / 0.12);
-    --shadow-strong: 0 16px 40px -12px hsl(220 20% 20% / 0.16);
+    /* SHADOWS - Only using charcoal */
+    --shadow-soft: 0 1px 3px 0 hsl(var(--palette-charcoal) / 0.1),
+      0 1px 2px 0 hsl(var(--palette-charcoal) / 0.06);
+    --shadow-medium: 0 4px 6px -1px hsl(var(--palette-charcoal) / 0.1),
+      0 2px 4px -1px hsl(var(--palette-charcoal) / 0.06);
+    --shadow-strong: 0 10px 15px -3px hsl(var(--palette-charcoal) / 0.1),
+      0 4px 6px -2px hsl(var(--palette-charcoal) / 0.05);
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* SIDEBAR - Using strict palette */
+    --sidebar-background: var(--palette-white); /* White */
+    --sidebar-foreground: var(--palette-charcoal); /* Charcoal */
+    --sidebar-primary: var(--palette-primary); /* Primary Blue */
+    --sidebar-primary-foreground: var(--palette-white); /* White */
+    --sidebar-accent: var(--palette-white); /* White */
+    --sidebar-accent-foreground: var(--palette-charcoal); /* Charcoal */
+    --sidebar-border: var(--palette-charcoal); /* Charcoal borders */
+    --sidebar-ring: var(--palette-primary); /* Primary Blue */
   }
 }
 
@@ -113,6 +120,49 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: Inter, 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont,
+      sans-serif;
+    font-feature-settings: 'cv11', 'ss01';
+    font-variation-settings: 'opsz' auto;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Global text styles */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: Inter, 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont,
+      sans-serif;
+    font-weight: 600;
+    color: hsl(var(--foreground));
+    line-height: 1.2;
+  }
+
+  p,
+  span,
+  div {
+    color: hsl(var(--foreground));
+  }
+
+  /* Button and interactive element base styles */
+  button {
+    font-family: inherit;
+    cursor: pointer;
+  }
+
+  /* Link styles */
+  a {
+    color: hsl(var(--primary));
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: hsl(var(--accent));
   }
 }
 

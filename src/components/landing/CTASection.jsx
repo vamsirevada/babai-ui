@@ -40,11 +40,11 @@ const CTASection = ({ onGetStarted }) => {
               Trusted by 500+ Construction Teams
             </div>
           </div>
-          <CardTitle className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 leading-tight text-center px-4 sm:px-0">
+          <CardTitle className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 leading-tight text-center px-4 sm:px-0 font-heading">
             Ready to Revolutionize Your Construction Projects with{' '}
-            <span className="text-gray-200 font-extrabold">bab.ai?</span>
+            <span className="text-slate-200 font-extrabold">bab.ai?</span>
           </CardTitle>
-          <CardDescription className="text-blue-100 text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed text-center px-4 sm:px-0">
+          <CardDescription className="text-blue-100 text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed text-center px-4 sm:px-0 font-body">
             Join leading builders who've increased project efficiency by 40% and
             reduced delays by 60% using Bab.ai's WhatsApp-native construction
             intelligence platform.
@@ -56,7 +56,7 @@ const CTASection = ({ onGetStarted }) => {
               onClick={onGetStarted}
               variant="secondary"
               size="lg"
-              className="bg-white text-blue-600 hover:bg-gray-50 px-10 py-4 text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
+              className="bg-white text-blue-600 hover:bg-slate-50 px-10 py-4 text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 font-body"
             >
               Check your Dashboard
               <ArrowRight className="ml-2 w-5 h-5" />
@@ -66,7 +66,7 @@ const CTASection = ({ onGetStarted }) => {
           {/* Enhanced feature list */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto mb-8">
             <div className="flex flex-col items-center gap-2 p-4 bg-white/10 rounded-lg backdrop-blur-sm hover:bg-white/15 transition-all duration-300">
-              <div className="w-8 h-8 bg-green-400 rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-emerald-400 rounded-full flex items-center justify-center">
                 <svg
                   className="w-5 h-5 text-white"
                   fill="currentColor"
@@ -79,7 +79,7 @@ const CTASection = ({ onGetStarted }) => {
                   />
                 </svg>
               </div>
-              <span className="text-sm font-medium text-center">
+              <span className="text-sm font-medium text-center font-body">
                 No Setup Fees
               </span>
             </div>
@@ -93,12 +93,12 @@ const CTASection = ({ onGetStarted }) => {
                   <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
                 </svg>
               </div>
-              <span className="text-sm font-medium text-center">
+              <span className="text-sm font-medium text-center font-body">
                 Real-Time Dashboard
               </span>
             </div>
             <div className="flex flex-col items-center gap-2 p-4 bg-white/10 rounded-lg backdrop-blur-sm hover:bg-white/15 transition-all duration-300">
-              <div className="w-8 h-8 bg-purple-400 rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-slate-400 rounded-full flex items-center justify-center">
                 <svg
                   className="w-5 h-5 text-white"
                   fill="currentColor"
@@ -111,12 +111,12 @@ const CTASection = ({ onGetStarted }) => {
                   />
                 </svg>
               </div>
-              <span className="text-sm font-medium text-center">
+              <span className="text-sm font-medium text-center font-body">
                 Expert Support 24/7
               </span>
             </div>
             <div className="flex flex-col items-center gap-2 p-4 bg-white/10 rounded-lg backdrop-blur-sm hover:bg-white/15 transition-all duration-300">
-              <div className="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-blue-400 rounded-full flex items-center justify-center">
                 <svg
                   className="w-5 h-5 text-white"
                   fill="currentColor"
@@ -129,7 +129,7 @@ const CTASection = ({ onGetStarted }) => {
                   />
                 </svg>
               </div>
-              <span className="text-sm font-medium text-center">
+              <span className="text-sm font-medium text-center font-body">
                 AI-Powered Insights
               </span>
             </div>
@@ -138,15 +138,15 @@ const CTASection = ({ onGetStarted }) => {
           {/* Trust indicators */}
           <div className="pt-6 border-t border-white/20 text-center">
             <div className="flex flex-wrap justify-center items-center gap-6 opacity-80">
-              <div className="text-white/70 text-sm font-medium">
+              <div className="text-white/70 text-sm font-medium font-body">
                 Featured in Construction Weekly
               </div>
               <div className="text-white/70 text-sm font-medium">•</div>
-              <div className="text-white/70 text-sm font-medium">
+              <div className="text-white/70 text-sm font-medium font-body">
                 Winner: Best AI Tool 2025
               </div>
               <div className="text-white/70 text-sm font-medium">•</div>
-              <div className="text-white/70 text-sm font-medium">
+              <div className="text-white/70 text-sm font-medium font-body">
                 ISO 27001 Certified
               </div>
             </div>
