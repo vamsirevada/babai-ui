@@ -37,6 +37,9 @@ const SelectVendors = () => {
     if (storedOrder) {
       try {
         setOrder(JSON.parse(storedOrder))
+        const { customerInfo, ...updatedOrder } = order
+        console.log(order)
+        console.log('hi')
       } catch (error) {
         console.error('Error parsing order data:', error)
       }
@@ -218,11 +221,11 @@ const SelectVendors = () => {
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
             Select Vendors
           </h2>
-          {order && (
+          {/* {order && (
             <p className="text-gray-600 text-sm sm:text-base">
               {order.items.length} items for {order.customerInfo.name}
             </p>
-          )}
+          )} */}
         </div>
 
         {/* Vendor Selection */}
