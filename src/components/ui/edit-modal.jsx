@@ -103,18 +103,18 @@ export const EditModal = ({
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
-      <div className="bg-white w-full h-full sm:h-auto sm:max-w-md sm:rounded-xl overflow-hidden shadow-2xl">
+    <div className="fixed inset-0 z-50 bg-brand-charcoal bg-opacity-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
+      <div className="bg-brand-white w-full h-full sm:h-auto sm:max-w-md sm:rounded-xl overflow-hidden shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-white sticky top-0 z-10">
-          <h2 className="text-lg font-semibold text-gray-900">
+        <div className="flex items-center justify-between p-4 border-b border-brand-charcoal/20 bg-brand-white sticky top-0 z-10">
+          <h2 className="text-lg font-semibold text-brand-charcoal font-heading">
             {item?.id ? 'Edit Item' : 'Add Item'}
           </h2>
           <Button
             variant="ghost"
             size="sm"
             onClick={onClose}
-            className="h-8 w-8 p-0 hover:bg-gray-100"
+            className="h-8 w-8 p-0 hover:bg-brand-charcoal/10"
             aria-label="Close modal"
           >
             <X className="h-4 w-4" />
@@ -125,7 +125,7 @@ export const EditModal = ({
         <div className="p-4 space-y-4 max-h-[calc(100vh-140px)] overflow-y-auto">
           {/* Item Name Field */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">
+            <label className="text-sm font-medium text-brand-charcoal font-body">
               Item Name *
             </label>
             <div className="relative">
@@ -137,7 +137,7 @@ export const EditModal = ({
                 }
                 placeholder="Enter material name"
                 className={`h-12 ${
-                  errors.material_name ? 'border-red-500' : ''
+                  errors.material_name ? 'border-functional-danger' : ''
                 }`}
                 aria-describedby={
                   errors.material_name ? 'material_name-error' : undefined
@@ -146,7 +146,7 @@ export const EditModal = ({
               {errors.material_name && (
                 <p
                   id="material_name-error"
-                  className="text-sm text-red-600 mt-1"
+                  className="text-sm text-functional-danger mt-1 font-body"
                 >
                   {errors.material_name}
                 </p>
@@ -154,12 +154,12 @@ export const EditModal = ({
 
               {/* Suggestions Dropdown */}
               {showSuggestions && filteredSuggestions.length > 0 && (
-                <div className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-lg shadow-lg mt-1 z-20 max-h-40 overflow-y-auto">
+                <div className="absolute top-full left-0 right-0 bg-brand-white border border-brand-charcoal/20 rounded-lg shadow-lg mt-1 z-20 max-h-40 overflow-y-auto">
                   {filteredSuggestions.map((suggestion, idx) => (
                     <button
                       key={idx}
                       type="button"
-                      className="w-full px-3 py-3 text-left hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg transition-colors text-sm"
+                      className="w-full px-3 py-3 text-left hover:bg-brand-charcoal/5 first:rounded-t-lg last:rounded-b-lg transition-colors text-sm font-body"
                       onClick={() => handleSuggestionSelect(suggestion)}
                     >
                       {suggestion}
@@ -172,7 +172,9 @@ export const EditModal = ({
 
           {/* Subtype Field */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">Subtype</label>
+            <label className="text-sm font-medium text-brand-charcoal font-body">
+              Subtype
+            </label>
             <Input
               type="text"
               value={formData.sub_type}
@@ -184,7 +186,7 @@ export const EditModal = ({
 
           {/* Size Field */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">
+            <label className="text-sm font-medium text-brand-charcoal font-body">
               Size/Unit
             </label>
             <Input
@@ -198,7 +200,7 @@ export const EditModal = ({
 
           {/* Quantity Field */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">
+            <label className="text-sm font-medium text-brand-charcoal font-body">
               Quantity *
             </label>
             <div className="flex items-center gap-3">
@@ -233,7 +235,7 @@ export const EditModal = ({
                   handleInputChange('quantity', parseInt(e.target.value) || 1)
                 }
                 className={`h-12 text-center flex-1 ${
-                  errors.quantity ? 'border-red-500' : ''
+                  errors.quantity ? 'border-functional-danger' : ''
                 }`}
                 min="1"
                 aria-describedby={
@@ -265,7 +267,10 @@ export const EditModal = ({
               </Button>
             </div>
             {errors.quantity && (
-              <p id="quantity-error" className="text-sm text-red-600">
+              <p
+                id="quantity-error"
+                className="text-sm text-functional-danger font-body"
+              >
                 {errors.quantity}
               </p>
             )}
@@ -273,7 +278,7 @@ export const EditModal = ({
         </div>
 
         {/* Footer */}
-        <div className="p-4 border-t border-gray-200 bg-gray-50 sticky bottom-0">
+        <div className="p-4 border-t border-brand-charcoal/20 bg-brand-charcoal/5 sticky bottom-0">
           <div className="flex gap-3">
             <Button
               variant="outline"
@@ -286,11 +291,11 @@ export const EditModal = ({
             <Button
               onClick={handleSave}
               disabled={isLoading}
-              className="flex-1 h-12 bg-black hover:bg-gray-800 text-white"
+              className="flex-1 h-12 bg-brand-charcoal hover:bg-brand-charcoal/90 text-brand-white font-body"
             >
               {isLoading ? (
                 <>
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                  <div className="w-4 h-4 border-2 border-brand-white border-t-transparent rounded-full animate-spin mr-2" />
                   Saving...
                 </>
               ) : (

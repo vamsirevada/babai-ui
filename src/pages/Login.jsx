@@ -304,11 +304,15 @@ const Login = () => {
             {/* Logo */}
             <div className="flex justify-center mb-4">
               <div className="relative">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-xl">B</span>
+                <div className="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center shadow-lg">
+                  <span className="text-brand-white font-bold text-xl font-heading">
+                    B
+                  </span>
                 </div>
-                <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                  <span className="text-white text-xs font-bold">ai</span>
+                <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-gradient-to-r from-brand-accent to-brand-accent rounded-full flex items-center justify-center">
+                  <span className="text-brand-white text-xs font-bold font-heading">
+                    ai
+                  </span>
                 </div>
               </div>
             </div>
@@ -344,7 +348,7 @@ const Login = () => {
                   setLoginMethod('whatsapp')
                   setErrors({})
                 }}
-                className="flex-1 bg-green-500 hover:bg-green-600 text-white border-green-500"
+                className="flex-1 bg-functional-success hover:bg-functional-success/90 text-brand-white border-functional-success font-body"
               >
                 <WhatsAppIcon className="w-4 h-4 mr-1" />
                 WhatsApp
@@ -429,7 +433,7 @@ const Login = () => {
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white disabled:opacity-50"
+                  className="w-full bg-gradient-primary hover:opacity-90 text-brand-white disabled:opacity-50 font-body"
                 >
                   {isLoading ? (
                     <>

@@ -239,18 +239,18 @@ const PhoneModel = () => {
 
         {/* 3D Phone Model */}
         <div className="relative bg-brand-charcoal rounded-[65px] p-3 shadow-[0_0_50px_rgba(33,33,33,0.15)] transform hover:scale-[1.02] transition-all duration-500 ease-out will-change-transform">
-          <div className="bg-black rounded-[57px] p-2 shadow-inner">
+          <div className="bg-brand-charcoal rounded-[57px] p-2 shadow-inner">
             <div
-              className="bg-[#121212] rounded-[53px] overflow-hidden relative"
+              className="bg-brand-charcoal rounded-[53px] overflow-hidden relative"
               style={{ height: '844px' }}
             >
-              <div className="absolute top-3 left-1/2 transform -translate-x-1/2 w-28 h-5 bg-black rounded-full z-10"></div>
+              <div className="absolute top-3 left-1/2 transform -translate-x-1/2 w-28 h-5 bg-brand-charcoal rounded-full z-10"></div>
 
               <div className="h-full flex flex-col">
                 {/* WhatsApp Header */}
                 <div className="bg-gradient-to-r from-green-600 to-green-500 px-5 py-6 pt-10 flex items-center justify-between shadow-lg">
                   <div className="flex items-center">
-                    <button className="text-white/90 mr-3 hover:text-white transition-colors">
+                    <button className="text-brand-white/90 mr-3 hover:text-brand-white transition-colors">
                       <svg
                         className="w-6 h-6"
                         fill="none"
@@ -266,20 +266,22 @@ const PhoneModel = () => {
                       </svg>
                     </button>
                     <div className="w-10 h-10 bg-gradient-to-br from-green-400 via-green-300 to-green-600 rounded-full flex items-center justify-center mr-3 shadow-md">
-                      <span className="text-white font-bold text-base">B</span>
+                      <span className="text-brand-white font-bold text-base">
+                        B
+                      </span>
                     </div>
                     <div>
-                      <h3 className="text-white font-medium tracking-wide text-sm">
+                      <h3 className="text-brand-white font-medium tracking-wide text-sm">
                         Bab.ai
                       </h3>
                       <div className="flex items-center">
-                        <div className="w-1.5 h-1.5 bg-green-400 rounded-full mr-1.5 animate-pulse"></div>
-                        <p className="text-white/90 text-xs">Online</p>
+                        <div className="w-1.5 h-1.5 bg-functional-success rounded-full mr-1.5 animate-pulse"></div>
+                        <p className="text-brand-white/90 text-xs">Online</p>
                       </div>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4">
-                    <button className="text-white">
+                    <button className="text-brand-white">
                       <svg
                         className="w-6 h-6"
                         fill="none"
@@ -294,7 +296,7 @@ const PhoneModel = () => {
                         />
                       </svg>
                     </button>
-                    <button className="text-white">
+                    <button className="text-brand-white">
                       <svg
                         className="w-6 h-6"
                         fill="none"
@@ -341,8 +343,8 @@ const PhoneModel = () => {
                         <div
                           className={`max-w-[280px] px-3 py-2 rounded-2xl shadow-sm transition-all duration-300 backdrop-blur-sm transform hover:scale-[1.02] relative ${
                             message.type === 'sent'
-                              ? 'bg-green-500/95 text-white border border-green-600/10'
-                              : 'bg-white/95 text-gray-800 border border-gray-200/20'
+                              ? 'bg-functional-success/95 text-brand-white border border-functional-success/20'
+                              : 'bg-brand-white/95 text-brand-charcoal border border-brand-charcoal/10'
                           }`}
                         >
                           <p
@@ -353,7 +355,7 @@ const PhoneModel = () => {
                             {message.text}
                           </p>
                           {message.hasImage && (
-                            <div className="mt-1.5 w-full h-20 bg-gray-200 rounded-lg overflow-hidden relative">
+                            <div className="mt-1.5 w-full h-20 bg-brand-charcoal/10 rounded-lg overflow-hidden relative">
                               <img
                                 src="/foundation.jpg"
                                 alt="Construction site foundation"
@@ -368,8 +370,8 @@ const PhoneModel = () => {
                           <p
                             className={`text-[9px] mt-1 text-right ${
                               message.type === 'sent'
-                                ? 'text-green-100'
-                                : 'text-gray-500'
+                                ? 'text-brand-white/70'
+                                : 'text-brand-charcoal/60'
                             } ${
                               message.hasImage
                                 ? ''
@@ -385,7 +387,7 @@ const PhoneModel = () => {
                   {/* Typing Indicator */}
                   {isTyping && (
                     <div className="flex justify-start animate-[fadeInUp_0.3s_ease-out]">
-                      <div className="max-w-[280px] px-3 py-2 rounded-2xl bg-white/95 text-gray-800 border border-gray-200/20 backdrop-blur-sm">
+                      <div className="max-w-[280px] px-3 py-2 rounded-2xl bg-brand-white/95 text-brand-charcoal border border-brand-charcoal/10 backdrop-blur-sm">
                         <div className="flex items-center space-x-1">
                           <div className="flex space-x-1">
                             <div

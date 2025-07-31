@@ -541,11 +541,15 @@ const Register = () => {
             {/* Logo */}
             <div className="flex justify-center mb-4">
               <div className="relative">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-xl">B</span>
+                <div className="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center shadow-lg">
+                  <span className="text-brand-white font-bold text-xl font-heading">
+                    B
+                  </span>
                 </div>
-                <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                  <span className="text-white text-xs font-bold">ai</span>
+                <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-gradient-to-r from-brand-accent to-brand-accent rounded-full flex items-center justify-center">
+                  <span className="text-brand-white text-xs font-bold font-heading">
+                    ai
+                  </span>
                 </div>
               </div>
             </div>
@@ -763,7 +767,7 @@ const Register = () => {
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-gradient-primary hover:opacity-90 text-brand-white disabled:opacity-50 disabled:cursor-not-allowed font-body"
                 >
                   {isLoading ? (
                     <>
@@ -785,7 +789,7 @@ const Register = () => {
                   >
                     <div className="text-center mb-4">
                       <div className="w-16 h-16 bg-brand-primary rounded-full flex items-center justify-center mx-auto mb-2">
-                        <WhatsAppIcon className="w-8 h-8 text-white" />
+                        <WhatsAppIcon className="w-8 h-8 text-brand-white" />
                       </div>
                       <p className="text-sm text-gray-600">
                         Quick registration via WhatsApp for construction
@@ -842,7 +846,7 @@ const Register = () => {
                 {whatsappStep === 2 && (
                   <div className="text-center space-y-6">
                     <div className="w-16 h-16 bg-brand-primary rounded-full flex items-center justify-center mx-auto">
-                      <QrCode className="w-8 h-8 text-white" />
+                      <QrCode className="w-8 h-8 text-brand-white" />
                     </div>
 
                     <div>
@@ -874,7 +878,7 @@ const Register = () => {
                           '_blank'
                         )
                       }
-                      className="w-full bg-green-500 hover:bg-green-600 text-white"
+                      className="w-full bg-functional-success hover:bg-functional-success/90 text-brand-white font-body"
                     >
                       <WhatsAppIcon className="w-4 h-4 mr-2" />
                       Open WhatsApp & Send Message
@@ -913,7 +917,7 @@ const Register = () => {
                   <form onSubmit={handleOtpVerification} className="space-y-6">
                     <div className="text-center">
                       <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <ShieldCheck className="w-8 h-8 text-white" />
+                        <ShieldCheck className="w-8 h-8 text-brand-white" />
                       </div>
                       <h3 className="text-lg font-semibold mb-2">
                         Enter Verification Code
@@ -960,7 +964,7 @@ const Register = () => {
                     <div className="space-y-3">
                       <Button
                         type="submit"
-                        className="w-full bg-green-500 hover:bg-green-600 text-white"
+                        className="w-full bg-functional-success hover:bg-functional-success/90 text-brand-white font-body"
                         disabled={
                           isLoading || !enteredOtp || enteredOtp.length !== 6
                         }

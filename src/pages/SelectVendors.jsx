@@ -7,16 +7,24 @@ import { Check } from 'lucide-react'
 const Logo = memo(() => (
   <div className="flex items-center gap-3">
     <div className="relative">
-      <div className="w-8 h-8 bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl flex items-center justify-center shadow-md">
-        <span className="text-white font-bold text-sm">B</span>
+      <div className="w-8 h-8 bg-gradient-to-br from-brand-charcoal to-brand-charcoal/90 rounded-xl flex items-center justify-center shadow-md">
+        <span className="text-brand-white font-bold text-sm font-heading">
+          B
+        </span>
       </div>
-      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-gradient-to-br from-gray-600 to-gray-700 rounded-full flex items-center justify-center">
-        <span className="text-white text-xs font-bold">ai</span>
+      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-gradient-to-br from-brand-charcoal/80 to-brand-charcoal rounded-full flex items-center justify-center">
+        <span className="text-brand-white text-xs font-bold font-heading">
+          ai
+        </span>
       </div>
     </div>
     <div>
-      <h1 className="text-lg sm:text-xl font-bold text-gray-900">bab.ai</h1>
-      <p className="text-xs sm:text-sm text-gray-500">Vendor Selection</p>
+      <h1 className="text-lg sm:text-xl font-bold text-brand-charcoal font-heading">
+        bab.ai
+      </h1>
+      <p className="text-xs sm:text-sm text-brand-charcoal/70 font-body">
+        Vendor Selection
+      </p>
     </div>
   </div>
 ))
@@ -167,7 +175,9 @@ const SelectVendors = () => {
             <svg
               key={i}
               className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} ${
-                i < Math.floor(rating) ? 'text-gray-900' : 'text-gray-300'
+                i < Math.floor(rating)
+                  ? 'text-brand-accent'
+                  : 'text-brand-charcoal/30'
               }`}
               fill="currentColor"
               viewBox="0 0 20 20"
@@ -176,7 +186,11 @@ const SelectVendors = () => {
             </svg>
           ))}
         </div>
-        <span className={`text-gray-500 ${isMobile ? 'text-xs' : 'text-xs'}`}>
+        <span
+          className={`text-brand-charcoal/70 ${
+            isMobile ? 'text-xs' : 'text-xs'
+          } font-body`}
+        >
           ({reviewCount} reviews)
         </span>
       </div>
@@ -184,17 +198,17 @@ const SelectVendors = () => {
   }, [])
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className="min-h-screen bg-gradient-to-br from-brand-white to-brand-charcoal/5">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
+      <div className="bg-brand-white border-b border-brand-charcoal/20 sticky top-0 z-40 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <Logo />
 
             <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-gray-800 rounded-full">
+              <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-brand-charcoal rounded-full">
                 <svg
-                  className="w-4 h-4 sm:w-5 sm:h-5 text-white"
+                  className="w-4 h-4 sm:w-5 sm:h-5 text-brand-white"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -202,10 +216,10 @@ const SelectVendors = () => {
                 </svg>
               </div>
               <div className="text-right hidden sm:block">
-                <div className="text-sm font-medium text-gray-900">
+                <div className="text-sm font-medium text-brand-charcoal font-body">
                   {order?.customerInfo?.name || 'Customer'}
                 </div>
-                <div className="text-xs text-gray-500">
+                <div className="text-xs text-brand-charcoal/70 font-body">
                   {order?.customerInfo?.phone || 'Phone'}
                 </div>
               </div>
@@ -218,7 +232,7 @@ const SelectVendors = () => {
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-4 sm:py-6 transition-all duration-300 ease-in-out">
         {/* Title */}
         <div className="text-center mb-6 sm:mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+          <h2 className="text-2xl sm:text-3xl font-bold text-brand-charcoal mb-2 font-heading">
             Select Vendors
           </h2>
           {/* {order && (
@@ -229,9 +243,9 @@ const SelectVendors = () => {
         </div>
 
         {/* Vendor Selection */}
-        <div className="bg-white rounded-lg sm:rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6 mb-6 sm:mb-8 transition-all duration-300 ease-in-out">
+        <div className="bg-brand-white rounded-lg sm:rounded-xl shadow-sm border border-brand-charcoal/20 p-4 sm:p-6 mb-6 sm:mb-8 transition-all duration-300 ease-in-out">
           {/* Select All Option */}
-          <div className="flex items-center gap-3 mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-gray-200">
+          <div className="flex items-center gap-3 mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-brand-charcoal/20">
             <button
               onClick={handleSelectAll}
               className="flex items-center gap-3 text-left w-full py-2"
@@ -239,15 +253,15 @@ const SelectVendors = () => {
               <div
                 className={`w-5 h-5 sm:w-5 sm:h-5 rounded border-2 flex items-center justify-center transition-colors ${
                   selectedVendors.size === vendors.length
-                    ? 'bg-black border-black text-white'
-                    : 'border-gray-300 hover:border-gray-400'
+                    ? 'bg-brand-charcoal border-brand-charcoal text-brand-white'
+                    : 'border-brand-charcoal/30 hover:border-brand-charcoal/50'
                 }`}
               >
                 {selectedVendors.size === vendors.length && (
                   <Check className="w-3 h-3" />
                 )}
               </div>
-              <span className="text-base sm:text-lg font-medium text-gray-900">
+              <span className="text-base sm:text-lg font-medium text-brand-charcoal font-body">
                 Select All
               </span>
             </button>
@@ -258,7 +272,7 @@ const SelectVendors = () => {
             {vendors.map((vendor) => (
               <div
                 key={vendor.id}
-                className="border border-gray-200 rounded-lg hover:border-gray-300 transition-colors"
+                className="border border-brand-charcoal/20 rounded-lg hover:border-brand-charcoal/30 transition-colors"
               >
                 {/* Mobile Layout */}
                 <div className="block sm:hidden p-4 space-y-3">
@@ -271,8 +285,8 @@ const SelectVendors = () => {
                       <div
                         className={`w-6 h-6 rounded border-2 flex items-center justify-center transition-colors ${
                           selectedVendors.has(vendor.id)
-                            ? 'bg-black border-black text-white'
-                            : 'border-gray-300 hover:border-gray-400'
+                            ? 'bg-brand-charcoal border-brand-charcoal text-brand-white'
+                            : 'border-brand-charcoal/30 hover:border-brand-charcoal/50'
                         }`}
                       >
                         {selectedVendors.has(vendor.id) && (
@@ -283,7 +297,7 @@ const SelectVendors = () => {
 
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1 flex-wrap">
-                        <h3 className="font-semibold text-gray-900 text-lg">
+                        <h3 className="font-semibold text-brand-charcoal text-lg font-body">
                           {vendor.name}
                         </h3>
                         {vendor.type && (
@@ -298,7 +312,7 @@ const SelectVendors = () => {
                           </span>
                         )}
                       </div>
-                      <p className="text-gray-600 text-sm mb-2">
+                      <p className="text-brand-charcoal/70 text-sm mb-2 font-body">
                         {vendor.specialties.join(', ')}
                       </p>
                       {/* Rating on separate line for mobile */}
@@ -319,8 +333,8 @@ const SelectVendors = () => {
                       <div
                         className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${
                           selectedVendors.has(vendor.id)
-                            ? 'bg-black border-black text-white'
-                            : 'border-gray-300 hover:border-gray-400'
+                            ? 'bg-brand-charcoal border-brand-charcoal text-brand-white'
+                            : 'border-brand-charcoal/30 hover:border-brand-charcoal/50'
                         }`}
                       >
                         {selectedVendors.has(vendor.id) && (
@@ -331,7 +345,7 @@ const SelectVendors = () => {
 
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-semibold text-gray-900 text-lg">
+                        <h3 className="font-semibold text-brand-charcoal text-lg font-body">
                           {vendor.name}
                         </h3>
                         {vendor.type && (
@@ -375,7 +389,7 @@ const SelectVendors = () => {
           <Button
             onClick={handleSubmit}
             disabled={isSubmitting || selectedVendors.size === 0}
-            className="flex-1 bg-black hover:bg-gray-800 text-white h-11 sm:h-12 text-base sm:text-lg font-medium"
+            className="flex-1 bg-brand-charcoal hover:bg-brand-charcoal/90 text-brand-white h-11 sm:h-12 text-base sm:text-lg font-medium font-body"
           >
             {isSubmitting ? (
               <>

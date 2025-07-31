@@ -13,16 +13,24 @@ import { Edit2, Trash2, Plus, Minus } from 'lucide-react'
 const Logo = memo(() => (
   <div className="flex items-center gap-3">
     <div className="relative">
-      <div className="w-8 h-8 bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl flex items-center justify-center shadow-md">
-        <span className="text-white font-bold text-sm">B</span>
+      <div className="w-8 h-8 bg-gradient-to-br from-brand-charcoal to-brand-charcoal/90 rounded-xl flex items-center justify-center shadow-md">
+        <span className="text-brand-white font-bold text-sm font-heading">
+          B
+        </span>
       </div>
-      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-gradient-to-br from-gray-600 to-gray-700 rounded-full flex items-center justify-center">
-        <span className="text-white text-xs font-bold">ai</span>
+      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-gradient-to-br from-brand-charcoal/80 to-brand-charcoal rounded-full flex items-center justify-center">
+        <span className="text-brand-white text-xs font-bold font-heading">
+          ai
+        </span>
       </div>
     </div>
     <div>
-      <h1 className="text-lg sm:text-xl font-bold text-gray-900">bab.ai</h1>
-      <p className="text-xs sm:text-sm text-gray-500">Order Review</p>
+      <h1 className="text-lg sm:text-xl font-bold text-brand-charcoal font-heading">
+        bab.ai
+      </h1>
+      <p className="text-xs sm:text-sm text-brand-charcoal/70 font-body">
+        Order Review
+      </p>
     </div>
   </div>
 ))
@@ -560,7 +568,7 @@ const DummyReview = () => {
             </div>
             <Button
               onClick={handleAddRow}
-              className="bg-black hover:bg-gray-800 text-white h-9 sm:h-10 px-3 sm:px-4"
+              className="bg-brand-charcoal hover:bg-brand-charcoal/90 text-brand-white h-9 sm:h-10 px-3 sm:px-4 font-body"
             >
               <Plus className="w-4 h-4 mr-1 sm:mr-2" />
               <span className="hidden sm:inline">Add Item</span>
@@ -645,7 +653,7 @@ const DummyReview = () => {
           <Button
             onClick={handleSubmit}
             disabled={state.isSubmitting || state.orderData.length === 0}
-            className="flex-1 bg-black hover:bg-gray-800 h-12 font-medium text-white"
+            className="flex-1 bg-brand-charcoal hover:bg-brand-charcoal/90 h-12 font-medium text-brand-white font-body"
           >
             {state.isSubmitting ? (
               <>

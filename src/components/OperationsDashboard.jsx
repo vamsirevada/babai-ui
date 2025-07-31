@@ -30,7 +30,7 @@ export function OperationsDashboard() {
             <div onClick={() => navigate('/')} className="cursor-pointer">
               <div className="flex items-center space-x-4">
                 <div className="relative">
-                  <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <div className="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-lg">
                     <span className="text-white font-bold text-lg">B</span>
                   </div>
                   <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
