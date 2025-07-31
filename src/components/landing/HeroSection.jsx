@@ -18,7 +18,7 @@ const HeroSection = () => {
           }`}
         >
           {/* Intro Video */}
-          <div className="flex justify-center mb-6 sm:mb-8">
+          <div className="flex justify-center mb-4 sm:mb-6">
             <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg">
               <div className="relative rounded-2xl overflow-hidden shadow-lg bg-gray-50 p-2">
                 <video
@@ -29,7 +29,7 @@ const HeroSection = () => {
                   playsInline
                   poster="/intro-poster.png"
                   style={{
-                    maxHeight: '300px',
+                    maxHeight: '280px',
                     objectFit: 'cover',
                   }}
                 >
@@ -49,7 +49,7 @@ const HeroSection = () => {
           </div>
 
           {/* Hello Babai Text */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-800 mb-4 leading-tight px-4 sm:px-0 font-heading">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-800 mb-3 leading-tight px-4 sm:px-0 font-heading">
             <span
               className="text-blue-800 inline-block"
               style={{
@@ -88,23 +88,23 @@ const HeroSection = () => {
               : 'opacity-0 translate-x-12'
           }`}
         >
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl font-bold text-brand-charcoal mb-4 sm:mb-6 leading-tight px-4 sm:px-0 font-heading">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl font-bold text-brand-charcoal mb-3 sm:mb-4 leading-tight px-4 sm:px-0 font-heading">
             Construction, Simplified.
             <span className="text-brand-primary block mt-2 font-semibold">
               Directly on WhatsApp
             </span>
           </h2>
 
-          <p className="text-lg sm:text-xl text-brand-charcoal/70 mb-6 sm:mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed px-4 sm:px-0 font-body">
+          <p className="text-lg sm:text-xl text-brand-charcoal/70 mb-4 sm:mb-6 max-w-2xl mx-auto lg:mx-0 leading-relaxed px-4 sm:px-0 font-body">
             <span className="font-normal text-brand-charcoal/80 italic">
-              Procure materials, compare suppliers, and access finance
-              all in one chat.
+              Procure materials, compare suppliers, and access finance all in
+              one chat.
             </span>
           </p>
 
           {/* Enhanced Key Benefits with WhatsApp Focus */}
           <div
-            className="flex flex-wrap gap-2 sm:gap-3 justify-center lg:justify-start mb-6 sm:mb-8 px-4 sm:px-0"
+            className="flex flex-wrap gap-2 sm:gap-3 justify-center lg:justify-start mb-4 sm:mb-6 px-4 sm:px-0"
             style={{
               animation: 'fadeInUp 0.3s ease-out 0.4s both',
               opacity: '0',
@@ -124,7 +124,7 @@ const HeroSection = () => {
       </div>
 
       {/* Minimal Scroll Indicator */}
-      <div className="flex justify-center mt-16 sm:mt-20">
+      <div className="flex justify-center mt-8 sm:mt-12">
         <div
           className="flex flex-col items-center space-y-3 group cursor-pointer"
           onClick={() => {
