@@ -1,39 +1,32 @@
 import { Card } from '../ui/card.jsx'
 import { useScrollAnimation } from '../../hooks/use-scroll-animation'
+import RotatingText from '../ui/RotatingText.jsx'
 
 const IntelligenceSection = () => {
-  const [titleRef, titleVisible] = useScrollAnimation()
   const [cardsRef, cardsVisible] = useScrollAnimation()
 
   return (
     <div className="w-full max-w-7xl mx-auto">
-      <div
-        ref={titleRef}
-        className={`text-center mb-6 sm:mb-8 transition-all duration-1000 transform ${
-          titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}
-      >
-        {/* Key value propositions */}
-        <div className="flex flex-wrap justify-center gap-4 mb-8 px-4">
-          <div className="flex items-center gap-2 bg-white px-5 py-3 rounded-full shadow-md border border-emerald-200 hover:shadow-lg transition-shadow duration-300">
-            <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium text-slate-700 font-body">
-              No App
-            </span>
-          </div>
-          <div className="flex items-center gap-2 bg-white px-5 py-3 rounded-full shadow-md border border-blue-200 hover:shadow-lg transition-shadow duration-300">
-            <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium text-slate-700 font-body">
-              No Learning
-            </span>
-          </div>
-          <div className="flex items-center gap-2 bg-white px-5 py-3 rounded-full shadow-md border border-slate-200 hover:shadow-lg transition-shadow duration-300">
-            <div className="w-2 h-2 bg-slate-500 rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium text-slate-700 font-body">
-              No Setup
-            </span>
-          </div>
+      {/* Animated Highlight Section */}
+      <div className="text-center mb-12 sm:mb-16 px-4">
+        <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-brand-charcoal mb-8 font-heading flex items-center justify-center gap-4 flex-wrap">
+          <span>No</span>
+          <RotatingText
+            texts={['App', 'Learning', 'Setup']}
+            mainClassName="px-2 sm:px-2 md:px-3 bg-cyan-300 text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
+            staggerFrom={'last'}
+            initial={{ y: '100%' }}
+            animate={{ y: 0 }}
+            exit={{ y: '-120%' }}
+            staggerDuration={0.025}
+            splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+            transition={{ type: 'spring', damping: 30, stiffness: 400 }}
+            rotationInterval={2000}
+          />
         </div>
+        <p className="text-lg sm:text-xl text-brand-charcoal/70 max-w-2xl mx-auto font-body">
+          Start using AI-powered construction management instantly on WhatsApp
+        </p>
       </div>
 
       <div
@@ -45,90 +38,94 @@ const IntelligenceSection = () => {
         }`}
       >
         {/* Procurement AI */}
-        <Card className="p-8 text-center hover:shadow-2xl transition-all duration-300 group border-2 border-blue-100 bg-gradient-to-br from-blue-50 to-slate-50 hover:from-blue-100 hover:to-slate-100 hover:border-blue-200 rounded-2xl">
+        <Card className="p-8 text-center hover:shadow-2xl transition-all duration-300 group border-2 border-brand-primary/20 bg-gradient-to-br from-brand-primary/5 to-brand-white hover:from-brand-primary/10 hover:to-brand-white hover:border-brand-primary/30 rounded-2xl">
           {/* Procurement Video */}
-          <div className="relative rounded-2xl overflow-hidden shadow-lg bg-slate-100 mb-6 group-hover:shadow-xl transition-shadow duration-300">
+          <div className="relative rounded-2xl overflow-hidden shadow-lg bg-brand-charcoal/10 mb-6 group-hover:shadow-xl transition-shadow duration-300">
             <video
-              className="w-full h-auto"
+              className="w-full h-auto rounded-xl max-h-[200px] object-cover"
               autoPlay
               muted
               loop
               playsInline
               loading="lazy"
               poster="/Procure-poster.png"
-              style={{
-                maxHeight: '200px',
-                objectFit: 'cover',
-              }}
             >
               <source src="/Procure.webm" type="video/webm" />
               <source src="/Procure.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
-            <div className="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent pointer-events-none"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-primary/20 to-transparent pointer-events-none"></div>
           </div>
 
-          <p className="text-slate-600 leading-relaxed text-sm px-2 font-body">
-            "Revolutionize procurement flow with AI-powered vendor management
-            through WhatsApp."
+          {/* Key Features */}
+          <div className="space-y-3 mb-6">
+            <div className="flex items-center text-sm text-brand-charcoal/80 font-body">
+              Your Purchase Manager-In your Pocket
+            </div>
+          </div>
+          <p className="text-brand-charcoal/70 leading-relaxed text-sm px-2 font-body">
+            "Gets instant quotes from vendors, compares prices, generates
+            purchase orders, and tracks deliveries "
           </p>
         </Card>
 
         {/* Credit */}
-        <Card className="p-8 text-center hover:shadow-2xl transition-all duration-300 group border-2 border-slate-100 bg-gradient-to-br from-slate-50 to-emerald-50 hover:from-slate-100 hover:to-emerald-100 hover:border-slate-200 rounded-2xl">
+        <Card className="p-8 text-center hover:shadow-2xl transition-all duration-300 group border-2 border-brand-charcoal/20 bg-gradient-to-br from-brand-charcoal/5 to-brand-white hover:from-brand-charcoal/10 hover:to-brand-white hover:border-brand-charcoal/30 rounded-2xl">
           {/* Credit Video */}
-          <div className="relative rounded-2xl overflow-hidden shadow-lg bg-slate-100 mb-6 group-hover:shadow-xl transition-shadow duration-300">
+          <div className="relative rounded-2xl overflow-hidden shadow-lg bg-brand-charcoal/10 mb-6 group-hover:shadow-xl transition-shadow duration-300">
             <video
-              className="w-full h-auto"
+              className="w-full h-auto rounded-xl max-h-[200px] object-cover"
               autoPlay
               muted
               loop
               playsInline
               loading="lazy"
               poster="/Credit-poster.png"
-              style={{
-                maxHeight: '200px',
-                objectFit: 'cover',
-              }}
             >
               <source src="/Credit.webm" type="video/webm" />
               <source src="/Credit.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-600/20 to-transparent pointer-events-none"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/20 to-transparent pointer-events-none"></div>
           </div>
-
-          <p className="text-slate-600 leading-relaxed text-sm px-2 font-body">
-            "Smart credit management that triggers direct vendor payments based
-            on verified progress."
+          <div className="space-y-3 mb-6">
+            <div className="flex items-center text-sm text-brand-charcoal/80 font-body">
+              Your Personal Banker-Instant Credit
+            </div>
+          </div>
+          <p className="text-brand-charcoal/70 leading-relaxed text-sm px-2 font-body">
+            "No Guesswork. Smart limits. Simple terms. Releases credit straight
+            to vendors."
           </p>
         </Card>
         {/* SiteOps AI */}
-        <Card className="p-8 text-center hover:shadow-2xl transition-all duration-300 group border-2 border-emerald-100 bg-gradient-to-br from-emerald-50 to-blue-50 hover:from-emerald-100 hover:to-blue-100 hover:border-emerald-200 rounded-2xl">
+        <Card className="p-8 text-center hover:shadow-2xl transition-all duration-300 group border-2 border-functional-success/20 bg-gradient-to-br from-functional-success/5 to-brand-white hover:from-functional-success/10 hover:to-brand-white hover:border-functional-success/30 rounded-2xl">
           {/* SiteOps Video */}
-          <div className="relative rounded-2xl overflow-hidden shadow-lg bg-slate-100 mb-6 group-hover:shadow-xl transition-shadow duration-300">
+          <div className="relative rounded-2xl overflow-hidden shadow-lg bg-brand-charcoal/10 mb-6 group-hover:shadow-xl transition-shadow duration-300">
             <video
-              className="w-full h-auto"
+              className="w-full h-auto rounded-xl max-h-[200px] object-cover"
               autoPlay
               muted
               loop
               playsInline
               loading="lazy"
               poster="/SiteOps-poster.png"
-              style={{
-                maxHeight: '200px',
-                objectFit: 'cover',
-              }}
             >
               <source src="/SiteOps.webm" type="video/webm" />
               <source src="/SiteOps.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
-            <div className="absolute inset-0 bg-gradient-to-t from-emerald-600/20 to-transparent pointer-events-none"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-functional-success/20 to-transparent pointer-events-none"></div>
           </div>
-          <p className="text-slate-600 leading-relaxed text-sm px-2 font-body">
-            "Streamline site operations through intelligent WhatsApp monitoring
-            in all construction phases."
+          {/* Key Features */}
+          <div className="space-y-3 mb-6">
+            <div className="flex items-center text-sm text-brand-charcoal/80 font-body">
+              Your Site Supervisor-On Duty Always
+            </div>
+          </div>
+          <p className="text-brand-charcoal/70 leading-relaxed text-sm px-2 font-body">
+            "Tracks work, people, and progress smartly. Provides in detail
+            analysis and suggestions.(Coming Soon)"
           </p>
         </Card>
       </div>
