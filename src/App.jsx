@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Loader2 } from 'lucide-react'
-import DummyReview from './pages/DummyReview.jsx'
+import DummyReview from './pages/ReviewOrder.jsx'
 
 // 1. Lazily import page components
 const Index = lazy(() => import('./pages/Index.jsx'))
