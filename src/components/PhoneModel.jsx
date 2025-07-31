@@ -335,14 +335,16 @@ const PhoneModel = () => {
                         </span>
                         {message.type === 'sent' && (
                           <svg
-                            className="w-4 h-4 text-blue-500"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
+                            width="14"
+                            height="8"
+                            viewBox="0 0 14 8"
+                            fill="none"
                           >
                             <path
                               fillRule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                               clipRule="evenodd"
+                              d="M13.501 0.108955L14 0.59573L8.60042 8L6.41166 5.83835L7.33857 4.56645L8.60042 5.30239L13.501 0.108955ZM9.11925 0L9.61822 0.486775L4.21865 7.89105L0.5 4.23358L1.33033 3.42354L4.21865 5.19343L9.11925 0Z"
+                              fill="#3497F9"
                             />
                           </svg>
                         )}

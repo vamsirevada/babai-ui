@@ -1,4 +1,5 @@
 import PhoneModel from '../PhoneModel'
+import WhatsAppUI from '../WhatsAppUI'
 import { useState, useEffect, useRef } from 'react'
 
 // Animated counter component
@@ -424,27 +425,8 @@ const DemoSection = () => {
                   : 'translate-x-8 opacity-0 lg:translate-x-12'
               }`}
             >
-              <PhoneModel />
-              <div
-                className={`absolute -top-4 -right-4 w-6 h-6 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full animate-pulse transition-all duration-1000 delay-300 ${
-                  isPhoneVisible ? 'opacity-50 scale-100' : 'opacity-0 scale-50'
-                }`}
-              ></div>
-              <div
-                className={`absolute -bottom-4 -left-4 w-4 h-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full animate-pulse transition-all duration-1000 delay-500 ${
-                  isPhoneVisible ? 'opacity-50 scale-100' : 'opacity-0 scale-50'
-                }`}
-              ></div>
-              <div
-                className={`absolute top-1/2 -left-6 w-3 h-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full animate-pulse transition-all duration-1000 delay-700 ${
-                  isPhoneVisible ? 'opacity-40 scale-100' : 'opacity-0 scale-50'
-                }`}
-              ></div>
-              <div
-                className={`absolute top-1/4 -right-5 w-2 h-2 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full animate-pulse transition-all duration-1000 delay-900 ${
-                  isPhoneVisible ? 'opacity-60 scale-100' : 'opacity-0 scale-50'
-                }`}
-              ></div>
+              <WhatsAppUI />
+              {/* <PhoneModel /> */}
             </div>
           </div>
         </div>
