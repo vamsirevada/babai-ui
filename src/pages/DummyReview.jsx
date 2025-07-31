@@ -454,7 +454,7 @@ const DummyReview = () => {
       }
 
       localStorage.setItem('orderData', JSON.stringify(orderDataPayload))
-      navigate(`/select-vendors?uuid=${uuid || projectId}`, {
+      navigate(`/select-vendors?uuid=${uuid}`, {
         state: { orderData: orderDataPayload },
       })
     } catch (error) {
@@ -510,47 +510,42 @@ const DummyReview = () => {
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-4 sm:py-6">
         {/* Site Information */}
         <Card className="p-4 sm:p-6 mb-4 sm:mb-6">
-          <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">
-            Site Information
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-            <div className="space-y-3">
-              <div>
-                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
-                  Select Site/Project *
-                </label>
-                <select
-                  value={customerInfo.site}
-                  onChange={(e) =>
-                    setCustomerInfo({ ...customerInfo, site: e.target.value })
-                  }
-                  className="w-full px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-md focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
-                >
-                  <option value="">Choose your project...</option>
-                  {state.userProjects.map((project) => (
-                    <option key={project.id} value={project.name}>
-                      {project.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
-                  Delivery Address *
-                </label>
-                <Input
-                  value={customerInfo.address}
-                  onChange={(e) =>
-                    setCustomerInfo({
-                      ...customerInfo,
-                      address: e.target.value,
-                    })
-                  }
-                  placeholder="Enter delivery address"
-                  className="text-sm sm:text-base"
-                  required
-                />
-              </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+            <div>
+              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
+                Select Site/Project *
+              </label>
+              <select
+                value={customerInfo.site}
+                onChange={(e) =>
+                  setCustomerInfo({ ...customerInfo, site: e.target.value })
+                }
+                className="w-full px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-md focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
+              >
+                <option value="">Choose your project...</option>
+                {state.userProjects.map((project) => (
+                  <option key={project.id} value={project.name}>
+                    {project.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
+                Delivery Address *
+              </label>
+              <Input
+                value={customerInfo.address}
+                onChange={(e) =>
+                  setCustomerInfo({
+                    ...customerInfo,
+                    address: e.target.value,
+                  })
+                }
+                placeholder="Enter delivery address"
+                className="text-sm sm:text-base"
+                required
+              />
             </div>
           </div>
         </Card>
@@ -568,11 +563,10 @@ const DummyReview = () => {
             </div>
             <Button
               onClick={handleAddRow}
-              className="bg-brand-charcoal hover:bg-brand-charcoal/90 text-brand-white h-9 sm:h-10 px-3 sm:px-4 font-body"
+              className="bg-brand-charcoal hover:bg-brand-charcoal/90 text-brand-white h-9 sm:h-10 px-3 sm:px-4 font-body text-sm sm:text-base"
             >
               <Plus className="w-4 h-4 mr-1 sm:mr-2" />
-              <span className="hidden sm:inline">Add Item</span>
-              <span className="sm:hidden">Add</span>
+              Add Item
             </Button>
           </div>
 

@@ -16,6 +16,7 @@ const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy.jsx'))
 const ReviewOrder = lazy(() => import('./pages/ReviewOrder.jsx'))
 const GetQuote = lazy(() => import('./pages/GetQuote.jsx'))
 const SelectVendors = lazy(() => import('./pages/SelectVendors.jsx'))
+const QuoteConfirmation = lazy(() => import('./pages/QuoteConfirmation.jsx'))
 const NotFound = lazy(() => import('./pages/NotFound.jsx'))
 
 // 2. Create prefetch functions to be used with our prefetching link
@@ -28,6 +29,7 @@ export const prefetch = {
   reviewOrder: () => import('./pages/ReviewOrder.jsx'),
   getQuote: () => import('./pages/GetQuote.jsx'),
   selectVendors: () => import('./pages/SelectVendors.jsx'),
+  quoteConfirmation: () => import('./pages/QuoteConfirmation.jsx'),
 }
 
 const queryClient = new QueryClient()
@@ -55,6 +57,7 @@ const App = () => (
             <Route path="/review-order" element={<ReviewOrder />} />
             <Route path="/get-quote" element={<GetQuote />} />
             <Route path="/select-vendors" element={<SelectVendors />} />
+            <Route path="/quote-confirmation" element={<QuoteConfirmation />} />
             <Route path="/dummy-review" element={<DummyReview />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

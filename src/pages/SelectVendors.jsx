@@ -141,21 +141,21 @@ const SelectVendors = () => {
       const selectedVendorList = vendors.filter((v) =>
         selectedVendors.has(v.id)
       )
-      console.log('Selected vendors:', selectedVendorList)
 
-      alert(
-        `✅ Order submitted to ${selectedVendors.size} vendor(s) successfully!`
-      )
-
-      // Navigate back to previous page or dashboard
-      navigate(-1)
+      // Navigate to confirmation page with order data and selected vendors
+      navigate('/quote-confirmation', {
+        state: {
+          orderData: order,
+          selectedVendors: selectedVendorList,
+        },
+      })
     } catch (error) {
       console.error('Error submitting to vendors:', error)
       alert('Failed to submit order. Please try again.')
     } finally {
       setIsSubmitting(false)
     }
-  }, [selectedVendors, vendors, navigate])
+  }, [selectedVendors, vendors, navigate, order])
 
   // Render star rating with review count
   const renderStars = useCallback((rating, reviewCount, isMobile = false) => {
