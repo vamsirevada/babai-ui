@@ -51,18 +51,6 @@ const CTASection = ({ onGetStarted }) => {
           </CardDescription>
         </CardHeader>
         <CardContent className="relative z-10 px-4 pb-12 lg:px-12">
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-            <Button
-              onClick={onGetStarted}
-              variant="secondary"
-              size="lg"
-              className="bg-brand-white text-brand-primary hover:bg-brand-white/90 px-10 py-4 text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 font-body"
-            >
-              Check your Dashboard
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-          </div>
-
           {/* Enhanced feature list */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto mb-8">
             <div className="flex flex-col items-center gap-2 p-4 bg-brand-white/10 rounded-lg backdrop-blur-sm hover:bg-brand-white/15 transition-all duration-300">

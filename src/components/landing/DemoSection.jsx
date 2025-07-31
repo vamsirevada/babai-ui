@@ -144,19 +144,15 @@ const DemoSection = () => {
             <span className="bg-gradient-to-r from-brand-primary to-brand-primary bg-clip-text text-transparent">
               Project Intelligence
             </span>
-            <br />
-            <span className="text-brand-charcoal/80 text-2xl md:text-3xl lg:text-4xl">
-              in One WhatsApp Chat
-            </span>
           </h3>
           {/* Enhanced Description */}
           <div className="max-w-2xl lg:max-w-none">
             <p className="text-lg md:text-xl text-brand-charcoal/70 mb-6 leading-relaxed font-body">
-              Watch how Bab.ai instantly transforms your everyday WhatsApp
-              conversations into
+              Just share your requirement to babai on WhatsApp. Bab.ai
+              understands, gets your quotes, and even unlocks credit —
               <span className="font-semibold text-brand-charcoal">
                 {' '}
-                actionable construction insights
+                all in one simple chat.
               </span>
               .
             </p>
@@ -179,7 +175,7 @@ const DemoSection = () => {
 
                   <div className="space-y-4">
                     <p className="text-lg font-semibold text-brand-charcoal font-body">
-                      No training required • No setup needed
+                      The smartest way to build. Just say "Hi".
                     </p>
 
                     {/* Main "Just say Hi" emphasis */}
@@ -205,7 +201,7 @@ const DemoSection = () => {
                         />
                       </svg>
                       <span className="text-xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-                        Just say "Hi" to start
+                        Try bab.ai now
                       </span>
                       <svg
                         className="w-5 h-5 text-blue-600"
@@ -221,12 +217,6 @@ const DemoSection = () => {
                         />
                       </svg>
                     </div>
-
-                    <p className="text-sm text-gray-600">
-                      Our AI understands natural language - talk to it like you
-                      would to a colleague
-                    </p>
-
                     {/* Three Component Badges */}
                     <div className="flex flex-wrap gap-2 justify-center">
                       <div className="flex items-center gap-2 bg-white/80 border border-blue-200 px-3 py-1.5 rounded-full shadow-sm">
