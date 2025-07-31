@@ -2,7 +2,6 @@ import PhoneModel from '../PhoneModel'
 import { useState, useEffect, useRef } from 'react'
 import '../../devices.min.css'
 import Mockup from '../Mockup'
-import '../../styles/demo-section.css'
 
 // Animated counter component
 const AnimatedCounter = ({
@@ -119,9 +118,9 @@ const DemoSection = () => {
         <div className="text-center lg:text-left px-4 lg:px-8 flex flex-col justify-center">
           {/* Demo Badge */}
           <div className="flex justify-center lg:justify-start mb-6">
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 px-3 py-1 rounded-full">
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-functional-success/10 to-functional-success/5 border border-functional-success/30 px-3 py-1 rounded-full">
               <svg
-                className="w-4 h-4 text-green-600"
+                className="w-4 h-4 text-functional-success"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -135,27 +134,27 @@ const DemoSection = () => {
                 />
                 <polygon points="10,8 16,12 10,16" fill="currentColor" />
               </svg>
-              <span className="text-sm font-semibold text-green-700 uppercase tracking-wider">
+              <span className="text-sm font-semibold text-functional-success uppercase tracking-wider font-body">
                 Live Demo
               </span>
             </div>
           </div>{' '}
           {/* Enhanced Heading */}
-          <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-            <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+          <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-brand-charcoal mb-6 leading-tight font-heading">
+            <span className="bg-gradient-to-r from-brand-primary to-brand-primary bg-clip-text text-transparent">
               Project Intelligence
             </span>
             <br />
-            <span className="text-gray-700 text-2xl md:text-3xl lg:text-4xl">
+            <span className="text-brand-charcoal/80 text-2xl md:text-3xl lg:text-4xl">
               in One WhatsApp Chat
             </span>
           </h3>
           {/* Enhanced Description */}
           <div className="max-w-2xl lg:max-w-none">
-            <p className="text-lg md:text-xl text-gray-600 mb-6 leading-relaxed">
+            <p className="text-lg md:text-xl text-brand-charcoal/70 mb-6 leading-relaxed font-body">
               Watch how Bab.ai instantly transforms your everyday WhatsApp
               conversations into
-              <span className="font-semibold">
+              <span className="font-semibold text-brand-charcoal">
                 {' '}
                 actionable construction insights
               </span>
@@ -163,23 +162,23 @@ const DemoSection = () => {
             </p>
 
             {/* Enhanced Combined CTA and Stats Card */}
-            <div className="bg-gradient-to-br from-green-50 via-emerald-50 to-blue-50 border-2 border-green-200 rounded-2xl p-8 shadow-lg relative overflow-hidden">
+            <div className="bg-gradient-to-br from-brand-white via-brand-white to-brand-primary/5 border-2 border-brand-primary/30 rounded-2xl p-8 shadow-lg relative overflow-hidden">
               {/* Background decoration */}
-              <div className="absolute inset-0 bg-gradient-to-r from-green-100/20 to-blue-100/20 animate-pulse"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/5 to-brand-primary/10 animate-pulse"></div>
 
               <div className="relative z-10">
                 {/* CTA Section */}
                 <div className="text-center mb-8">
                   <div className="inline-flex items-center gap-3 mb-4">
-                    <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="text-sm font-medium text-green-700 uppercase tracking-wider">
+                    <div className="w-3 h-3 bg-functional-success rounded-full animate-pulse"></div>
+                    <span className="text-sm font-medium text-functional-success uppercase tracking-wider font-body">
                       Get Started Instantly
                     </span>
-                    <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                    <div className="w-3 h-3 bg-functional-success rounded-full animate-pulse"></div>
                   </div>
 
                   <div className="space-y-4">
-                    <p className="text-lg font-semibold text-gray-800">
+                    <p className="text-lg font-semibold text-brand-charcoal font-body">
                       No training required • No setup needed
                     </p>
 

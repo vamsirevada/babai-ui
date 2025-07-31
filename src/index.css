@@ -2,18 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-/* STRICT 4-COLOR PALETTE ENFORCEMENT
-   Only these colors are allowed: Primary Blue #1561ad, Accent Gold #FFB300, White #FFFFFF, Charcoal #212121
+/* STRATEGIC 6-COLOR PALETTE - 80% Brand + 20% Functional
+   Core Brand: Primary Blue #1561ad, Accent Gold #FFB300, White #FFFFFF, Charcoal #212121
+   Functional: Success Green #059669, Danger Red #dc2626
    All colors are in HSL format for better manipulation
 */
 
 @layer base {
   :root {
-    /* CORE PALETTE - Only 4 colors allowed */
+    /* CORE BRAND PALETTE - 80% Usage */
     --palette-primary: 218 70% 38%; /* Primary Blue #1561ad */
     --palette-accent: 45 100% 50%; /* Accent Gold #FFB300 */
     --palette-white: 0 0% 100%; /* White #FFFFFF */
     --palette-charcoal: 0 0% 13%; /* Charcoal #212121 */
+
+    /* FUNCTIONAL PALETTE - 20% Usage (Critical UX Only) */
+    --palette-success: 142 76% 36%; /* Success Green #059669 */
+    --palette-danger: 0 84% 60%; /* Danger Red #dc2626 */
+
+    /* STATE VARIATIONS - Enhanced hierarchy */
+    --palette-primary-light: 218 70% 38% / 0.1; /* Light primary overlay */
+    --palette-primary-hover: 218 70% 35%; /* Darker primary for hover */
+    --palette-primary-active: 218 70% 30%; /* Much darker for active */
 
     /* UI ROLE ASSIGNMENTS - All mapped to the 4-color palette */
     --background: var(--palette-white); /* White backgrounds */
@@ -37,18 +47,16 @@
     --accent: var(--palette-accent); /* Accent Gold */
     --accent-foreground: var(--palette-charcoal); /* Charcoal text on gold */
 
-    /* STATE COLORS - Using palette colors only */
+    /* STATE COLORS - Strategic functional usage */
     --destructive: var(
-      --palette-primary
-    ); /* Primary Blue for destructive (no red allowed) */
+      --palette-danger
+    ); /* Danger Red for destructive actions */
     --destructive-foreground: var(--palette-white); /* White text */
 
     --warning: var(--palette-accent); /* Accent Gold for warnings */
     --warning-foreground: var(--palette-charcoal); /* Charcoal text */
 
-    --success: var(
-      --palette-primary
-    ); /* Primary Blue for success (no green allowed) */
+    --success: var(--palette-success); /* Success Green for positive feedback */
     --success-foreground: var(--palette-white); /* White text */
 
     --info: var(--palette-primary); /* Primary Blue for info */

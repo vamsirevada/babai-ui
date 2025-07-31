@@ -85,13 +85,13 @@ const AnimatedCounter = ({
 
 const ProblemSection = () => {
   return (
-    <div className="bg-gradient-to-b from-white to-slate-50 py-6 sm:py-8">
+    <div className="bg-gradient-to-b from-brand-white to-brand-charcoal/5 py-6 sm:py-8">
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="text-center mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-2 bg-brand-white border border-brand-primary px-3 sm:px-4 py-2 rounded-full mb-4 sm:mb-6">
             <svg
-              className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600"
+              className="w-4 h-4 sm:w-5 sm:h-5 text-functional-danger"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -104,30 +104,32 @@ const ProblemSection = () => {
                 strokeLinejoin="round"
               />
             </svg>
-            <span className="text-xs sm:text-sm font-semibold text-blue-700 uppercase tracking-wider font-body">
+            <span className="text-xs sm:text-sm font-semibold text-functional-danger uppercase tracking-wider font-body">
               The Problem
             </span>
           </div>
 
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-6 leading-tight font-heading">
+          <h2 className="text-3xl md:text-4xl font-bold text-brand-charcoal mb-6 leading-tight font-heading">
             WhatsApp Communication
-            <span className="text-blue-700"> Chaos</span> We Solve
+            <span className="text-functional-danger"> Chaos</span> We Solve
           </h2>
-          <p className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-body">
+          <p className="text-lg md:text-xl text-brand-charcoal/70 max-w-3xl mx-auto leading-relaxed font-body">
             Construction teams rely on WhatsApp for project communication, but
             critical insights get{' '}
-            <span className="font-semibold text-blue-700">lost in endless</span>{' '}
+            <span className="font-semibold text-functional-danger">
+              lost in endless
+            </span>{' '}
             chat threads
           </p>
         </div>
 
         {/* Problem Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          <Card className="bg-gradient-primary-accent border-brand-primary hover:shadow-lg transition-all duration-300 group">
+          <Card className="bg-gradient-to-br from-functional-danger/5 to-functional-danger/10 border-functional-danger/20 hover:shadow-lg transition-all duration-300 group">
             <CardContent className="pt-8 pb-6 text-center">
-              <div className="w-16 h-16 bg-brand-white rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <div className="w-16 h-16 bg-brand-white rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-sm">
                 <svg
-                  className="w-8 h-8 text-brand-primary"
+                  className="w-8 h-8 text-functional-success"
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -138,23 +140,23 @@ const ProblemSection = () => {
                   />
                 </svg>
               </div>
-              <div className="text-4xl font-bold text-brand-primary mb-3 group-hover:scale-110 transition-transform duration-300">
+              <div className="text-4xl font-bold text-functional-success mb-3 group-hover:scale-110 transition-transform duration-300">
                 <AnimatedCounter end={90} suffix="%" duration={2000} />
               </div>
               <div className="text-brand-charcoal font-semibold text-lg mb-2 font-body">
                 Use WhatsApp for Projects
               </div>
-              <div className="text-brand-charcoal text-sm font-medium bg-brand-white px-3 py-1 rounded-full inline-block font-body">
+              <div className="text-brand-charcoal/70 text-sm font-medium bg-brand-white px-3 py-1 rounded-full inline-block font-body">
                 But insights get lost
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-slate-50 to-slate-100 border-slate-200 hover:shadow-lg transition-all duration-300 group">
+          <Card className="bg-gradient-to-br from-brand-charcoal/5 to-brand-charcoal/10 border-brand-charcoal/20 hover:shadow-lg transition-all duration-300 group">
             <CardContent className="pt-8 pb-6 text-center">
-              <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <div className="w-16 h-16 bg-brand-white rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-sm">
                 <svg
-                  className="w-8 h-8 text-slate-600"
+                  className="w-8 h-8 text-brand-charcoal"
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -175,23 +177,23 @@ const ProblemSection = () => {
                   />
                 </svg>
               </div>
-              <div className="text-4xl font-bold text-slate-600 mb-3 group-hover:scale-110 transition-transform duration-300">
+              <div className="text-4xl font-bold text-brand-charcoal mb-3 group-hover:scale-110 transition-transform duration-300">
                 <AnimatedCounter end={500} suffix="+" duration={2300} />
               </div>
-              <div className="text-slate-700 font-semibold text-lg mb-2 font-body">
+              <div className="text-brand-charcoal font-semibold text-lg mb-2 font-body">
                 Messages Per Project
               </div>
-              <div className="text-slate-600 text-sm font-medium bg-slate-100 px-3 py-1 rounded-full inline-block font-body">
+              <div className="text-brand-charcoal/70 text-sm font-medium bg-brand-white px-3 py-1 rounded-full inline-block font-body">
                 Manual tracking impossible
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 hover:shadow-lg transition-all duration-300 group">
+          <Card className="bg-gradient-to-br from-brand-primary/5 to-brand-primary/10 border-brand-primary/20 hover:shadow-lg transition-all duration-300 group">
             <CardContent className="pt-8 pb-6 text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <div className="w-16 h-16 bg-brand-white rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-sm">
                 <svg
-                  className="w-8 h-8 text-blue-600"
+                  className="w-8 h-8 text-brand-primary"
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -205,13 +207,13 @@ const ProblemSection = () => {
                   />
                 </svg>
               </div>
-              <div className="text-4xl font-bold text-blue-600 mb-3 group-hover:scale-110 transition-transform duration-300">
+              <div className="text-4xl font-bold text-brand-primary mb-3 group-hover:scale-110 transition-transform duration-300">
                 <AnimatedCounter end={70} suffix="%" duration={2600} />
               </div>
-              <div className="text-blue-700 font-semibold text-lg mb-2 font-body">
+              <div className="text-brand-charcoal font-semibold text-lg mb-2 font-body">
                 Critical Info in Photos
               </div>
-              <div className="text-blue-600 text-sm font-medium bg-blue-100 px-3 py-1 rounded-full inline-block font-body">
+              <div className="text-brand-charcoal/70 text-sm font-medium bg-brand-white px-3 py-1 rounded-full inline-block font-body">
                 Buried in chat history
               </div>
             </CardContent>
@@ -219,15 +221,15 @@ const ProblemSection = () => {
         </div>
 
         {/* Pain Points */}
-        <div className="bg-white rounded-2xl p-8 shadow-lg border border-slate-100">
-          <h3 className="text-2xl font-bold text-slate-800 mb-6 text-center font-heading">
+        <div className="bg-brand-white rounded-2xl p-8 shadow-lg border border-brand-charcoal/10">
+          <h3 className="text-2xl font-bold text-brand-charcoal mb-6 text-center font-heading">
             The Daily Struggle
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+              <div className="w-12 h-12 bg-functional-danger/10 rounded-full flex items-center justify-center mx-auto mb-3">
                 <svg
-                  className="w-6 h-6 text-blue-600"
+                  className="w-6 h-6 text-functional-danger"
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -241,17 +243,17 @@ const ProblemSection = () => {
                   />
                 </svg>
               </div>
-              <h4 className="font-semibold text-slate-800 mb-2 font-body">
+              <h4 className="font-semibold text-brand-charcoal mb-2 font-body">
                 Lost Photos
               </h4>
-              <p className="text-sm text-slate-600 font-body">
+              <p className="text-sm text-brand-charcoal/70 font-body">
                 Site progress photos scattered across conversations
               </p>
             </div>
             <div className="text-center">
-              <div className="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-3">
+              <div className="w-12 h-12 bg-brand-charcoal/10 rounded-full flex items-center justify-center mx-auto mb-3">
                 <svg
-                  className="w-6 h-6 text-slate-600"
+                  className="w-6 h-6 text-brand-charcoal"
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -265,17 +267,17 @@ const ProblemSection = () => {
                   />
                 </svg>
               </div>
-              <h4 className="font-semibold text-slate-800 mb-2 font-body">
+              <h4 className="font-semibold text-brand-charcoal mb-2 font-body">
                 Time Wasted
               </h4>
-              <p className="text-sm text-slate-600 font-body">
+              <p className="text-sm text-brand-charcoal/70 font-body">
                 Hours spent scrolling to find important information
               </p>
             </div>
             <div className="text-center">
-              <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
+              <div className="w-12 h-12 bg-functional-success/10 rounded-full flex items-center justify-center mx-auto mb-3">
                 <svg
-                  className="w-6 h-6 text-emerald-600"
+                  className="w-6 h-6 text-functional-success"
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -289,17 +291,17 @@ const ProblemSection = () => {
                   />
                 </svg>
               </div>
-              <h4 className="font-semibold text-slate-800 mb-2 font-body">
+              <h4 className="font-semibold text-brand-charcoal mb-2 font-body">
                 Missed Bills
               </h4>
-              <p className="text-sm text-slate-600 font-body">
+              <p className="text-sm text-brand-charcoal/70 font-body">
                 Vendor invoices buried in endless message threads
               </p>
             </div>
             <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+              <div className="w-12 h-12 bg-brand-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
                 <svg
-                  className="w-6 h-6 text-blue-600"
+                  className="w-6 h-6 text-brand-primary"
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -313,10 +315,10 @@ const ProblemSection = () => {
                   />
                 </svg>
               </div>
-              <h4 className="font-semibold text-slate-800 mb-2 font-body">
+              <h4 className="font-semibold text-brand-charcoal mb-2 font-body">
                 No Insights
               </h4>
-              <p className="text-sm text-slate-600 font-body">
+              <p className="text-sm text-brand-charcoal/70 font-body">
                 Raw data without actionable intelligence
               </p>
             </div>

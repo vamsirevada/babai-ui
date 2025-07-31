@@ -13,9 +13,9 @@ const TargetAudienceSection = () => {
         'Automated progress tracking',
         'Vendor performance insights',
       ],
-      gradient: 'from-blue-500 to-blue-600',
-      bgGradient: 'from-blue-50 to-slate-50',
-      borderColor: 'border-blue-200',
+      gradient: 'from-brand-primary to-brand-primary',
+      bgGradient: 'from-brand-primary/5 to-brand-white',
+      borderColor: 'border-brand-primary/30',
     },
     {
       icon: Truck,
@@ -28,9 +28,9 @@ const TargetAudienceSection = () => {
         'Order status tracking',
         'Payment visibility',
       ],
-      gradient: 'from-emerald-500 to-emerald-600',
-      bgGradient: 'from-emerald-50 to-slate-50',
-      borderColor: 'border-emerald-200',
+      gradient: 'from-functional-success to-functional-success',
+      bgGradient: 'from-functional-success/5 to-brand-white',
+      borderColor: 'border-functional-success/30',
     },
     {
       icon: HardHat,
@@ -43,9 +43,9 @@ const TargetAudienceSection = () => {
         'Material request tracking',
         'Safety issue reporting',
       ],
-      gradient: 'from-slate-500 to-slate-600',
-      bgGradient: 'from-slate-50 to-blue-50',
-      borderColor: 'border-slate-200',
+      gradient: 'from-brand-charcoal to-brand-charcoal',
+      bgGradient: 'from-brand-charcoal/5 to-brand-white',
+      borderColor: 'border-brand-charcoal/30',
     },
   ]
 

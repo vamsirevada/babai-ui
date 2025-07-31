@@ -20,7 +20,7 @@ const FeaturesSection = () => {
       description:
         'AI analyzes site photos shared in WhatsApp to track progress, identify safety issues, and measure completion rates automatically',
       metric: 'Photo AI',
-      gradient: 'from-blue-500 to-blue-600', // Brand primary
+      gradient: 'from-brand-primary to-brand-primary', // Brand primary
     },
     {
       icon: Sparkles,
@@ -28,7 +28,7 @@ const FeaturesSection = () => {
       description:
         'Automatically extracts quantities, prices, and delivery dates from vendor bills shared in WhatsApp chats',
       metric: 'Auto Extract',
-      gradient: 'from-slate-500 to-slate-600', // Brand secondary
+      gradient: 'from-brand-charcoal to-brand-charcoal', // Brand charcoal
     },
     {
       icon: Brain,
@@ -36,7 +36,7 @@ const FeaturesSection = () => {
       description:
         'Builds intelligence on vendor reliability, delivery patterns, and quality consistency from chat history',
       metric: 'Smart Learning',
-      gradient: 'from-emerald-500 to-emerald-600', // Brand accent
+      gradient: 'from-functional-success to-functional-success', // Success green
     },
     {
       icon: Lightbulb,
@@ -44,7 +44,7 @@ const FeaturesSection = () => {
       description:
         'Creates and updates a comprehensive mental model of each project from WhatsApp conversations and media',
       metric: 'Live Model',
-      gradient: 'from-blue-600 to-slate-600', // Primary + secondary blend
+      gradient: 'from-brand-primary to-brand-charcoal', // Primary + charcoal blend
     },
     {
       icon: Heart,
@@ -52,7 +52,7 @@ const FeaturesSection = () => {
       description:
         'Understands construction context in chat messages to predict delays, budget issues, and quality concerns',
       metric: 'Context AI',
-      gradient: 'from-slate-600 to-emerald-600', // Secondary + accent blend
+      gradient: 'from-brand-charcoal to-functional-success', // Charcoal + success blend
     },
     {
       icon: Users,
@@ -60,7 +60,7 @@ const FeaturesSection = () => {
       description:
         'Monitors site team performance and execution patterns through WhatsApp communications and updates',
       metric: 'Team Intel',
-      gradient: 'from-emerald-600 to-blue-600', // Accent + primary blend
+      gradient: 'from-functional-success to-brand-primary', // Success + primary blend
     },
   ]
 
@@ -73,12 +73,12 @@ const FeaturesSection = () => {
           titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}
       >
-        <p className="text-slate-600 text-xs sm:text-sm mb-4 sm:mb-6 px-4 font-body uppercase tracking-wide">
+        <p className="text-brand-charcoal/70 text-xs sm:text-sm mb-4 sm:mb-6 px-4 font-body uppercase tracking-wide">
           TRUSTED BY LEADING BUILDERS & DEVELOPERS
         </p>
         <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-6 opacity-90 px-4">
           <Badge
-            className="bg-gradient-to-r from-blue-50 to-blue-100 text-blue-700 px-3 sm:px-5 py-2 sm:py-3 text-xs sm:text-sm font-semibold border border-blue-200 hover:from-blue-100 hover:to-blue-200 transition-all duration-300 transform hover:scale-105 shadow-sm hover:shadow-md flex items-center gap-2 animate-bounce font-body"
+            className="bg-gradient-to-r from-brand-primary/10 to-brand-primary/20 text-brand-primary px-3 sm:px-5 py-2 sm:py-3 text-xs sm:text-sm font-semibold border border-brand-primary/30 hover:from-brand-primary/20 hover:to-brand-primary/30 transition-all duration-300 transform hover:scale-105 shadow-sm hover:shadow-md flex items-center gap-2 animate-bounce font-body"
             style={{ animationDuration: '3s', animationDelay: '0s' }}
           >
             <svg
@@ -90,13 +90,13 @@ const FeaturesSection = () => {
               <path
                 d="M3 21V7L12 2L21 7V21H13V13H11V21H3Z"
                 fill="currentColor"
-                className="text-blue-600"
+                className="text-brand-primary"
               />
               <path
                 d="M12 2L21 7V21H13V13H11V21H3V7L12 2Z"
                 stroke="currentColor"
                 strokeWidth="2"
-                className="text-blue-700"
+                className="text-brand-primary"
                 fill="none"
               />
               <circle

@@ -102,22 +102,57 @@ export default {
           DEFAULT: 'hsl(var(--info))',
           foreground: 'hsl(var(--info-foreground))',
         },
-        // STRICT 4-COLOR PALETTE ENFORCEMENT
-        // Only these 4 colors are allowed throughout the application
+        // STRATEGIC 6-COLOR PALETTE - 80% Brand + 20% Functional
+        // CORE BRAND COLORS (80% - Primary Usage)
         brand: {
           primary: '#1561ad', // Primary Blue - main brand color
           accent: '#FFB300', // Accent Gold - CTAs and highlights
           white: '#FFFFFF', // Neutral White - backgrounds
           charcoal: '#212121', // Charcoal - text and dark backgrounds
         },
-        // Direct palette access (replaces all other color definitions)
+        // FUNCTIONAL COLORS (20% - Critical UX Only)
+        functional: {
+          success: '#059669', // Green - success states, confirmations
+          danger: '#dc2626', // Red - errors, destructive actions
+        },
+        // Direct palette access (includes functional colors)
         babai: {
           primary: '#1561ad',
           accent: '#FFB300',
           white: '#FFFFFF',
           charcoal: '#212121',
+          success: '#059669',
+          danger: '#dc2626',
         },
-        // Override Tailwind defaults to use only our palette
+        // ENHANCED STATE VARIATIONS - Better hierarchy
+        'brand-primary': {
+          50: 'rgba(21, 97, 173, 0.05)', // Very light overlay
+          100: 'rgba(21, 97, 173, 0.10)', // Light background
+          DEFAULT: '#1561ad', // Standard brand primary
+          600: '#134190', // Darker for hover
+          700: '#0f2f6b', // Much darker for active
+          800: '#0a1d45', // Very dark
+        },
+        'brand-accent': {
+          50: 'rgba(255, 179, 0, 0.05)', // Very light overlay
+          100: 'rgba(255, 179, 0, 0.10)', // Light background
+          DEFAULT: '#FFB300', // Standard brand accent
+          600: '#e6a100', // Darker for hover
+          700: '#cc8f00', // Much darker for active
+        },
+        // SEMANTIC COLOR MAPPING - Functional UX colors
+        semantic: {
+          success: '#059669', // Green for success feedback
+          'success-light': 'rgba(5, 150, 105, 0.1)', // Light success background
+          danger: '#dc2626', // Red for errors/destructive actions
+          'danger-light': 'rgba(220, 38, 38, 0.1)', // Light danger background
+          warning: '#FFB300', // Reuse brand accent for warnings
+          'warning-light': 'rgba(255, 179, 0, 0.1)', // Light warning background
+          info: '#1561ad', // Reuse brand primary for info
+          'info-light': 'rgba(21, 97, 173, 0.1)', // Light info background
+        },
+        // INTELLIGENT COLOR OVERRIDES - Maintain brand dominance
+        // Override Tailwind defaults but allow functional colors when needed
         gray: {
           50: '#FFFFFF', // White
           100: '#FFFFFF', // White
@@ -131,7 +166,7 @@ export default {
           900: '#212121', // Charcoal
         },
         slate: {
-          50: '#FFFFFF', // Force all slate to our palette
+          50: '#FFFFFF', // Force most slate to our palette
           100: '#FFFFFF',
           200: '#FFFFFF',
           300: '#FFFFFF',
@@ -143,7 +178,7 @@ export default {
           900: '#212121',
         },
         neutral: {
-          50: '#FFFFFF', // Force all neutral to our palette
+          50: '#FFFFFF', // Force most neutral to our palette
           100: '#FFFFFF',
           200: '#FFFFFF',
           300: '#FFFFFF',
@@ -154,22 +189,49 @@ export default {
           800: '#212121',
           900: '#212121',
         },
+        // ALLOW FUNCTIONAL COLORS - Override for specific use cases
+        green: {
+          50: 'rgba(5, 150, 105, 0.05)', // Very light success
+          100: 'rgba(5, 150, 105, 0.1)', // Light success background
+          500: '#059669', // Success green
+          600: '#047857', // Darker success
+          700: '#065f46', // Much darker success
+        },
+        red: {
+          50: 'rgba(220, 38, 38, 0.05)', // Very light danger
+          100: 'rgba(220, 38, 38, 0.1)', // Light danger background
+          500: '#dc2626', // Danger red
+          600: '#b91c1c', // Darker danger
+          700: '#991b1b', // Much darker danger
+        },
       },
       backgroundImage: {
-        // STRICT PALETTE GRADIENTS - Only using the 4 approved colors
-        'gradient-primary': 'linear-gradient(135deg, #1561ad 0%, #1561ad 100%)', // Primary blue solid to lighter primary
-        'gradient-accent': 'linear-gradient(135deg, #FFB300 0%, #FFB300 100%)', // Accent gold variations
+        // BRAND GRADIENTS (80% usage) - Primary brand combinations
+        'gradient-primary': 'linear-gradient(135deg, #1561ad 0%, #134190 100%)', // Primary blue variation
+        'gradient-accent': 'linear-gradient(135deg, #FFB300 0%, #e6a100 100%)', // Accent gold variation
         'gradient-charcoal':
-          'linear-gradient(135deg, #212121 0%, #212121 100%)', // Charcoal variations
-        'gradient-white': 'linear-gradient(135deg, #FFFFFF 0%, #FFFFFF 100%)', // White variations
+          'linear-gradient(135deg, #212121 0%, #374151 100%)', // Charcoal to gray
+        'gradient-white': 'linear-gradient(135deg, #FFFFFF 0%, #f8fafc 100%)', // White to very light
         'gradient-primary-accent':
-          'linear-gradient(135deg, #1561ad 0%, #FFB300 100%)', // Primary to accent
+          'linear-gradient(135deg, #1561ad 0%, #FFB300 100%)', // Brand combination
         'gradient-charcoal-primary':
-          'linear-gradient(135deg, #212121 0%, #1561ad 100%)', // Charcoal to primary
+          'linear-gradient(135deg, #212121 0%, #1561ad 100%)', // Dark to brand
         'gradient-subtle':
           'linear-gradient(135deg, rgba(21, 97, 173, 0.05) 0%, rgba(255, 179, 0, 0.05) 100%)', // Subtle brand overlay
+
+        // FUNCTIONAL GRADIENTS (20% usage) - For specific UX needs
+        'gradient-success': 'linear-gradient(135deg, #059669 0%, #047857 100%)', // Success feedback
+        'gradient-danger': 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)', // Error states
+        'gradient-success-light':
+          'linear-gradient(135deg, rgba(5, 150, 105, 0.1) 0%, rgba(5, 150, 105, 0.05) 100%)', // Light success
+        'gradient-danger-light':
+          'linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, rgba(220, 38, 38, 0.05) 100%)', // Light danger
+
+        // CONTEXTUAL COMBINATIONS - Brand + functional
         'gradient-overlay':
           'linear-gradient(135deg, rgba(33, 33, 33, 0.8) 0%, rgba(21, 97, 173, 0.3) 100%)', // Dark overlay
+        'gradient-hero':
+          'linear-gradient(135deg, #1561ad 0%, #FFB300 50%, #1561ad 100%)', // Hero sections
       },
       boxShadow: {
         soft: 'var(--shadow-soft)',

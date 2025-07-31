@@ -23,15 +23,15 @@ const CTASection = ({ onGetStarted }) => {
           style={{ animationDuration: '6s' }}
         ></div>
         <div
-          className="absolute top-1/2 left-1/2 w-32 h-32 bg-yellow-400/20 rounded-full -translate-x-16 -translate-y-16 animate-pulse"
+          className="absolute top-1/2 left-1/2 w-32 h-32 bg-brand-accent/20 rounded-full -translate-x-16 -translate-y-16 animate-pulse"
           style={{ animationDuration: '5s' }}
         ></div>
 
         <CardHeader className="relative z-10 px-4 sm:px-6 lg:px-12 py-8 sm:py-12">
           <div className="text-center mb-6">
-            <div className="inline-flex items-center px-3 sm:px-4 py-2 bg-white/20 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 backdrop-blur-sm">
+            <div className="inline-flex items-center px-3 sm:px-4 py-2 bg-brand-white/20 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6 backdrop-blur-sm font-body">
               <svg
-                className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-yellow-300"
+                className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-brand-accent"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -40,11 +40,11 @@ const CTASection = ({ onGetStarted }) => {
               Trusted by 500+ Construction Teams
             </div>
           </div>
-          <CardTitle className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 leading-tight text-center px-4 sm:px-0 font-heading">
+          <CardTitle className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-brand-white mb-4 sm:mb-6 leading-tight text-center px-4 sm:px-0 font-heading">
             Ready to Revolutionize Your Construction Projects with{' '}
-            <span className="text-slate-200 font-extrabold">bab.ai?</span>
+            <span className="text-brand-white/90 font-extrabold">bab.ai?</span>
           </CardTitle>
-          <CardDescription className="text-blue-100 text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed text-center px-4 sm:px-0 font-body">
+          <CardDescription className="text-brand-white/80 text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed text-center px-4 sm:px-0 font-body">
             Join leading builders who've increased project efficiency by 40% and
             reduced delays by 60% using Bab.ai's WhatsApp-native construction
             intelligence platform.

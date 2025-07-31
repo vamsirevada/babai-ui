@@ -3,11 +3,11 @@ import { prefetch } from '../../App'
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-br from-gray-50 via-white to-gray-100 text-gray-800 relative overflow-hidden border-t border-gray-200">
+    <footer className="bg-gradient-to-br from-brand-white via-brand-white to-brand-charcoal/5 text-brand-charcoal relative overflow-hidden border-t border-brand-charcoal/20">
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-50/30 to-purple-50/30"></div>
-      <div className="absolute top-0 left-0 w-64 h-64 bg-blue-100/20 rounded-full -translate-y-32 -translate-x-32"></div>
-      <div className="absolute bottom-0 right-0 w-48 h-48 bg-purple-100/20 rounded-full translate-y-24 translate-x-24"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/5 to-brand-charcoal/5"></div>
+      <div className="absolute top-0 left-0 w-64 h-64 bg-brand-primary/10 rounded-full -translate-y-32 -translate-x-32"></div>
+      <div className="absolute bottom-0 right-0 w-48 h-48 bg-brand-charcoal/10 rounded-full translate-y-24 translate-x-24"></div>
 
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 relative z-10">
         {/* Main Footer Content */}
@@ -15,10 +15,10 @@ const Footer = () => {
           {/* Left Side - Company Info & Social Media */}
           <div className="space-y-4 sm:space-y-6">
             <div>
-              <h3 className="text-xl sm:text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-3 sm:mb-4">
+              <h3 className="text-xl sm:text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-3 sm:mb-4 font-heading">
                 bab.ai
               </h3>
-              <p className="text-gray-600 text-sm leading-relaxed mb-4 sm:mb-6 max-w-md">
+              <p className="text-brand-charcoal/70 text-sm leading-relaxed mb-4 sm:mb-6 max-w-md font-body">
                 Transforming WhatsApp into intelligent construction management
                 platform. AI-powered insights for smarter project decisions.
               </p>
@@ -26,7 +26,7 @@ const Footer = () => {
 
             {/* Social Media */}
             <div>
-              <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
+              <h4 className="text-base sm:text-lg font-semibold text-brand-charcoal mb-3 sm:mb-4 font-heading">
                 Follow Us
               </h4>
               <div className="flex space-x-3 sm:space-x-4 mb-4 sm:mb-6">
