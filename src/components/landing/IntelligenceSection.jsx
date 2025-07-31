@@ -134,11 +134,18 @@ const IntelligenceSection = () => {
               Your browser does not support the video tag.
             </video>
 
+            {/* Coming Soon Badge */}
+            <div className="absolute top-4 right-4 z-10">
+              <div className="bg-functional-success text-brand-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg backdrop-blur-sm font-body animate-pulse">
+                Coming Soon
+              </div>
+            </div>
+
             {/* Video Overlay - Shows on Hover */}
             <div className="absolute inset-0 bg-functional-success/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6">
               <p className="text-brand-white text-center leading-relaxed text-sm font-body">
                 "Tracks work, people, and progress smartly. Provides in detail
-                analysis and suggestions.(Coming Soon)"
+                analysis and suggestions."
               </p>
             </div>
 
