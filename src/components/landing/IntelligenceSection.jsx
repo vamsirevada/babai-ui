@@ -38,11 +38,11 @@ const IntelligenceSection = () => {
         }`}
       >
         {/* Procurement AI */}
-        <Card className="p-8 text-center hover:shadow-2xl transition-all duration-300 group border-2 border-brand-primary/20 bg-gradient-to-br from-brand-primary/5 to-brand-white hover:from-brand-primary/10 hover:to-brand-white hover:border-brand-primary/30 rounded-2xl">
+        <Card className="relative overflow-hidden hover:shadow-2xl transition-all duration-300 group border-2 border-brand-primary/20 bg-gradient-to-br from-brand-primary/5 to-brand-white hover:from-brand-primary/10 hover:to-brand-white hover:border-brand-primary/30 rounded-2xl h-80">
           {/* Procurement Video */}
-          <div className="relative rounded-2xl overflow-hidden shadow-lg bg-brand-charcoal/10 mb-6 group-hover:shadow-xl transition-shadow duration-300">
+          <div className="relative w-full h-full overflow-hidden">
             <video
-              className="w-full h-auto rounded-xl max-h-[200px] object-cover"
+              className="w-full h-full object-cover"
               autoPlay
               muted
               loop
@@ -54,27 +54,35 @@ const IntelligenceSection = () => {
               <source src="/Procure.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-primary/20 to-transparent pointer-events-none"></div>
+
+            {/* Video Overlay - Shows on Hover */}
+            <div className="absolute inset-0 bg-brand-primary/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6">
+              <p className="text-brand-white text-center leading-relaxed text-sm font-body">
+                "Gets instant quotes from vendors, compares prices, generates
+                purchase orders, and tracks deliveries"
+              </p>
+            </div>
+
+            {/* Bottom Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
           </div>
 
-          {/* Key Features */}
-          <div className="space-y-3 mb-6">
-            <div className="flex items-center text-sm text-brand-charcoal/80 font-body">
-              Your Purchase Manager-In your Pocket
+          {/* Key Feature - Positioned at Bottom */}
+          <div className="absolute bottom-0 left-0 right-0 p-6 text-center">
+            <div className="bg-brand-white/95 backdrop-blur-sm rounded-lg py-3 px-4 shadow-lg">
+              <div className="text-sm font-semibold text-brand-charcoal font-body">
+                Your Purchase Manager-In your Pocket
+              </div>
             </div>
           </div>
-          <p className="text-brand-charcoal/70 leading-relaxed text-sm px-2 font-body">
-            "Gets instant quotes from vendors, compares prices, generates
-            purchase orders, and tracks deliveries "
-          </p>
         </Card>
 
         {/* Credit */}
-        <Card className="p-8 text-center hover:shadow-2xl transition-all duration-300 group border-2 border-brand-charcoal/20 bg-gradient-to-br from-brand-charcoal/5 to-brand-white hover:from-brand-charcoal/10 hover:to-brand-white hover:border-brand-charcoal/30 rounded-2xl">
+        <Card className="relative overflow-hidden hover:shadow-2xl transition-all duration-300 group border-2 border-brand-charcoal/20 bg-gradient-to-br from-brand-charcoal/5 to-brand-white hover:from-brand-charcoal/10 hover:to-brand-white hover:border-brand-charcoal/30 rounded-2xl h-80">
           {/* Credit Video */}
-          <div className="relative rounded-2xl overflow-hidden shadow-lg bg-brand-charcoal/10 mb-6 group-hover:shadow-xl transition-shadow duration-300">
+          <div className="relative w-full h-full overflow-hidden">
             <video
-              className="w-full h-auto rounded-xl max-h-[200px] object-cover"
+              className="w-full h-full object-cover"
               autoPlay
               muted
               loop
@@ -86,24 +94,34 @@ const IntelligenceSection = () => {
               <source src="/Credit.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/20 to-transparent pointer-events-none"></div>
+
+            {/* Video Overlay - Shows on Hover */}
+            <div className="absolute inset-0 bg-brand-charcoal/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6">
+              <p className="text-brand-white text-center leading-relaxed text-sm font-body">
+                "No Guesswork. Smart limits. Simple terms. Releases credit
+                straight to vendors."
+              </p>
+            </div>
+
+            {/* Bottom Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
           </div>
-          <div className="space-y-3 mb-6">
-            <div className="flex items-center text-sm text-brand-charcoal/80 font-body">
-              Your Personal Banker-Instant Credit
+
+          {/* Key Feature - Positioned at Bottom */}
+          <div className="absolute bottom-0 left-0 right-0 p-6 text-center">
+            <div className="bg-brand-white/95 backdrop-blur-sm rounded-lg py-3 px-4 shadow-lg">
+              <div className="text-sm font-semibold text-brand-charcoal font-body">
+                Your Personal Banker-Instant Credit
+              </div>
             </div>
           </div>
-          <p className="text-brand-charcoal/70 leading-relaxed text-sm px-2 font-body">
-            "No Guesswork. Smart limits. Simple terms. Releases credit straight
-            to vendors."
-          </p>
         </Card>
         {/* SiteOps AI */}
-        <Card className="p-8 text-center hover:shadow-2xl transition-all duration-300 group border-2 border-functional-success/20 bg-gradient-to-br from-functional-success/5 to-brand-white hover:from-functional-success/10 hover:to-brand-white hover:border-functional-success/30 rounded-2xl">
+        <Card className="relative overflow-hidden hover:shadow-2xl transition-all duration-300 group border-2 border-functional-success/20 bg-gradient-to-br from-functional-success/5 to-brand-white hover:from-functional-success/10 hover:to-brand-white hover:border-functional-success/30 rounded-2xl h-80">
           {/* SiteOps Video */}
-          <div className="relative rounded-2xl overflow-hidden shadow-lg bg-brand-charcoal/10 mb-6 group-hover:shadow-xl transition-shadow duration-300">
+          <div className="relative w-full h-full overflow-hidden">
             <video
-              className="w-full h-auto rounded-xl max-h-[200px] object-cover"
+              className="w-full h-full object-cover"
               autoPlay
               muted
               loop
@@ -115,18 +133,27 @@ const IntelligenceSection = () => {
               <source src="/SiteOps.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
-            <div className="absolute inset-0 bg-gradient-to-t from-functional-success/20 to-transparent pointer-events-none"></div>
+
+            {/* Video Overlay - Shows on Hover */}
+            <div className="absolute inset-0 bg-functional-success/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6">
+              <p className="text-brand-white text-center leading-relaxed text-sm font-body">
+                "Tracks work, people, and progress smartly. Provides in detail
+                analysis and suggestions.(Coming Soon)"
+              </p>
+            </div>
+
+            {/* Bottom Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
           </div>
-          {/* Key Features */}
-          <div className="space-y-3 mb-6">
-            <div className="flex items-center text-sm text-brand-charcoal/80 font-body">
-              Your Site Supervisor-On Duty Always
+
+          {/* Key Feature - Positioned at Bottom */}
+          <div className="absolute bottom-0 left-0 right-0 p-6 text-center">
+            <div className="bg-brand-white/95 backdrop-blur-sm rounded-lg py-3 px-4 shadow-lg">
+              <div className="text-sm font-semibold text-brand-charcoal font-body">
+                Your Site Supervisor-On Duty Always
+              </div>
             </div>
           </div>
-          <p className="text-brand-charcoal/70 leading-relaxed text-sm px-2 font-body">
-            "Tracks work, people, and progress smartly. Provides in detail
-            analysis and suggestions.(Coming Soon)"
-          </p>
         </Card>
       </div>
     </div>
