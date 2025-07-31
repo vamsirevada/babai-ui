@@ -30,26 +30,6 @@ const PhoneModel = () => {
         }
       }
 
-      @keyframes typingDots {
-        0%, 60%, 100% {
-          transform: translateY(0);
-        }
-        30% {
-          transform: translateY(-10px);
-        }
-      }
-
-      @keyframes slideInFromRight {
-        from {
-          opacity: 0;
-          transform: translateX(100%) scale(0.8);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0) scale(1);
-        }
-      }
-
       @keyframes phoneSlideIn {
         0% {
           opacity: 0;
@@ -73,13 +53,21 @@ const PhoneModel = () => {
         animation: phoneSlideIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         opacity: 0;
       }
+
+      .whatsapp-bg {
+        background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h100v100H0z' fill='%23e5ddd5'/%3E%3Cpath d='M50 0c27.6 0 50 22.4 50 50s-22.4 50-50 50S0 77.6 0 50 22.4 0 50 0zM50 94c24.3 0 44-19.7 44-44S74.3 6 50 6 6 25.7 6 50s19.7 44 44 44z' fill='%23d9d9d9' fill-opacity='0.05'/%3E%3C/svg%3E");
+        background-color: #e5ddd5;
+      }
     `
     document.head.appendChild(style)
 
     return () => {
-      document.head.removeChild(style)
+      if (document.head.contains(style)) {
+        document.head.removeChild(style)
+      }
     }
   }, [])
+
   const [messages, setMessages] = useState([
     {
       id: 1,
@@ -90,7 +78,7 @@ const PhoneModel = () => {
     },
     {
       id: 2,
-      text: 'Hi 👋, Welcome to Bab.ai! How can I assist you today? ',
+      text: 'Hi 👋, Welcome to Bab.ai! How can I assist you today?',
       time: '9:41 AM',
       type: 'received',
       hasImage: false,
@@ -124,10 +112,10 @@ const PhoneModel = () => {
       hasImage: false,
     },
   ])
+
   const [visibleMessages, setVisibleMessages] = useState(0)
   const [isTyping, setIsTyping] = useState(false)
   const [showVendors, setShowVendors] = useState(false)
-  const [currentTypingMessage, setCurrentTypingMessage] = useState('')
   const [phoneVisible, setPhoneVisible] = useState(false)
 
   const vendors = [
@@ -162,7 +150,7 @@ const PhoneModel = () => {
     }, 100)
   }
 
-  // Enhanced animation with typing effect and varied timing
+  // Enhanced animation with typing effect
   useEffect(() => {
     let timeoutId
 
@@ -170,20 +158,17 @@ const PhoneModel = () => {
       const currentMessage = messages[visibleMessages]
       const isReceived = currentMessage.type === 'received'
 
-      // Show typing indicator for received messages
       if (isReceived) {
         setIsTyping(true)
-        setCurrentTypingMessage(currentMessage.text)
       }
 
-      // Dynamic timing based on message length and type
-      const baseDelay = isReceived ? 1500 : 800 // Received messages take longer
-      const lengthMultiplier = currentMessage.text.length * 30 // 30ms per character
-      const randomDelay = Math.random() * 500 + 300 // Random 300-800ms
+      const baseDelay = isReceived ? 1500 : 800
+      const lengthMultiplier = currentMessage.text.length * 30
+      const randomDelay = Math.random() * 500 + 300
       const totalDelay = Math.min(
         baseDelay + lengthMultiplier + randomDelay,
         4000
-      ) // Max 4 seconds
+      )
 
       timeoutId = setTimeout(() => {
         setIsTyping(false)
@@ -191,7 +176,6 @@ const PhoneModel = () => {
         scrollToBottom()
       }, totalDelay)
     } else if (visibleMessages >= messages.length && !showVendors) {
-      // Show vendors after all messages with a slight delay
       timeoutId = setTimeout(() => {
         setShowVendors(true)
         scrollToBottom()
@@ -201,19 +185,17 @@ const PhoneModel = () => {
     return () => clearTimeout(timeoutId)
   }, [visibleMessages, messages.length, showVendors])
 
-  // Auto-start animation on component mount
+  // Auto-start animation
   useEffect(() => {
-    // Start phone animation immediately
     const phoneAnimationDelay = setTimeout(() => {
       setPhoneVisible(true)
-    }, 300) // Start phone animation after 300ms
+    }, 300)
 
-    // Start message animation after phone animation
     const startDelay = setTimeout(() => {
       if (visibleMessages === 0) {
         setVisibleMessages(1)
       }
-    }, 2000) // Start messages after 2 seconds (after phone animation)
+    }, 2000)
 
     return () => {
       clearTimeout(phoneAnimationDelay)
@@ -235,319 +217,272 @@ const PhoneModel = () => {
         }}
       >
         {/* Phone Glow Effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-green-500/30 to-blue-600/30 rounded-[70px] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-green-500/30 to-blue-600/30 rounded-[50px] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 
-        {/* 3D Phone Model */}
-        <div className="relative bg-brand-charcoal rounded-[65px] p-3 shadow-[0_0_50px_rgba(33,33,33,0.15)] transform hover:scale-[1.02] transition-all duration-500 ease-out will-change-transform">
-          <div className="bg-brand-charcoal rounded-[57px] p-2 shadow-inner">
-            <div
-              className="bg-brand-charcoal rounded-[53px] overflow-hidden relative"
-              style={{ height: '844px' }}
-            >
-              <div className="absolute top-3 left-1/2 transform -translate-x-1/2 w-28 h-5 bg-brand-charcoal rounded-full z-10"></div>
+        {/* iPhone-like Phone Model */}
+        <div className="relative bg-black rounded-[50px] p-2 shadow-2xl transform hover:scale-[1.02] transition-all duration-500 ease-out">
+          {/* Screen */}
+          <div
+            className="bg-white rounded-[42px] overflow-hidden relative"
+            style={{ height: '844px' }}
+          >
+            {/* Dynamic Island */}
+            <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-black rounded-full z-20"></div>
 
-              <div className="h-full flex flex-col">
-                {/* WhatsApp Header */}
-                <div className="bg-gradient-to-r from-green-600 to-green-500 px-5 py-6 pt-10 flex items-center justify-between shadow-lg">
-                  <div className="flex items-center">
-                    <button className="text-brand-white/90 mr-3 hover:text-brand-white transition-colors">
-                      <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M15 19l-7-7 7-7"
-                        />
-                      </svg>
-                    </button>
-                    <div className="w-10 h-10 bg-gradient-to-br from-green-400 via-green-300 to-green-600 rounded-full flex items-center justify-center mr-3 shadow-md">
-                      <span className="text-brand-white font-bold text-base">
-                        B
-                      </span>
-                    </div>
-                    <div>
-                      <h3 className="text-brand-white font-medium tracking-wide text-sm">
-                        Bab.ai
-                      </h3>
-                      <div className="flex items-center">
-                        <div className="w-1.5 h-1.5 bg-functional-success rounded-full mr-1.5 animate-pulse"></div>
-                        <p className="text-brand-white/90 text-xs">Online</p>
-                      </div>
+            <div className="h-full flex flex-col">
+              {/* WhatsApp Header - More Accurate */}
+              <div
+                className="px-4 py-3 pt-10 flex items-center justify-between shadow-sm"
+                style={{ backgroundColor: '#128C7E' }}
+              >
+                <div className="flex items-center flex-1">
+                  <button className="text-white mr-4 p-1">
+                    <svg
+                      className="w-6 h-6"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+                    </svg>
+                  </button>
+
+                  {/* Profile Picture */}
+                  <div className="w-10 h-10 rounded-full mr-3 overflow-hidden">
+                    <div className="w-full h-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
+                      <span className="text-white font-bold text-lg">B</span>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-4">
-                    <button className="text-brand-white">
-                      <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                        />
-                      </svg>
-                    </button>
-                    <button className="text-brand-white">
-                      <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-                        />
-                      </svg>
-                    </button>
+
+                  <div className="flex-1">
+                    <h3 className="text-white font-medium text-base">Bab.ai</h3>
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 bg-green-400 rounded-full mr-1"></div>
+                      <p className="text-white/90 text-sm">online</p>
+                    </div>
                   </div>
                 </div>
 
-                {/* Chat Messages */}
-                <div
-                  ref={chatContainerRef}
-                  className="flex-1 overflow-y-auto p-4 space-y-3 [&::-webkit-scrollbar]:hidden"
-                  style={{
-                    backgroundImage: `
-                      radial-gradient(circle at center, rgba(255,255,255,0.95) 0%, rgba(229,221,213,0.95) 100%),
-                      url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 50c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10z' fill='%23f0f0f0' fill-opacity='0.4'/%3E%3C/svg%3E")
-                    `,
-                    scrollbarWidth: 'none',
-                    msOverflowStyle: 'none',
-                  }}
-                >
-                  {Array.isArray(messages) &&
-                    messages.slice(0, visibleMessages).map((message, index) => (
-                      <div
-                        key={index}
-                        className={`flex ${
-                          message.type === 'sent'
-                            ? 'justify-end'
-                            : 'justify-start'
-                        } opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]`}
-                        style={{
-                          animationDelay: `${index * 0.1}s`,
-                        }}
-                      >
-                        <div
-                          className={`max-w-[280px] px-3 py-2 rounded-2xl shadow-sm transition-all duration-300 backdrop-blur-sm transform hover:scale-[1.02] relative ${
-                            message.type === 'sent'
-                              ? 'bg-functional-success/95 text-brand-white border border-functional-success/20'
-                              : 'bg-brand-white/95 text-brand-charcoal border border-brand-charcoal/10'
-                          }`}
-                        >
-                          <p
-                            className={`text-xs leading-relaxed text-start ${
-                              message.hasImage ? '' : 'pr-12'
-                            }`}
-                          >
-                            {message.text}
-                          </p>
-                          {message.hasImage && (
-                            <div className="mt-1.5 w-full h-20 bg-brand-charcoal/10 rounded-lg overflow-hidden relative">
-                              <img
-                                src="/foundation.jpg"
-                                alt="Construction site foundation"
-                                className="w-full h-full object-cover"
-                                onError={(e) => {
-                                  e.target.style.display = 'none'
-                                  e.target.nextSibling.style.display = 'flex'
-                                }}
-                              />
-                            </div>
-                          )}
-                          <p
-                            className={`text-[9px] mt-1 text-right ${
-                              message.type === 'sent'
-                                ? 'text-brand-white/70'
-                                : 'text-brand-charcoal/60'
-                            } ${
-                              message.hasImage
-                                ? ''
-                                : 'absolute bottom-1 right-2'
-                            }`}
-                          >
-                            {message.time}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
+                <div className="flex items-center space-x-4">
+                  <button className="text-white p-2">
+                    <svg
+                      className="w-6 h-6"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M15.5 1h-8A2.5 2.5 0 0 0 5 3.5v17A2.5 2.5 0 0 0 7.5 23h8a2.5 2.5 0 0 0 2.5-2.5v-17A2.5 2.5 0 0 0 15.5 1z" />
+                    </svg>
+                  </button>
+                  <button className="text-white p-2">
+                    <svg
+                      className="w-5 h-5"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
 
-                  {/* Typing Indicator */}
-                  {isTyping && (
-                    <div className="flex justify-start animate-[fadeInUp_0.3s_ease-out]">
-                      <div className="max-w-[280px] px-3 py-2 rounded-2xl bg-brand-white/95 text-brand-charcoal border border-brand-charcoal/10 backdrop-blur-sm">
-                        <div className="flex items-center space-x-1">
-                          <div className="flex space-x-1">
-                            <div
-                              className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce"
-                              style={{ animationDelay: '0ms' }}
-                            ></div>
-                            <div
-                              className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce"
-                              style={{ animationDelay: '150ms' }}
-                            ></div>
-                            <div
-                              className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce"
-                              style={{ animationDelay: '300ms' }}
-                            ></div>
-                          </div>
+              {/* Chat Messages with WhatsApp Background */}
+              <div
+                ref={chatContainerRef}
+                className="flex-1 overflow-y-auto p-3 space-y-2 whatsapp-bg"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              >
+                {messages.slice(0, visibleMessages).map((message, index) => (
+                  <div
+                    key={message.id}
+                    className={`flex ${
+                      message.type === 'sent' ? 'justify-end' : 'justify-start'
+                    } opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]`}
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div
+                      className={`max-w-xs px-3 py-2 rounded-lg shadow-sm relative ${
+                        message.type === 'sent'
+                          ? 'bg-[#dcf8c6] text-gray-800 rounded-br-none'
+                          : 'bg-white text-gray-800 rounded-bl-none'
+                      }`}
+                      style={{
+                        borderRadius:
+                          message.type === 'sent'
+                            ? '18px 18px 4px 18px'
+                            : '18px 18px 18px 4px',
+                      }}
+                    >
+                      <p className="text-sm leading-relaxed mb-1">
+                        {message.text}
+                      </p>
+
+                      {message.hasImage && (
+                        <div className="mt-2 w-full h-32 bg-gray-200 rounded-lg overflow-hidden">
+                          <img
+                            src="/foundation.jpg"
+                            alt="Construction site"
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              e.target.src =
+                                "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23f0f0f0'/%3E%3Ctext x='50' y='50' text-anchor='middle' dy='.3em' fill='%23999'%3EImage%3C/text%3E%3C/svg%3E"
+                            }}
+                          />
                         </div>
+                      )}
+
+                      <div className="flex items-center justify-end mt-1 space-x-1">
+                        <span className="text-xs text-gray-500">
+                          {message.time}
+                        </span>
+                        {message.type === 'sent' && (
+                          <svg
+                            className="w-4 h-4 text-blue-500"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        )}
                       </div>
                     </div>
-                  )}
+                  </div>
+                ))}
 
-                  {showVendors && (
-                    <div className="animate-[fadeInUp_0.8s_ease-out]">
-                      <div className="bg-white/95 backdrop-blur-sm rounded-lg p-2.5 mb-3 shadow-sm">
-                        <h4 className="font-medium mb-1.5 text-gray-800 flex items-center text-[11px]">
-                          <span className="mr-1 text-xs">🎯</span>
-                          Recommended Suppliers
-                        </h4>
-                        <div className="space-y-1.5">
-                          {vendors.map((vendor, index) => (
+                {/* Typing Indicator */}
+                {isTyping && (
+                  <div className="flex justify-start animate-[fadeInUp_0.3s_ease-out]">
+                    <div
+                      className="bg-white px-3 py-2 rounded-lg shadow-sm"
+                      style={{ borderRadius: '18px 18px 18px 4px' }}
+                    >
+                      <div className="flex items-center space-x-1">
+                        <div className="flex space-x-1">
+                          {[0, 1, 2].map((i) => (
                             <div
-                              key={index}
-                              className="group flex items-center p-2 bg-white/80 hover:bg-gradient-to-r hover:from-white/90 hover:to-green-50/30 rounded-lg transition-all duration-300 cursor-pointer border border-gray-100/20 backdrop-blur-sm opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]"
-                              style={{
-                                animationDelay: `${index * 0.2}s`,
-                              }}
-                            >
-                              <div className="w-7 h-7 bg-gradient-to-br from-green-500 via-green-400 to-green-600 rounded-full flex items-center justify-center mr-2 shadow-md group-hover:shadow-lg transition-all duration-300 flex-shrink-0">
-                                <span className="text-white text-[9px] font-bold">
-                                  {vendor.name[0]}
-                                </span>
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <div className="flex justify-between">
-                                  <div className="flex-1 mr-3 text-left">
-                                    <h5 className="font-medium text-[10px] text-gray-800 truncate text-start">
-                                      {vendor.name}
-                                    </h5>
-                                    <p className="text-[9px] text-gray-600 mt-0.5 truncate text-start">
-                                      {vendor.description}
-                                    </p>
-                                  </div>
-                                  <div className="flex flex-col items-end flex-shrink-0">
-                                    <div className="flex items-center mb-1">
-                                      {[...Array(5)].map((_, i) => (
-                                        <span
-                                          key={i}
-                                          className={`text-[8px] ${
-                                            i < vendor.rating
-                                              ? 'text-yellow-400'
-                                              : 'text-gray-300'
-                                          }`}
-                                        >
-                                          ★
-                                        </span>
-                                      ))}
-                                    </div>
-                                    <span className="text-[9px] text-gray-500">
-                                      {vendor.time}
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+                              key={i}
+                              className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                              style={{ animationDelay: `${i * 150}ms` }}
+                            />
                           ))}
                         </div>
-                        <button className="mt-1.5 bg-green-500 hover:bg-green-600 text-white px-2.5 py-1 rounded-full text-[9px] font-medium transition-colors duration-200 hover:scale-105 transform">
-                          Get Quotes
-                        </button>
-                      </div>
-
-                      <div
-                        className="bg-white/95 text-gray-800 px-3 py-2 rounded-2xl mr-auto max-w-[260px] opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards] transform hover:scale-[1.02] transition-transform duration-200 border border-gray-200/20 backdrop-blur-sm relative"
-                        style={{ animationDelay: '1s' }}
-                      >
-                        <p className="text-xs leading-relaxed pr-12 text-start">
-                          You're instantly approved up to ₹85,000. Pay later?
-                        </p>
-                        <p className="absolute bottom-1 right-2 text-[9px] text-gray-500">
-                          9:45 AM
-                        </p>
-                        <button className="mt-1.5 bg-green-500 hover:bg-green-600 text-white px-2.5 py-1 rounded-full text-[10px] font-medium transition-colors duration-200">
-                          Want to Avail Credit?
-                        </button>
                       </div>
                     </div>
-                  )}
+                  </div>
+                )}
+
+                {/* Vendor Recommendations */}
+                {showVendors && (
+                  <div className="animate-[fadeInUp_0.8s_ease-out]">
+                    <div
+                      className="bg-white rounded-lg p-3 shadow-sm border border-gray-200"
+                      style={{ borderRadius: '18px 18px 18px 4px' }}
+                    >
+                      <h4 className="font-semibold mb-3 text-gray-800 flex items-center text-sm">
+                        <span className="mr-2">🎯</span>
+                        Recommended Suppliers
+                      </h4>
+
+                      <div className="space-y-2">
+                        {vendors.map((vendor, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center p-2 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
+                            style={{ animationDelay: `${index * 0.2}s` }}
+                          >
+                            <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center mr-3 text-white font-bold text-xs">
+                              {vendor.name[0]}
+                            </div>
+                            <div className="flex-1">
+                              <h5 className="font-medium text-sm text-gray-800">
+                                {vendor.name}
+                              </h5>
+                              <p className="text-xs text-gray-600">
+                                {vendor.description}
+                              </p>
+                            </div>
+                            <div className="text-right">
+                              <div className="flex items-center mb-1">
+                                {[...Array(5)].map((_, i) => (
+                                  <span
+                                    key={i}
+                                    className={`text-xs ${
+                                      i < vendor.rating
+                                        ? 'text-yellow-400'
+                                        : 'text-gray-300'
+                                    }`}
+                                  >
+                                    ★
+                                  </span>
+                                ))}
+                              </div>
+                              <span className="text-xs text-gray-500">
+                                {vendor.time}
+                              </span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      <button className="mt-3 w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg text-sm font-medium transition-colors">
+                        Get Quotes
+                      </button>
+                    </div>
+
+                    {/* Credit Offer */}
+                    <div
+                      className="bg-white px-3 py-2 rounded-lg shadow-sm mt-2 opacity-0 animate-[fadeInUp_0.6s_ease-out_forwards]"
+                      style={{
+                        animationDelay: '1s',
+                        borderRadius: '18px 18px 18px 4px',
+                      }}
+                    >
+                      <p className="text-sm mb-2">
+                        You're instantly approved up to ₹85,000. Pay later?
+                      </p>
+                      <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-full text-xs font-medium transition-colors">
+                        Want to Avail Credit?
+                      </button>
+                      <div className="flex items-center justify-end mt-1">
+                        <span className="text-xs text-gray-500">9:47 AM</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Chat Input - WhatsApp Style */}
+              <div className="bg-[#f0f0f0] px-3 py-2 flex items-center space-x-2 border-t border-gray-200">
+                <button className="text-gray-500 p-2">
+                  <svg
+                    className="w-6 h-6"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H5V9h14v11z" />
+                  </svg>
+                </button>
+
+                <div className="flex-1 bg-white rounded-full px-4 py-2 border border-gray-300">
+                  <input
+                    type="text"
+                    placeholder="Type a message"
+                    className="w-full bg-transparent outline-none text-sm text-gray-700"
+                    readOnly
+                  />
                 </div>
 
-                {/* Chat Input */}
-                <div className="bg-gradient-to-b from-[#F0F2F5] to-[#E8EEF1] px-4 py-3 flex items-center space-x-3 border-t border-gray-200/50 shadow-[0_-1px_2px_rgba(0,0,0,0.05)]">
-                  <button className="text-gray-500 hover:text-green-600 transition-colors p-2 hover:bg-gray-100/50 rounded-full">
-                    <svg
-                      className="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                      />
-                    </svg>
-                  </button>
-                  <div className="flex-1 bg-white rounded-full px-4 py-2.5 shadow-sm border border-gray-100/50 backdrop-blur-sm">
-                    <input
-                      type="text"
-                      placeholder="Type a message..."
-                      className="w-full bg-transparent outline-none text-sm text-gray-700 placeholder-gray-500"
-                      readOnly
-                    />
-                  </div>
-                  <button className="text-gray-500">
-                    <svg
-                      className="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                    </svg>
-                  </button>
-                  <button className="text-gray-500">
-                    <svg
-                      className="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
-                      />
-                    </svg>
-                  </button>
-                </div>
+                <button className="text-gray-500 p-2">
+                  <svg
+                    className="w-6 h-6"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z" />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
