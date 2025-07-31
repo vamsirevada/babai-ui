@@ -425,9 +425,6 @@ const DemoSection = () => {
               }`}
             >
               <PhoneModel />
-              {/* <Mockup /> */}
-
-              {/* Decorative elements positioned relative to the phone inside the transform */}
               <div
                 className={`absolute -top-4 -right-4 w-6 h-6 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full animate-pulse transition-all duration-1000 delay-300 ${
                   isPhoneVisible ? 'opacity-50 scale-100' : 'opacity-0 scale-50'
