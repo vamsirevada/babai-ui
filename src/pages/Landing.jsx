@@ -1,79 +1,88 @@
-import { useNavigate } from 'react-router-dom'
-import { useCallback, lazy, Suspense } from 'react'
+import {useNavigate} from 'react-router-dom'
+import {useCallback, lazy, Suspense, useEffect} from 'react'
+import {prefetch} from '../App.jsx'
 
 // Import section components
 import Header from '../components/landing/Header'
 import HeroSection from '../components/landing/HeroSection'
-import IntelligenceSection from '../components/landing/IntelligenceSection'
-import DemoSection from '../components/landing/DemoSection'
-import ProblemSection from '../components/landing/ProblemSection'
-import FeaturesSection from '../components/landing/FeaturesSection'
-import TargetAudienceSection from '../components/landing/TargetAudienceSection'
-import TestimonialsSection from '../components/landing/TestimonialsSection'
-import CTASection from '../components/landing/CTASection'
-import Footer from '../components/landing/Footer'
 
-// Lazily load the heavy 3D background component
+const IntelligenceSection = lazy(() => import('../components/landing/IntelligenceSection'))
+const DemoSection = lazy(() => import('../components/landing/DemoSection'))
+const ProblemSection = lazy(() => import('../components/landing/ProblemSection'))
+const FeaturesSection = lazy(() => import('../components/landing/FeaturesSection'))
+const TargetAudienceSection = lazy(() => import('../components/landing/TargetAudienceSection'))
+const TestimonialsSection = lazy(() => import('../components/landing/TestimonialsSection'))
+const CTASection = lazy(() => import('../components/landing/CTASection'))
+const Footer = lazy(() => import('../components/landing/Footer'))
 const ThreeBackground = lazy(() => import('../components/ThreeBackground'))
 
+const SectionLoader = () => <div className="w-full h-[50vh]"/>
+
 const Landing = () => {
-  const navigate = useNavigate()
+		const navigate = useNavigate()
 
-  const handleGetStarted = useCallback(() => {
-    navigate('/dashboard')
-  }, [navigate])
+		useEffect(() => {
+				const timer = setTimeout(() => {
+						prefetch.dashboard()
+				}, 2000)
+				return () => clearTimeout(timer)
+		}, [])
 
-  const handleLogin = useCallback(() => {
-    navigate('/login')
-  }, [navigate])
+		const handleGetStarted = useCallback(() => {
+				navigate('/dashboard')
+		}, [navigate])
 
-  const handleRegister = useCallback(() => {
-    navigate('/register')
-  }, [navigate])
+		const handleLogin = useCallback(() => {
+				navigate('/login')
+		}, [navigate])
 
-  return (
-    <div className="min-h-screen relative bg-gradient-subtle font-body">
-      {/* 3D Background */}
-      <Suspense fallback={null}>
-        <ThreeBackground />
-      </Suspense>
+		const handleRegister = useCallback(() => {
+				navigate('/register')
+		}, [navigate])
 
-      {/* Header */}
-      <Header onLogin={handleLogin} onRegister={handleRegister} />
+		return (
+				<div className="min-h-screen relative bg-gradient-subtle font-body">
+						{/* 3D Background */}
+						<Suspense fallback={null}>
+								<ThreeBackground/>
+						</Suspense>
 
-      {/* Main Content */}
-      <main className="relative z-10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 min-h-[80vh] flex items-center justify-center pt-20 pb-8">
-          <HeroSection />
-        </div>
-        <div
-          className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12"
-          data-section="intelligence"
-        >
-          <IntelligenceSection />
-        </div>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
-          <DemoSection />
-        </div>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
-          <ProblemSection />
-        </div>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
-          <FeaturesSection />
-        </div>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
-          <TargetAudienceSection />
-        </div>
-        <TestimonialsSection />
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
-          <CTASection onGetStarted={handleGetStarted} />
-        </div>
-      </main>
+						{/* Header */}
+						<Header onLogin={handleLogin} onRegister={handleRegister}/>
 
-      {/* Footer */}
-      <Footer />
-    </div>
-  )
+						{/* Main Content */}
+						<main className="relative z-10">
+								<section className="container mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12">
+										<div className="min-h-[calc(100vh-8rem)] flex flex-col justify-center">
+												<HeroSection/>
+										</div>
+								</section>
+
+								<Suspense fallback={<SectionLoader/>}>
+										<div
+												className="container mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20"
+										>
+												<div data-section="intelligence" className="mb-20 sm:mb-28">
+														<IntelligenceSection/>
+												</div>
+												<div className='space-y-20 sm:space-y-28'>
+														<DemoSection/>
+														<ProblemSection/>
+														<FeaturesSection/>
+														<TargetAudienceSection/>
+														<TestimonialsSection/>
+														<CTASection onGetStarted={handleGetStarted}/>
+												</div>
+										</div>
+								</Suspense>
+						</main>
+
+						{/* Footer */}
+						<Suspense fallback={null}>
+								<Footer/>
+						</Suspense>
+				</div>
+		)
 }
 
 export default Landing

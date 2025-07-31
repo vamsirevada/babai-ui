@@ -1,3 +1,5 @@
+// src/pages/ReviewOrder.jsx
+
 import React, {useState, useCallback, memo, useEffect} from 'react'
 import {Button} from '../components/ui/button'
 import {Input} from '../components/ui/input'
@@ -8,6 +10,7 @@ import {useIsMobile} from '../hooks/use-media-query'
 import {useNavigate, useSearchParams} from 'react-router-dom'
 import {apiCall} from '../utils/api'
 import {Edit2, Trash2, Plus, Minus} from 'lucide-react'
+import EditableCell from '../components/EditableCell' // <-- Import the new component
 
 const Logo = memo(() => (
 		<div className="flex items-center gap-3">
@@ -36,125 +39,44 @@ const Logo = memo(() => (
 		</div>
 ))
 
-// Simplified TableRow component
-const TableRow = memo(
-		({
-				 row,
-				 editingCell,
-				 setEditingCell,
-				 onCellEdit,
-				 onDeleteRow,
-				 suggestions = [],
-		 }) => {
-				const [tempValue, setTempValue] = useState('')
-				const [showSuggestions, setShowSuggestions] = useState(false)
-
-				const handleEdit = useCallback(
-						(field, value = row[field] || '') => {
-								const cellKey = `${row.id}-${field}`
-								if (editingCell === cellKey) {
-										// Save edit
-										if (field === 'quantity' && (isNaN(value) || value <= 0)) {
-												alert('Please enter a valid quantity greater than 0')
-												return
-										}
-										onCellEdit(row.id, field, value)
-										setEditingCell(null)
-										setShowSuggestions(false)
-								} else {
-										// Start edit
-										setEditingCell(cellKey)
-										setTempValue(value)
-										setShowSuggestions(field === 'material_name')
-								}
-						},
-						[row, editingCell, setEditingCell, onCellEdit, tempValue]
-				)
-
-				const isEditing = (field) => editingCell === `${row.id}-${field}`
-
-				const filteredSuggestions = suggestions
-						.filter(
-								(s) =>
-										s.toLowerCase().includes(String(tempValue).toLowerCase()) &&
-										s !== tempValue
-						)
-						.slice(0, 5)
-
-				const renderCell = (field, value) => (
-						<td
-								className="bg-white hover:bg-gray-50 px-4 py-3 border-b border-gray-200 cursor-pointer group"
-								onClick={() => handleEdit(field)}
-						>
-								{isEditing(field) ? (
-										<div className="relative">
-												<Input
-														type={field === 'quantity' ? 'number' : 'text'}
-														value={tempValue}
-														onChange={(e) => setTempValue(e.target.value)}
-														onBlur={() => handleEdit(field, tempValue)}
-														onKeyDown={(e) => {
-																if (e.key === 'Enter') handleEdit(field, tempValue)
-																if (e.key === 'Escape') setEditingCell(null)
-														}}
-														className="h-8 text-sm"
-														autoFocus
-														min={field === 'quantity' ? 1 : undefined}
-												/>
-												{field === 'material_name' &&
-														showSuggestions &&
-														filteredSuggestions.length > 0 && (
-																<div className="absolute top-full left-0 bg-white border rounded-lg shadow-lg mt-1 z-20 min-w-48">
-																		{filteredSuggestions.map((suggestion, idx) => (
-																				<button
-																						key={idx}
-																						type="button"
-																						className="w-full px-3 py-2 text-left hover:bg-gray-100 first:rounded-t-lg last:rounded-b-lg text-sm"
-																						onClick={() => {
-																								setTempValue(suggestion)
-																								setShowSuggestions(false)
-																						}}
-																				>
-																						{suggestion}
-																				</button>
-																		))}
-																</div>
-														)}
-										</div>
-								) : (
-										<div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-gray-900">
-              {field === 'quantity'
-		              ? value
-		              : value || (
-		              <span className="text-gray-400 italic">
-                      Click to add...
-                    </span>
-              )}
-            </span>
-												<Edit2 className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity"/>
-										</div>
-								)}
+// Simplified TableRow component using EditableCell
+const TableRow = memo(({row, onCellEdit, onDeleteRow}) => {
+		return (
+				<tr className="border-b border-gray-200">
+						<td className="bg-white px-4 py-2 border-b border-gray-200">
+								<EditableCell
+										value={row.material_name}
+										onSave={(newValue) => onCellEdit(row.id, 'material_name', newValue)}
+								/>
 						</td>
-				)
-
-				const renderQuantityCell = (value) => (
-						<td className="bg-white hover:bg-gray-50 px-4 py-3 border-b border-gray-200">
-								<div className="hidden md:flex items-center gap-1">
+						<td className="bg-white px-4 py-2 border-b border-gray-200">
+								<EditableCell
+										value={row.sub_type}
+										onSave={(newValue) => onCellEdit(row.id, 'sub_type', newValue)}
+								/>
+						</td>
+						<td className="bg-white px-4 py-2 border-b border-gray-200">
+								<EditableCell
+										value={row.dimensions}
+										onSave={(newValue) => onCellEdit(row.id, 'dimensions', newValue)}
+								/>
+						</td>
+						<td className="bg-white px-4 py-2 border-b border-gray-200">
+								<div className="flex items-center gap-1">
 										<Button
 												variant="outline"
 												size="sm"
 												onClick={() =>
-														onCellEdit(row.id, 'quantity', Math.max(1, (value || 1) - 1))
+														onCellEdit(row.id, 'quantity', Math.max(1, (row.quantity || 1) - 1))
 												}
-												disabled={value <= 1}
+												disabled={row.quantity <= 1}
 												className="h-8 w-8 p-0"
 										>
 												<Minus className="h-3 w-3"/>
 										</Button>
 										<Input
 												type="number"
-												value={value || 1}
+												value={row.quantity || 1}
 												onChange={(e) =>
 														onCellEdit(row.id, 'quantity', parseInt(e.target.value) || 1)
 												}
@@ -164,40 +86,28 @@ const TableRow = memo(
 										<Button
 												variant="outline"
 												size="sm"
-												onClick={() => onCellEdit(row.id, 'quantity', (value || 1) + 1)}
+												onClick={() => onCellEdit(row.id, 'quantity', (row.quantity || 1) + 1)}
 												className="h-8 w-8 p-0"
 										>
 												<Plus className="h-3 w-3"/>
 										</Button>
 								</div>
-								<div className="md:hidden" onClick={() => handleEdit('quantity')}>
-										<span className="text-sm font-medium">{value || 1}</span>
-								</div>
 						</td>
-				)
+						<td className="px-4 py-2 border-b border-gray-200 text-center">
+								<Button
+										variant="ghost"
+										size="sm"
+										onClick={() => onDeleteRow(row.id)}
+										className="text-red-600 hover:text-red-700 hover:bg-red-50 h-8 w-8 p-0"
+								>
+										<Trash2 className="h-4 w-4"/>
+								</Button>
+						</td>
+				</tr>
+		)
+})
 
-				return (
-						<tr className="border-b border-gray-200 hover:bg-gray-50">
-								{renderCell('material_name', row.material_name)}
-								{renderCell('sub_type', row.sub_type)}
-								{renderCell('dimensions', row.dimensions)}
-								{renderQuantityCell(row.quantity)}
-								<td className="px-4 py-3 border-b border-gray-200 text-center">
-										<Button
-												variant="ghost"
-												size="sm"
-												onClick={() => onDeleteRow(row.id)}
-												className="text-red-600 hover:text-red-700 hover:bg-red-50 h-8 w-8 p-0"
-										>
-												<Trash2 className="h-4 w-4"/>
-										</Button>
-								</td>
-						</tr>
-				)
-		}
-)
-
-// Simplified ItemCard component
+// Simplified ItemCard component for mobile
 const ItemCard = memo(({item, onEdit, onDelete}) => (
 		<Card className="p-4 mb-4 hover:shadow-md transition-shadow">
 				<div className="flex justify-between items-start mb-3">
@@ -254,18 +164,13 @@ const ReviewOrder = () => {
 		const isMobile = useIsMobile()
 		const uuid = searchParams.get('uuid')
 
-		// Consolidated state
-		const [state, setState] = useState({
-				orderData: [],
-				userProjects: [],
-				isLoading: true,
-				editingCell: null,
-				isSubmitting: false,
-				editModalOpen: false,
-				editingItem: null,
-		})
-
-		// Customer info - simplified
+		// Decoupled state
+		const [orderData, setOrderData] = useState([])
+		const [userProjects, setUserProjects] = useState([])
+		const [isLoading, setIsLoading] = useState(true)
+		const [isSubmitting, setIsSubmitting] = useState(false)
+		const [editingItem, setEditingItem] = useState(null)
+		const [editModalOpen, setEditModalOpen] = useState(false)
 		const [customerInfo, setCustomerInfo] = useState({
 				name: searchParams.get('name') || 'Rajesh Kumar',
 				phone: searchParams.get('phone') || '+91 98765 43210',
@@ -277,99 +182,59 @@ const ReviewOrder = () => {
 				whatsappPhone: searchParams.get('phone') || '+91 98765 43210',
 		})
 
-		const materialSuggestions = [
-				'Cement',
-				'Steel Bar',
-				'Sand',
-				'Concrete Block',
-				'Bricks',
-				'Stone Chips',
-				'PVC Pipes',
-				'Electrical Cables',
-				'Paint',
-				'Tiles',
-				'Marble',
-				'Wood',
-		]
-
-		// Simplified data loading
+		// Data loading
 		useEffect(() => {
 				const loadData = async () => {
+						setIsLoading(true)
 						try {
-								const promises = [apiCall('projects'), apiCall('items')]
-								if (uuid) promises.push(apiCall(`review-order/${uuid}`))
+								const promises = [apiCall('projects')]
+								if (uuid) {
+										promises.push(apiCall(`review-order/${uuid}`))
+								}
 
-								const [projectsRes, itemsRes, reviewOrderRes] = await Promise.all(
-										promises
-								)
+								const [projectsRes, reviewOrderRes] = await Promise.all(promises)
 
-								let projects = []
 								if (projectsRes?.ok) {
-										try {
-												projects = await projectsRes.json()
-												if (!Array.isArray(projects)) projects = []
-										} catch (err) {
-												console.error('Projects response error:', err)
-										}
+										const projects = (await projectsRes.json()) || []
+										setUserProjects(Array.isArray(projects) ? projects : [])
 								}
 
-								let orderItems = []
 								if (uuid && reviewOrderRes?.ok) {
-										try {
-												const reviewOrderData = await reviewOrderRes.json()
-												orderItems = Array.isArray(reviewOrderData)
-														? reviewOrderData.map((item, index) => ({
-																id: item.id || index + 1,
-																...item,
-														}))
-														: [{id: 1, ...reviewOrderData}]
-										} catch (err) {
-												console.error('ReviewOrder response error:', err)
-										}
+										const reviewOrderData = (await reviewOrderRes.json()) || []
+										const orderItems = Array.isArray(reviewOrderData)
+												? reviewOrderData.map((item, index) => ({
+														id: item.id || Date.now() + index,
+														...item,
+												}))
+												: [{id: Date.now(), ...reviewOrderData}]
+										setOrderData(orderItems)
 								}
-
-								setState((prev) => ({
-										...prev,
-										userProjects: projects,
-										orderData: orderItems,
-										isLoading: false,
-								}))
 						} catch (error) {
 								console.error('Error loading data:', error)
-								setState((prev) => ({...prev, isLoading: false}))
+						} finally {
+								setIsLoading(false)
 						}
 				}
 				loadData()
 		}, [uuid])
 
-		// Event handlers - simplified
-		const updateState = useCallback(
-				(updates) => setState((prev) => ({...prev, ...updates})),
-				[]
-		)
+		// Event handlers
+		const handleCellEdit = useCallback((rowId, field, value) => {
+				setOrderData((currentData) =>
+						currentData.map((item) =>
+								item.id === rowId ? {...item, [field]: value} : item
+						)
+				)
+		}, [])
 
-		const handleCellEdit = useCallback(
-				(rowId, field, value) => {
-						updateState({
-								orderData: state.orderData.map((item) =>
-										item.id === rowId ? {...item, [field]: value} : item
-								),
-						})
-				},
-				[state.orderData, updateState]
-		)
-
-		const handleDeleteRow = useCallback(
-				(rowId) => {
-						updateState({
-								orderData: state.orderData.filter((item) => item.id !== rowId),
-						})
-				},
-				[state.orderData, updateState]
-		)
+		const handleDeleteRow = useCallback((rowId) => {
+				setOrderData((currentData) =>
+						currentData.filter((item) => item.id !== rowId)
+				)
+		}, [])
 
 		const handleAddRow = useCallback(() => {
-				const newId = Math.max(...state.orderData.map((item) => item.id), 0) + 1
+				const newId = Date.now()
 				const newRow = {
 						id: newId,
 						material_name: '',
@@ -378,56 +243,45 @@ const ReviewOrder = () => {
 						quantity: 1,
 						unit_price: 0,
 				}
-
-				updateState({orderData: [...state.orderData, newRow]})
-
+				setOrderData((currentData) => [...currentData, newRow])
 				if (isMobile) {
-						updateState({editingItem: newRow, editModalOpen: true})
+						setEditingItem(newRow)
+						setEditModalOpen(true)
 				}
-		}, [state.orderData, isMobile, updateState])
+		}, [isMobile])
 
-		const handleEditItem = useCallback(
-				(item) => {
-						updateState({editingItem: item, editModalOpen: true})
-				},
-				[updateState]
-		)
+		const handleEditItem = useCallback((item) => {
+				setEditingItem(item)
+				setEditModalOpen(true)
+		}, [])
 
 		const handleSaveItem = useCallback(
 				async (formData) => {
-						updateState({isLoading: true})
-						await new Promise((resolve) => setTimeout(resolve, 500)) // Simulate API delay
-
-						updateState({
-								orderData: state.orderData.map((item) =>
-										item.id === state.editingItem.id ? {...item, ...formData} : item
-								),
-								editModalOpen: false,
-								editingItem: null,
-								isLoading: false,
-						})
+						setOrderData((currentData) =>
+								currentData.map((item) =>
+										item.id === editingItem.id ? {...item, ...formData} : item
+								)
+						)
+						setEditModalOpen(false)
+						setEditingItem(null)
 				},
-				[state.orderData, state.editingItem, updateState]
+				[editingItem]
 		)
 
 		const handleSubmit = useCallback(async () => {
-				const invalidItems = state.orderData.filter(
-						(item) =>
-								!item.material_name?.trim() || !item.quantity || item.quantity <= 0
+				const invalidItems = orderData.filter(
+						(item) => !item.material_name?.trim() || !item.quantity || item.quantity <= 0
 				)
-
 				if (invalidItems.length > 0) {
 						alert('Please fill in all required fields (Item name and valid quantity)')
 						return
 				}
-
 				if (!customerInfo.address.trim()) {
 						alert('Please enter a delivery address.')
 						return
 				}
 
-				updateState({isSubmitting: true})
-
+				setIsSubmitting(true)
 				try {
 						const projectId = crypto.randomUUID?.() || Date.now().toString()
 						const orderDataPayload = {
@@ -441,7 +295,7 @@ const ReviewOrder = () => {
 										.toISOString()
 										.split('T')[0],
 								user_editable: true,
-								items: state.orderData.map((item) => ({
+								items: orderData.map((item) => ({
 										material_name: item.material_name,
 										sub_type: item.sub_type || null,
 										dimensions: item.dimensions || null,
@@ -453,7 +307,6 @@ const ReviewOrder = () => {
 								customerInfo,
 								timestamp: new Date().toISOString(),
 						}
-
 						localStorage.setItem('orderData', JSON.stringify(orderDataPayload))
 						navigate(`/select-vendors?uuid=${uuid}`, {
 								state: {orderData: orderDataPayload},
@@ -462,11 +315,11 @@ const ReviewOrder = () => {
 						console.error('Order submission failed:', error)
 						alert(`Order submission failed: ${error.message}`)
 				} finally {
-						updateState({isSubmitting: false})
+						setIsSubmitting(false)
 				}
-		}, [state.orderData, customerInfo, navigate, uuid, updateState])
+		}, [orderData, customerInfo, navigate, uuid])
 
-		if (state.isLoading) {
+		if (isLoading) {
 				return (
 						<div className="min-h-screen flex items-center justify-center">
 								<div className="text-center">
@@ -526,7 +379,7 @@ const ReviewOrder = () => {
 																className="w-full px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-md focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
 														>
 																<option value="">Choose your project...</option>
-																{state.userProjects.map((project) => (
+																{userProjects.map((project) => (
 																		<option key={project.id} value={project.name}>
 																				{project.name}
 																		</option>
@@ -561,7 +414,7 @@ const ReviewOrder = () => {
 																Order Items
 														</h2>
 														<Badge className="bg-gray-100 text-gray-700 px-2 sm:px-3 py-1 text-xs sm:text-sm">
-																{state.orderData.length} items
+																{orderData.length} items
 														</Badge>
 												</div>
 												<Button
@@ -597,17 +450,12 @@ const ReviewOrder = () => {
 																</tr>
 																</thead>
 																<tbody>
-																{state.orderData.map((row) => (
+																{orderData.map((row) => (
 																		<TableRow
 																				key={row.id}
 																				row={row}
-																				editingCell={state.editingCell}
-																				setEditingCell={(cell) =>
-																						updateState({editingCell: cell})
-																				}
 																				onCellEdit={handleCellEdit}
 																				onDeleteRow={handleDeleteRow}
-																				suggestions={materialSuggestions}
 																		/>
 																))}
 																</tbody>
@@ -618,13 +466,13 @@ const ReviewOrder = () => {
 										{/* Mobile Cards */}
 										{isMobile && (
 												<div className="space-y-3">
-														{state.orderData.length === 0 ? (
+														{orderData.length === 0 ? (
 																<div className="text-center py-8 text-gray-500">
 																		<p>No items added yet.</p>
 																		<p className="text-sm mt-1">Tap "Add" to get started.</p>
 																</div>
 														) : (
-																state.orderData.map((item) => (
+																orderData.map((item) => (
 																		<ItemCard
 																				key={item.id}
 																				item={item}
@@ -644,16 +492,16 @@ const ReviewOrder = () => {
 												variant="outline"
 												className="flex-1 h-12"
 												onClick={() => window.history.back()}
-												disabled={state.isSubmitting}
+												disabled={isSubmitting}
 										>
 												Back to WhatsApp
 										</Button>
 										<Button
 												onClick={handleSubmit}
-												disabled={state.isSubmitting || state.orderData.length === 0}
+												disabled={isSubmitting || orderData.length === 0}
 												className="flex-1 bg-brand-charcoal hover:bg-brand-charcoal/90 h-12 font-medium text-brand-white font-body"
 										>
-												{state.isSubmitting ? (
+												{isSubmitting ? (
 														<>
 																<div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"/>
 																Listing Vendors...
@@ -667,12 +515,14 @@ const ReviewOrder = () => {
 
 						{/* Edit Modal */}
 						<EditModal
-								isOpen={state.editModalOpen}
-								onClose={() => updateState({editModalOpen: false, editingItem: null})}
-								item={state.editingItem}
+								isOpen={editModalOpen}
+								onClose={() => {
+										setEditModalOpen(false)
+										setEditingItem(null)
+								}}
+								item={editingItem}
 								onSave={handleSaveItem}
-								suggestions={materialSuggestions}
-								isLoading={state.isLoading}
+								isLoading={isSubmitting}
 						/>
 				</div>
 		)

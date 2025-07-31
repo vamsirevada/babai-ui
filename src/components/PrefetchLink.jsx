@@ -1,13 +1,14 @@
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
+import {prefetch} from '../App.jsx'
 
-const PrefetchLink = ({ prefetch, to, ...props }) => {
-  const handleMouseEnter = () => {
-    if (prefetch) {
-      prefetch()
-    }
-  }
+const PrefetchLink = ({to, prefetch: prefetchKey, ...props}) => {
+		const handleMouseEnter = () => {
+				if (prefetchKey && prefetch[prefetchKey]) {
+						prefetch[prefetchKey]()
+				}
+		}
 
-  return <Link to={to} onMouseEnter={handleMouseEnter} {...props} />
+		return <Link to={to} onMouseEnter={handleMouseEnter} {...props} />
 }
 
 export default PrefetchLink
