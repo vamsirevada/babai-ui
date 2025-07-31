@@ -56,7 +56,7 @@ const CTASection = ({ onGetStarted }) => {
               onClick={onGetStarted}
               variant="secondary"
               size="lg"
-              className="bg-white text-blue-600 hover:bg-slate-50 px-10 py-4 text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 font-body"
+              className="bg-brand-white text-brand-primary hover:bg-brand-white/90 px-10 py-4 text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 font-body"
             >
               Check your Dashboard
               <ArrowRight className="ml-2 w-5 h-5" />
@@ -65,10 +65,10 @@ const CTASection = ({ onGetStarted }) => {
 
           {/* Enhanced feature list */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto mb-8">
-            <div className="flex flex-col items-center gap-2 p-4 bg-white/10 rounded-lg backdrop-blur-sm hover:bg-white/15 transition-all duration-300">
-              <div className="w-8 h-8 bg-emerald-400 rounded-full flex items-center justify-center">
+            <div className="flex flex-col items-center gap-2 p-4 bg-brand-white/10 rounded-lg backdrop-blur-sm hover:bg-brand-white/15 transition-all duration-300">
+              <div className="w-8 h-8 bg-functional-success rounded-full flex items-center justify-center">
                 <svg
-                  className="w-5 h-5 text-white"
+                  className="w-5 h-5 text-brand-white"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -83,10 +83,10 @@ const CTASection = ({ onGetStarted }) => {
                 No Setup Fees
               </span>
             </div>
-            <div className="flex flex-col items-center gap-2 p-4 bg-white/10 rounded-lg backdrop-blur-sm hover:bg-white/15 transition-all duration-300">
-              <div className="w-8 h-8 bg-blue-400 rounded-full flex items-center justify-center">
+            <div className="flex flex-col items-center gap-2 p-4 bg-brand-white/10 rounded-lg backdrop-blur-sm hover:bg-brand-white/15 transition-all duration-300">
+              <div className="w-8 h-8 bg-brand-primary rounded-full flex items-center justify-center">
                 <svg
-                  className="w-5 h-5 text-white"
+                  className="w-5 h-5 text-brand-white"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -97,10 +97,10 @@ const CTASection = ({ onGetStarted }) => {
                 Real-Time Dashboard
               </span>
             </div>
-            <div className="flex flex-col items-center gap-2 p-4 bg-white/10 rounded-lg backdrop-blur-sm hover:bg-white/15 transition-all duration-300">
-              <div className="w-8 h-8 bg-slate-400 rounded-full flex items-center justify-center">
+            <div className="flex flex-col items-center gap-2 p-4 bg-brand-white/10 rounded-lg backdrop-blur-sm hover:bg-brand-white/15 transition-all duration-300">
+              <div className="w-8 h-8 bg-brand-charcoal rounded-full flex items-center justify-center">
                 <svg
-                  className="w-5 h-5 text-white"
+                  className="w-5 h-5 text-brand-white"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -115,10 +115,10 @@ const CTASection = ({ onGetStarted }) => {
                 Expert Support 24/7
               </span>
             </div>
-            <div className="flex flex-col items-center gap-2 p-4 bg-white/10 rounded-lg backdrop-blur-sm hover:bg-white/15 transition-all duration-300">
-              <div className="w-8 h-8 bg-blue-400 rounded-full flex items-center justify-center">
+            <div className="flex flex-col items-center gap-2 p-4 bg-brand-white/10 rounded-lg backdrop-blur-sm hover:bg-brand-white/15 transition-all duration-300">
+              <div className="w-8 h-8 bg-brand-accent rounded-full flex items-center justify-center">
                 <svg
-                  className="w-5 h-5 text-white"
+                  className="w-5 h-5 text-brand-charcoal"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -136,17 +136,17 @@ const CTASection = ({ onGetStarted }) => {
           </div>
 
           {/* Trust indicators */}
-          <div className="pt-6 border-t border-white/20 text-center">
+          <div className="pt-6 border-t border-brand-white/20 text-center">
             <div className="flex flex-wrap justify-center items-center gap-6 opacity-80">
-              <div className="text-white/70 text-sm font-medium font-body">
+              <div className="text-brand-white/70 text-sm font-medium font-body">
                 Featured in Construction Weekly
               </div>
-              <div className="text-white/70 text-sm font-medium">•</div>
-              <div className="text-white/70 text-sm font-medium font-body">
+              <div className="text-brand-white/70 text-sm font-medium">•</div>
+              <div className="text-brand-white/70 text-sm font-medium font-body">
                 Winner: Best AI Tool 2025
               </div>
-              <div className="text-white/70 text-sm font-medium">•</div>
-              <div className="text-white/70 text-sm font-medium font-body">
+              <div className="text-brand-white/70 text-sm font-medium">•</div>
+              <div className="text-brand-white/70 text-sm font-medium font-body">
                 ISO 27001 Certified
               </div>
             </div>

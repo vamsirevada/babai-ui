@@ -32,7 +32,7 @@ const Footer = () => {
               <div className="flex space-x-3 sm:space-x-4 mb-4 sm:mb-6">
                 <a
                   href="#"
-                  className="w-12 h-12 bg-white hover:bg-blue-600 text-gray-600 hover:text-white rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 border border-gray-200 shadow-sm hover:shadow-md"
+                  className="w-12 h-12 bg-brand-white hover:bg-brand-primary text-brand-charcoal/60 hover:text-brand-white rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 border border-brand-charcoal/20 shadow-sm hover:shadow-md"
                 >
                   <svg
                     className="w-5 h-5"
@@ -44,7 +44,7 @@ const Footer = () => {
                 </a>
                 <a
                   href="#"
-                  className="w-12 h-12 bg-white hover:bg-blue-700 text-gray-600 hover:text-white rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 border border-gray-200 shadow-sm hover:shadow-md"
+                  className="w-12 h-12 bg-brand-white hover:bg-brand-primary text-brand-charcoal/60 hover:text-brand-white rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 border border-brand-charcoal/20 shadow-sm hover:shadow-md"
                 >
                   <svg
                     className="w-5 h-5"
@@ -56,7 +56,7 @@ const Footer = () => {
                 </a>
                 <a
                   href="#"
-                  className="w-12 h-12 bg-white hover:bg-green-600 text-gray-600 hover:text-white rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 border border-gray-200 shadow-sm hover:shadow-md"
+                  className="w-12 h-12 bg-brand-white hover:bg-functional-success text-brand-charcoal/60 hover:text-brand-white rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 border border-brand-charcoal/20 shadow-sm hover:shadow-md"
                 >
                   <svg
                     className="w-5 h-5"
@@ -71,9 +71,9 @@ const Footer = () => {
               {/* Contact Information */}
               <div className="flex flex-col sm:flex-row sm:space-x-6 space-y-3 sm:space-y-0">
                 <div className="flex items-center">
-                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                  <div className="w-8 h-8 bg-brand-primary/10 rounded-full flex items-center justify-center mr-3">
                     <svg
-                      className="w-4 h-4 text-blue-600"
+                      className="w-4 h-4 text-brand-primary"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -82,16 +82,18 @@ const Footer = () => {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600">Email</p>
-                    <p className="text-sm font-medium text-gray-900">
+                    <p className="text-sm text-brand-charcoal/60 font-body">
+                      Email
+                    </p>
+                    <p className="text-sm font-medium text-brand-charcoal font-body">
                       team@bab.ai
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center">
-                  <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-3">
+                  <div className="w-8 h-8 bg-brand-charcoal/10 rounded-full flex items-center justify-center mr-3">
                     <svg
-                      className="w-4 h-4 text-purple-600"
+                      className="w-4 h-4 text-brand-charcoal"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -103,8 +105,12 @@ const Footer = () => {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-600">Location</p>
-                    <p className="text-sm font-medium text-gray-900">India</p>
+                    <p className="text-sm text-brand-charcoal/60 font-body">
+                      Location
+                    </p>
+                    <p className="text-sm font-medium text-brand-charcoal font-body">
+                      India
+                    </p>
                   </div>
                 </div>
               </div>
@@ -114,11 +120,11 @@ const Footer = () => {
           {/* Right Side - Newsletter */}
           <div className="space-y-6">
             {/* Newsletter Signup */}
-            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-              <h5 className="text-md font-semibold text-gray-900 mb-3">
+            <div className="bg-brand-white p-6 rounded-lg border border-brand-charcoal/20 shadow-sm">
+              <h5 className="text-md font-semibold text-brand-charcoal mb-3 font-heading">
                 Stay Connected
               </h5>
-              <p className="text-gray-600 text-sm mb-4">
+              <p className="text-brand-charcoal/60 text-sm mb-4 font-body">
                 Get the latest updates on new features, product insights, and
                 construction industry trends.
               </p>
@@ -126,13 +132,13 @@ const Footer = () => {
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="flex-1 px-4 py-3 bg-gray-50 text-gray-800 rounded-l-lg border border-gray-300 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-sm"
+                  className="flex-1 px-4 py-3 bg-brand-charcoal/5 text-brand-charcoal rounded-l-lg border border-brand-charcoal/30 focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary text-sm font-body"
                 />
-                <button className="px-6 py-3 bg-gradient-primary text-white rounded-r-lg hover:opacity-90 transition-all duration-200 text-sm font-medium shadow-sm hover:shadow-md">
+                <button className="px-6 py-3 bg-gradient-primary text-brand-white rounded-r-lg hover:opacity-90 transition-all duration-200 text-sm font-medium shadow-sm hover:shadow-md font-body">
                   Subscribe
                 </button>
               </div>
-              <p className="text-xs text-gray-500 mt-2">
+              <p className="text-xs text-brand-charcoal/50 mt-2 font-body">
                 We respect your privacy. Unsubscribe at any time.
               </p>
             </div>
@@ -140,9 +146,9 @@ const Footer = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="border-t border-gray-200 pt-8">
+        <div className="border-t border-brand-charcoal/20 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="text-gray-500 text-sm">
+            <div className="text-brand-charcoal/50 text-sm font-body">
               <p>bab.ai @ 2025</p>
             </div>
 
@@ -150,25 +156,25 @@ const Footer = () => {
               <PrefetchLink
                 to="/privacy-policy"
                 prefetch={prefetch.privacyPolicy}
-                className="text-gray-500 hover:text-blue-600 transition-colors duration-200"
+                className="text-brand-charcoal/50 hover:text-brand-primary transition-colors duration-200 font-body"
               >
                 Privacy Policy
               </PrefetchLink>
               <a
                 href="#"
-                className="text-gray-500 hover:text-blue-600 transition-colors duration-200"
+                className="text-brand-charcoal/50 hover:text-brand-primary transition-colors duration-200 font-body"
               >
                 Terms of Service
               </a>
               <a
                 href="#"
-                className="text-gray-500 hover:text-blue-600 transition-colors duration-200"
+                className="text-brand-charcoal/50 hover:text-brand-primary transition-colors duration-200 font-body"
               >
                 Cookie Policy
               </a>
               <a
                 href="#"
-                className="text-gray-500 hover:text-blue-600 transition-colors duration-200"
+                className="text-brand-charcoal/50 hover:text-brand-primary transition-colors duration-200 font-body"
               >
                 Security
               </a>
