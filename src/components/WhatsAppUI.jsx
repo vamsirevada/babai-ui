@@ -537,7 +537,7 @@ const ChatInput = () => (
       <div className="w-full h-8 bg-white border border-[#8E8E93]/45 rounded-2xl flex items-center px-3">
         <div className="flex-1"></div>
         {/* Sticker button */}
-        <button className="p-1 rounded-full hover:bg-black/5 active:bg-black/10 transition-colors ml-2">
+        <button className="p-1 rounded-full hover:bg-black/5 active:bg-black/10 transition-colors ml-4 sm:ml-3 md:ml-2">
           <svg width="18" height="18" viewBox="0 0 19 19" fill="none">
             <path
               fillRule="evenodd"
