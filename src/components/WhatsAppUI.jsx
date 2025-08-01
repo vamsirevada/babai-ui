@@ -104,7 +104,7 @@ const ContactHeader = () => (
         </svg>
       </div>
       <div className="text-[11px] sm:text-[12px] text-[#8E8E93] leading-4 tracking-[-0.01px] text-left">
-        tap here for contact info
+        Online
       </div>
     </div>
 
@@ -592,11 +592,11 @@ const PhoneCase = React.forwardRef(({ children }, ref) => (
       ref={ref}
     >
       {/* Outer case with gradient */}
-      <div className="relative p-2 sm:p-3 md:p-4 lg:p-5 rounded-[25px] sm:rounded-[35px] md:rounded-[45px] lg:rounded-[50px] bg-gradient-to-br from-gray-800 via-gray-900 to-black">
+      <div className="relative p-1 sm:p-1.5 md:p-2 lg:p-2.5 rounded-[20px] sm:rounded-[25px] md:rounded-[30px] lg:rounded-[35px] bg-gradient-to-br from-gray-800 via-gray-900 to-black">
         {/* Inner case shadow */}
-        <div className="p-1 sm:p-1.5 md:p-2 lg:p-2.5 rounded-[20px] sm:rounded-[25px] md:rounded-[35px] lg:rounded-[40px] bg-gradient-to-br from-gray-700 to-gray-800">
+        <div className="p-0.5 sm:p-1 md:p-1.5 lg:p-2 rounded-[15px] sm:rounded-[20px] md:rounded-[25px] lg:rounded-[30px] bg-gradient-to-br from-gray-700 to-gray-800">
           {/* Screen area */}
-          <div className="relative rounded-[15px] sm:rounded-[20px] md:rounded-[30px] lg:rounded-[35px] overflow-hidden">
+          <div className="relative rounded-[12px] sm:rounded-[15px] md:rounded-[20px] lg:rounded-[25px] overflow-hidden">
             {/* Notch */}
             <div className="absolute top-0 left-1/2 transform -translate-x-1/2 z-10 w-[80px] sm:w-[100px] md:w-[120px] lg:w-[140px] h-[15px] sm:h-[20px] md:h-[25px] lg:h-[28px] bg-black rounded-b-xl md:rounded-b-2xl flex items-center justify-center">
               <div className="w-[30px] sm:w-[40px] md:w-[50px] lg:w-[60px] h-[2px] sm:h-[3px] md:h-[4px] lg:h-[5px] bg-gray-800 rounded-full"></div>
