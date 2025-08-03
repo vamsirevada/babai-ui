@@ -1,7 +1,7 @@
 {
-  "buildCommand": "npm ci --prefer-offline && npm run build",
+  "buildCommand": "rm -rf node_modules package-lock.json frontend/node_modules frontend/package-lock.json && npm install --omit=optional && npm run build",
   "outputDirectory": "frontend/dist",
-  "installCommand": "npm ci --prefer-offline",
+  "installCommand": "npm install --omit=optional",
   "rewrites": [
     {
       "source": "/((?!api).*)",
