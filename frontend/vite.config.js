@@ -4,6 +4,9 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 import svgr from 'vite-plugin-svgr'
 
+// Force Rollup to not use native modules
+process.env.ROLLUP_NO_NATIVE = '1'
+
 export default defineConfig({
   server: {
     host: '::',
@@ -22,6 +25,8 @@ export default defineConfig({
     // Use esbuild for faster builds and avoid Rollup native module issues
     minify: 'esbuild',
     rollupOptions: {
+      // Exclude the problematic native module completely
+      external: ['@rollup/rollup-linux-x64-gnu'],
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
@@ -44,5 +49,9 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
+  },
+  define: {
+    // Force disable native modules in client-side code too
+    __ROLLUP_NO_NATIVE__: true,
   },
 })

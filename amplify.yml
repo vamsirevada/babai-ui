@@ -6,12 +6,19 @@ frontend:
         - echo "=== AWS Amplify Build ==="
         - echo "Node version:" && node --version
         - echo "NPM version:" && npm --version
-        - npm ci
-        - cd frontend && npm ci
+        - echo "=== Fixing npm optional dependencies bug ==="
+        - rm -rf node_modules package-lock.json
+        - rm -rf frontend/node_modules frontend/package-lock.json
+        - echo "=== Installing root dependencies ==="
+        - npm ci --legacy-peer-deps
+        - echo "=== Installing frontend dependencies ==="
+        - cd frontend && npm ci --legacy-peer-deps
         - cd ..
     build:
       commands:
         - echo "=== Building frontend ==="
+        - export ROLLUP_NO_NATIVE=1
+        - export NODE_OPTIONS="--max-old-space-size=4096"
         - cd frontend && npm run build
         - cd ..
         - echo "=== Build completed ==="
