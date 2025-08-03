@@ -3,12 +3,26 @@ frontend:
   phases:
     preBuild:
       commands:
+        - echo "=== AWS Amplify Build Debug Info ==="
+        - echo "Current directory:" && pwd
+        - echo "Directory contents:" && ls -la
+        - echo "Checking for frontend directory:"
+        - if [ -d "frontend" ]; then echo "frontend directory found"; else echo "frontend directory NOT found"; fi
+        - echo "Node version:" && node --version
+        - echo "NPM version:" && npm --version
+        - echo "=== Installing root dependencies ==="
         - npm ci
+        - echo "=== Installing frontend dependencies ==="
         - cd frontend && npm ci
-        - echo "Building for AWS Amplify (Primary Deployment)"
+        - cd ..
+        - echo "=== Build environment setup complete ==="
     build:
       commands:
+        - echo "=== Starting frontend build ==="
         - cd frontend && npm run build
+        - cd ..
+        - echo "=== Build completed, checking output ==="
+        - ls -la frontend/dist/
   artifacts:
     baseDirectory: frontend/dist
     files:
