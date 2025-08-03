@@ -3,16 +3,19 @@ frontend:
   phases:
     preBuild:
       commands:
+        - echo "Current directory contents:"
+        - ls -la
+        - echo "Installing frontend dependencies..."
+        - cd frontend
         - npm ci
-        - cd frontend && npm ci
     build:
       commands:
-        - cd frontend && npm run build
+        - echo "Building frontend application..."
+        - cd frontend
+        - npm run build
+        - echo "Build completed. Contents of dist:"
+        - ls -la dist/
   artifacts:
     baseDirectory: frontend/dist
     files:
       - '**/*'
-  cache:
-    paths:
-      - node_modules/**/*
-      - frontend/node_modules/**/*
