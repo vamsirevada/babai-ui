@@ -29,28 +29,30 @@ export default defineConfig(({ mode }) => {
       // Use esbuild for cloud builds to avoid Rollup native module issues
       target: isCloudBuild ? 'es2020' : 'esnext',
       minify: isCloudBuild ? 'esbuild' : 'terser',
-      rollupOptions: isCloudBuild ? {
-        // For cloud builds, use minimal Rollup configuration
-        external: ['@rollup/rollup-linux-x64-gnu'],
-        output: {
-          format: 'es',
-        },
-      } : {
-        // Handle Rollup native module issues on cloud platforms
-        external: ['@rollup/rollup-linux-x64-gnu'],
-        output: {
-          manualChunks: {
-            // Split vendor chunks for better caching
-            vendor: ['react', 'react-dom'],
-            router: ['react-router-dom'],
-            ui: [
-              'lucide-react',
-              '@radix-ui/react-dialog',
-              '@radix-ui/react-label',
-            ],
+      rollupOptions: isCloudBuild
+        ? {
+            // For cloud builds, use minimal Rollup configuration
+            external: ['@rollup/rollup-linux-x64-gnu'],
+            output: {
+              format: 'es',
+            },
+          }
+        : {
+            // Handle Rollup native module issues on cloud platforms
+            external: ['@rollup/rollup-linux-x64-gnu'],
+            output: {
+              manualChunks: {
+                // Split vendor chunks for better caching
+                vendor: ['react', 'react-dom'],
+                router: ['react-router-dom'],
+                ui: [
+                  'lucide-react',
+                  '@radix-ui/react-dialog',
+                  '@radix-ui/react-label',
+                ],
+              },
+            },
           },
-        },
-      },
     },
     plugins: [
       react(),
