@@ -26,7 +26,7 @@ console.log(`📡 API Base URL: ${API_BASE_URL}`)
 // Generic API request function
 export const apiRequest = async (endpoint, options = {}) => {
   const url = `${API_BASE_URL}${endpoint}`
-  
+
   const defaultOptions = {
     headers: {
       'Content-Type': 'application/json',
