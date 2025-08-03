@@ -24,7 +24,13 @@ frontend:
         - echo "=== Starting frontend build ==="
         - export AWS_AMPLIFY=true
         - export CI=true
-        - cd frontend && npm run build:amplify
+        - export ROLLUP_NO_NATIVE=1
+        - export VITE_USE_ESBUILD=1
+        - echo "=== Preventing Rollup native module loading ==="
+        - mkdir -p node_modules/@rollup/rollup-linux-x64-gnu
+        - echo "module.exports = {}" > node_modules/@rollup/rollup-linux-x64-gnu/index.js
+        - echo '{"name":"@rollup/rollup-linux-x64-gnu","version":"0.0.0","main":"index.js"}' > node_modules/@rollup/rollup-linux-x64-gnu/package.json
+        - cd frontend && npm run build:amplify || npm run build:amplify-safe
         - cd ..
         - echo "=== Build completed, checking output ==="
         - ls -la frontend/dist/
