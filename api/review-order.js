@@ -28,40 +28,36 @@ export default async function handler(req, res) {
     return
   }
 
-  // Extract ID from URL path
-  const urlPath = req.url || ''
-  const idMatch = urlPath.match(/\/review-order\/([^?]+)/)
-  const id = idMatch ? idMatch[1] : req.query.id
-
-  console.log(
-    '✅ Review Order fallback API called with URL:',
-    urlPath,
-    'ID:',
-    id
-  )
-
   if (req.method !== 'GET') {
     res.status(405).json({ error: 'Method not allowed' })
     return
   }
 
+  // Get ID from query parameter (?id=1) or from path parsing
+  const { id } = req.query
+  console.log('Extracted ID from query:', id)
+
   try {
     if (id) {
       // Query the database for order items by ID
       const result = await pool.query(
-        'SELECT * FROM order_items WHERE request_id = $1 ORDER BY id',
+        'SELECT * FROM material_request_items WHERE material_request_id = $1',
         [id]
       )
-      
-      console.log(`✅ Database query successful for order ${id}, found ${result.rows.length} items`)
+
+      console.log(
+        `✅ Database query successful for order ${id}, found ${result.rows.length} items`
+      )
       res.status(200).json(result.rows)
     } else {
       // Query all order items if no ID provided
       const result = await pool.query(
         'SELECT * FROM order_items ORDER BY request_id DESC, id'
       )
-      
-      console.log(`✅ Database query successful, found ${result.rows.length} total items`)
+
+      console.log(
+        `✅ Database query successful, found ${result.rows.length} total items`
+      )
       res.status(200).json(result.rows)
     }
   } catch (error) {

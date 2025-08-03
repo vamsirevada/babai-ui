@@ -46,8 +46,10 @@ export default async function handler(req, res) {
       'SELECT * FROM order_items WHERE request_id = $1 ORDER BY id',
       [id]
     )
-    
-    console.log(`✅ Database query successful for order ${id}, found ${result.rows.length} items`)
+
+    console.log(
+      `✅ Database query successful for order ${id}, found ${result.rows.length} items`
+    )
     res.status(200).json(result.rows)
   } catch (error) {
     console.error('❌ Database error in review-order API:', error)
