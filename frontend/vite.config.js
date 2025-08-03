@@ -20,7 +20,10 @@ export default defineConfig(({ mode }) => ({
     chunkSizeWarningLimit: 1000, // Increase chunk size warning limit
     rollupOptions: {
       // Handle Rollup native module issues on Vercel and AWS Amplify
-      external: (process.env.VERCEL || process.env.AWS_AMPLIFY || process.env.CI) ? ['@rollup/rollup-linux-x64-gnu'] : [],
+      external:
+        process.env.VERCEL || process.env.AWS_AMPLIFY || process.env.CI
+          ? ['@rollup/rollup-linux-x64-gnu']
+          : [],
       output: {
         manualChunks: {
           // Split vendor chunks for better caching
