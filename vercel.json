@@ -4,6 +4,10 @@
   "installCommand": "npm install --legacy-peer-deps",
   "rewrites": [
     {
+      "source": "/api/review-order/(.*)",
+      "destination": "/api/review-order?id=$1"
+    },
+    {
       "source": "/((?!api).*)",
       "destination": "/index.html"
     }
