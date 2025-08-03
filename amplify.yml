@@ -16,9 +16,12 @@ frontend:
         - rm -rf node_modules package-lock.json
         - rm -rf frontend/node_modules frontend/package-lock.json
         - rm -rf frontend/.vite frontend/dist
-        - echo "=== Installing Dependencies (Production Optimized) ==="
-        - npm install --only=prod --prefer-offline --no-audit --no-fund --no-optional || npm install --legacy-peer-deps --only=prod
-        - cd frontend && npm install --only=prod --prefer-offline --no-audit --no-fund --no-optional || npm install --legacy-peer-deps --only=prod
+        - echo "=== Installing Dependencies (Production + Rollup Fix) ==="
+        - npm install --prefer-offline --no-audit --no-fund
+        - npm install @rollup/rollup-linux-x64-gnu --save-dev --no-optional || echo "Rollup Linux module install failed, continuing..."
+        - cd frontend 
+        - npm install --prefer-offline --no-audit --no-fund
+        - npm install @rollup/rollup-linux-x64-gnu --save-dev --no-optional || echo "Frontend Rollup Linux module install failed, continuing..."
         - cd ..
         - echo "=== Build Environment Ready ==="
     build:
@@ -30,10 +33,10 @@ frontend:
         - export NODE_OPTIONS="--max-old-space-size=6144"
         - export GENERATE_SOURCEMAP=false
         - cd frontend
-        - echo "Build configuration:" && npm run build --silent
+        - npm run build
         - cd ..
         - echo "=== Build Completed Successfully ==="
-        - echo "Build artifacts:" && ls -la frontend/dist/
+        - ls -la frontend/dist/
         - echo "Build size:" && du -sh frontend/dist/
   artifacts:
     baseDirectory: frontend/dist

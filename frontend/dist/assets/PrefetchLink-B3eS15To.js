@@ -1,0 +1,1 @@
+import{j as e,p as r}from"./index-DGMmKXcH.js";import{L as i}from"./router-BW-Fju1o.js";const p=({to:s,prefetch:o,...t})=>{const n=()=>{o&&r[o]&&r[o]()};return e.jsx(i,{to:s,onMouseEnter:n,...t})};export{p as P};
