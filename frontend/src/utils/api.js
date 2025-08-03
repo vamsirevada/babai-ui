@@ -70,8 +70,16 @@ export const createReviewOrder = (items) =>
 
 export const getReviewOrder = (id) => apiRequest(`/review-order?id=${id}`)
 
+// Backward compatibility alias
+export const apiCall = (endpoint, options = {}) => {
+  // Handle different endpoint formats for backward compatibility
+  const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`
+  return apiRequest(cleanEndpoint, options)
+}
+
 export default {
   apiRequest,
+  apiCall,
   getProjects,
   createReviewOrder,
   getReviewOrder,
