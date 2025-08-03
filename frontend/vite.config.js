@@ -1,4 +1,4 @@
-// vite.config.js - Clean configuration for AWS Amplify only
+// vite.config.js - Production Optimized for AWS Amplify
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
@@ -6,6 +6,7 @@ import svgr from 'vite-plugin-svgr'
 
 // Force Rollup to not use native modules
 process.env.ROLLUP_NO_NATIVE = '1'
+process.env.ESBUILD_BINARY_PATH = ''
 
 export default defineConfig({
   server: {
@@ -22,11 +23,20 @@ export default defineConfig({
     outDir: 'dist',
     target: 'es2020',
     chunkSizeWarningLimit: 1000,
-    // Use esbuild for faster builds and avoid Rollup native module issues
+    sourcemap: false, // Disable source maps for production
     minify: 'esbuild',
+    // Production optimizations
+    cssCodeSplit: true,
+    reportCompressedSize: false,
+    emptyOutDir: true,
     rollupOptions: {
-      // Exclude the problematic native module completely
-      external: ['@rollup/rollup-linux-x64-gnu'],
+      // Aggressively exclude Rollup native modules
+      external: [
+        '@rollup/rollup-linux-x64-gnu',
+        '@rollup/rollup-win32-x64-msvc',
+        '@rollup/rollup-darwin-x64',
+        '@rollup/rollup-darwin-arm64'
+      ],
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],

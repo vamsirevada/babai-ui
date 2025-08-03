@@ -5,10 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "ROLLUP_NO_NATIVE=1 vite build",
-    "build:dev": "vite build --mode development",
+    "build": "cross-env NODE_ENV=production ROLLUP_NO_NATIVE=1 GENERATE_SOURCEMAP=false vite build",
+    "build:dev": "cross-env NODE_ENV=development vite build --mode development",
+    "build:prod": "cross-env NODE_ENV=production ROLLUP_NO_NATIVE=1 GENERATE_SOURCEMAP=false vite build --mode production",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "lint:fix": "eslint . --fix",
+    "preview": "vite preview",
+    "clean": "rm -rf dist node_modules/.vite"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -49,6 +52,7 @@
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.20",
     "concurrently": "^9.2.0",
+    "cross-env": "7.0.3",
     "eslint": "^9.9.0",
     "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
