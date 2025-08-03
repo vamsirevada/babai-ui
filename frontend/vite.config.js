@@ -6,7 +6,11 @@ import svgr from 'vite-plugin-svgr'
 
 export default defineConfig(({ mode }) => {
   // Detect cloud build environments
-  const isCloudBuild = process.env.VERCEL || process.env.AWS_AMPLIFY || process.env.CI || process.env.ROLLUP_NO_NATIVE
+  const isCloudBuild =
+    process.env.VERCEL ||
+    process.env.AWS_AMPLIFY ||
+    process.env.CI ||
+    process.env.ROLLUP_NO_NATIVE
 
   return {
     server: {
@@ -58,7 +62,9 @@ export default defineConfig(({ mode }) => {
       __VERCEL__: JSON.stringify(process.env.VERCEL === '1'),
       __AWS_AMPLIFY__: JSON.stringify(process.env.AWS_AMPLIFY === 'true'),
       __CI__: JSON.stringify(process.env.CI === 'true'),
-      __ROLLUP_NO_NATIVE__: JSON.stringify(process.env.ROLLUP_NO_NATIVE === '1'),
+      __ROLLUP_NO_NATIVE__: JSON.stringify(
+        process.env.ROLLUP_NO_NATIVE === '1'
+      ),
     },
   }
-}
+})
