@@ -18,7 +18,8 @@ export default defineConfig(({ mode }) => ({
   build: {
     outDir: 'dist',
     rollupOptions: {
-      external: ['@rollup/rollup-linux-x64-gnu'],
+      // Handle Rollup native module issues on Vercel
+      external: process.env.VERCEL ? ['@rollup/rollup-linux-x64-gnu'] : [],
     },
   },
   plugins: [
@@ -34,5 +35,9 @@ export default defineConfig(({ mode }) => ({
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
+  },
+  // Force disable native Rollup on Vercel
+  define: {
+    __VERCEL__: JSON.stringify(process.env.VERCEL === '1'),
   },
 }))

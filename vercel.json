@@ -1,7 +1,7 @@
 {
-  "buildCommand": "npm install && npm run build",
+  "buildCommand": "rm -rf node_modules package-lock.json frontend/node_modules frontend/package-lock.json && npm install --legacy-peer-deps && npm run build:vercel",
   "outputDirectory": "frontend/dist",
-  "installCommand": "npm install",
+  "installCommand": "npm install --legacy-peer-deps",
   "rewrites": [
     {
       "source": "/((?!api).*)",

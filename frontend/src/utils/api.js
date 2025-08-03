@@ -4,40 +4,45 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 // Deployment-aware API configuration
 const getApiConfig = () => {
   // Check if running on Vercel (backup deployment)
-  const isVercel = typeof window !== 'undefined' && window.location.hostname.includes('vercel.app')
-  
+  const isVercel =
+    typeof window !== 'undefined' &&
+    window.location.hostname.includes('vercel.app')
+
   // Check if running on AWS Amplify (primary deployment)
-  const isAmplify = typeof window !== 'undefined' && window.location.hostname.includes('amplifyapp.com')
-  
+  const isAmplify =
+    typeof window !== 'undefined' &&
+    window.location.hostname.includes('amplifyapp.com')
+
   if (isDevelopment) {
     return {
       localApi: 'http://localhost:4000',
       prodApi: '/api', // Fallback to relative API calls
-      strategy: 'development'
+      strategy: 'development',
     }
   }
-  
+
   if (isVercel) {
     return {
       localApi: null,
       prodApi: '/api', // Vercel serverless functions
-      strategy: 'vercel-backup'
+      strategy: 'vercel-backup',
     }
   }
-  
+
   if (isAmplify) {
     return {
       localApi: null,
-      prodApi: process.env.REACT_APP_API_URL || 'https://your-amplify-api.com/api', // AWS API Gateway or Lambda
-      strategy: 'amplify-primary'
+      prodApi:
+        process.env.REACT_APP_API_URL || 'https://your-amplify-api.com/api', // AWS API Gateway or Lambda
+      strategy: 'amplify-primary',
     }
   }
-  
+
   // Default fallback
   return {
     localApi: null,
     prodApi: '/api',
-    strategy: 'unknown'
+    strategy: 'unknown',
   }
 }
 
@@ -91,7 +96,9 @@ export const apiCall = async (endpoint, options = {}) => {
   // Clean endpoint
   const cleanEndpoint = endpoint.startsWith('/') ? endpoint.slice(1) : endpoint
 
-  const localUrl = config.localApi ? `${config.localApi}/${cleanEndpoint}` : null
+  const localUrl = config.localApi
+    ? `${config.localApi}/${cleanEndpoint}`
+    : null
   const prodUrl = `${config.prodApi}/${cleanEndpoint}`
 
   // In production, always use production API based on deployment strategy
@@ -122,7 +129,9 @@ export const apiCall = async (endpoint, options = {}) => {
       throw new Error(`Local server returned ${response.status}`)
     } catch (error) {
       localServerAvailable = false
-      console.warn(`Local server failed (${error.message}), using production API`)
+      console.warn(
+        `Local server failed (${error.message}), using production API`
+      )
     }
   }
 
@@ -145,8 +154,8 @@ export const getApiStatus = () => ({
   deployment: {
     isVercel: config.strategy === 'vercel-backup',
     isAmplify: config.strategy === 'amplify-primary',
-    isDevelopment: config.strategy === 'development'
-  }
+    isDevelopment: config.strategy === 'development',
+  },
 })
 
 /**

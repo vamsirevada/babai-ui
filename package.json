@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "concurrently \"cd frontend && npm run dev\" \"cd backend && npm run dev\"",
     "build": "cd frontend && npm run build",
+    "build:vercel": "cd frontend && npm run build:vercel",
     "build:backend": "cd backend && npm run build",
     "start": "npm run dev",
     "start:backend": "cd backend && npm run start",
