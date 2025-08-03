@@ -13,7 +13,7 @@ node_modules
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
@@ -21,5 +21,30 @@ node_modules
 *.sln
 *.sw?
 
-# Environment variables
-.env
+# Temporary files
+*.tmp
+*.temp
+
+# Monorepo specific - Environment variables in packages only
+packages/*/node_modules/
+packages/*/dist/
+packages/*/.env
+packages/*/.env.local
+
+# Build outputs
+packages/frontend/dist/
+packages/backend/build/
+
+# Environment files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# AWS
+.aws/
+infrastructure/.aws/
+
+# Backup files
+*-backup/
+*-backup.*
