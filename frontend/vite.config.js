@@ -17,6 +17,9 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     outDir: 'dist',
+    rollupOptions: {
+      external: ['@rollup/rollup-linux-x64-gnu'],
+    },
   },
   plugins: [
     react(),

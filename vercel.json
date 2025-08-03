@@ -1,7 +1,7 @@
 {
-  "buildCommand": "rm -rf node_modules package-lock.json frontend/node_modules frontend/package-lock.json && npm install --omit=optional && npm run build",
+  "buildCommand": "rm -rf node_modules package-lock.json frontend/node_modules frontend/package-lock.json && npm install && npm run build",
   "outputDirectory": "frontend/dist",
-  "installCommand": "npm install --omit=optional",
+  "installCommand": "npm install",
   "rewrites": [
     {
       "source": "/((?!api).*)",
