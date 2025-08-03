@@ -10,6 +10,9 @@ frontend:
         - if [ -d "frontend" ]; then echo "frontend directory found"; else echo "frontend directory NOT found"; fi
         - echo "Node version:" && node --version
         - echo "NPM version:" && npm --version
+        - echo "=== Setting AWS Amplify environment ==="
+        - export AWS_AMPLIFY=true
+        - export CI=true
         - echo "=== Installing root dependencies ==="
         - npm ci
         - echo "=== Installing frontend dependencies ==="
@@ -19,7 +22,9 @@ frontend:
     build:
       commands:
         - echo "=== Starting frontend build ==="
-        - cd frontend && npm run build
+        - export AWS_AMPLIFY=true
+        - export CI=true
+        - cd frontend && npm run build:amplify
         - cd ..
         - echo "=== Build completed, checking output ==="
         - ls -la frontend/dist/

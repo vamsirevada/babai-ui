@@ -19,8 +19,8 @@ export default defineConfig(({ mode }) => ({
     outDir: 'dist',
     chunkSizeWarningLimit: 1000, // Increase chunk size warning limit
     rollupOptions: {
-      // Handle Rollup native module issues on Vercel
-      external: process.env.VERCEL ? ['@rollup/rollup-linux-x64-gnu'] : [],
+      // Handle Rollup native module issues on Vercel and AWS Amplify
+      external: (process.env.VERCEL || process.env.AWS_AMPLIFY || process.env.CI) ? ['@rollup/rollup-linux-x64-gnu'] : [],
       output: {
         manualChunks: {
           // Split vendor chunks for better caching
@@ -49,8 +49,10 @@ export default defineConfig(({ mode }) => ({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  // Force disable native Rollup on Vercel
+  // Force disable native Rollup on cloud platforms
   define: {
     __VERCEL__: JSON.stringify(process.env.VERCEL === '1'),
+    __AWS_AMPLIFY__: JSON.stringify(process.env.AWS_AMPLIFY === 'true'),
+    __CI__: JSON.stringify(process.env.CI === 'true'),
   },
 }))
