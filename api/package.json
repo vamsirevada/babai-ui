@@ -6,6 +6,8 @@
   "scripts": {
     "test": "echo \"No tests for API functions\""
   },
-  "dependencies": {},
+  "dependencies": {
+    "pg": "^8.11.3"
+  },
   "private": true
 }

@@ -1,4 +1,19 @@
 // api/review-order.js - Fallback for direct review-order calls
+import { Pool } from 'pg'
+
+// Create a connection pool
+const pool = new Pool({
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT || 5432,
+  ssl: {
+    rejectUnauthorized: false, // More permissive for AWS RDS
+  },
+  connectionTimeoutMillis: 10000, // 10 second timeout
+})
+
 export default async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*')
@@ -31,37 +46,26 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Mock data for the review order
-    const mockOrderData = [
-      {
-        id: 1,
-        material_name: 'Cement',
-        sub_type: 'OPC 53 Grade',
-        dimensions: '50kg bags',
-        quantity: 10,
-        unit_price: 350,
-      },
-      {
-        id: 2,
-        material_name: 'Steel TMT Bars',
-        sub_type: 'Fe500D',
-        dimensions: '12mm x 12m',
-        quantity: 25,
-        unit_price: 65,
-      },
-      {
-        id: 3,
-        material_name: 'Bricks',
-        sub_type: 'Red Clay Bricks',
-        dimensions: 'Standard size',
-        quantity: 1000,
-        unit_price: 8,
-      },
-    ]
-
-    res.status(200).json(mockOrderData)
+    if (id) {
+      // Query the database for order items by ID
+      const result = await pool.query(
+        'SELECT * FROM order_items WHERE request_id = $1 ORDER BY id',
+        [id]
+      )
+      
+      console.log(`✅ Database query successful for order ${id}, found ${result.rows.length} items`)
+      res.status(200).json(result.rows)
+    } else {
+      // Query all order items if no ID provided
+      const result = await pool.query(
+        'SELECT * FROM order_items ORDER BY request_id DESC, id'
+      )
+      
+      console.log(`✅ Database query successful, found ${result.rows.length} total items`)
+      res.status(200).json(result.rows)
+    }
   } catch (error) {
-    console.error('❌ Review Order fallback API error:', error)
+    console.error('❌ Database error in review Order fallback API:', error)
     res.status(500).json({
       error: 'Server error',
       details: error.message,
