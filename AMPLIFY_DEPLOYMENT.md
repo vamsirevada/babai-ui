@@ -7,12 +7,14 @@ This repository is now optimized for AWS Amplify deployment with the following i
 ### ✅ **Key Optimizations**
 
 1. **Rollup Native Module Fix** ⭐
+
    - Installs the actual Rollup native module as a dev dependency
    - Uses Linux version for AWS Amplify (Amazon Linux environment)
    - Graceful fallback if installation fails
    - **SOLVED**: No more `Cannot find module '@rollup/rollup-*'` errors
 
 2. **Production Build Performance**
+
    - Increased memory allocation to 6GB for complex builds
    - Cross-platform environment variable handling with `cross-env`
    - Disabled source maps for faster production builds
@@ -42,6 +44,7 @@ This repository is now optimized for AWS Amplify deployment with the following i
 ### 🔧 **Final Configuration**
 
 #### amplify.yml - The Ultimate Fix
+
 - **Rollup Fix**: Installs `@rollup/rollup-linux-x64-gnu` for AWS Amplify Linux environment
 - **Clean Build**: Removes all caches and previous builds
 - **Production Safe**: No more `--legacy-peer-deps` needed
@@ -49,6 +52,7 @@ This repository is now optimized for AWS Amplify deployment with the following i
 - **Graceful Fallback**: Continues if Rollup native module install fails
 
 #### Environment Variables
+
 - **ROLLUP_NO_NATIVE=1**: Forces JavaScript fallbacks when needed
 - **NODE_ENV=production**: Ensures production builds
 - **GENERATE_SOURCEMAP=false**: Faster builds, smaller artifacts
@@ -57,11 +61,13 @@ This repository is now optimized for AWS Amplify deployment with the following i
 ### ✅ **Build Test Results**
 
 **Local Windows Test**: ✅ PASSED
+
 - Build time: ~2 minutes
 - Output: 29 optimized files (1.5MB)
 - All Rollup native module errors resolved
 
-**Expected AWS Amplify Results**: 
+**Expected AWS Amplify Results**:
+
 - Build time: 2-4 minutes
 - Reliable builds with Linux Rollup native module
 - Clean production artifacts
@@ -69,16 +75,19 @@ This repository is now optimized for AWS Amplify deployment with the following i
 ### 🚀 **Deployment Steps**
 
 1. **Push to GitHub**
+
    ```bash
    git push origin main
    ```
 
 2. **Connect to AWS Amplify**
+
    - Connect your GitHub repository
    - Select the `main` branch
    - AWS Amplify will automatically detect `amplify.yml`
 
 3. **Environment Variables** (Optional)
+
    - Set `VITE_API_URL` for your backend API
    - Update `.env.production` files as needed
 
@@ -97,12 +106,12 @@ This repository is now optimized for AWS Amplify deployment with the following i
 
 ### 🎯 **Performance Metrics**
 
-| Metric | Before | After |
-|--------|--------|-------|
-| Build Time | 5-10 min | 2-4 min |
-| Success Rate | 30% | 99%+ |
-| Bundle Size | ~2MB | ~1.5MB |
-| Memory Usage | 4GB | 6GB (allocated) |
+| Metric       | Before   | After           |
+| ------------ | -------- | --------------- |
+| Build Time   | 5-10 min | 2-4 min         |
+| Success Rate | 30%      | 99%+            |
+| Bundle Size  | ~2MB     | ~1.5MB          |
+| Memory Usage | 4GB      | 6GB (allocated) |
 
 ### 📋 **Final Checklist**
 

@@ -3,48 +3,16 @@ frontend:
   phases:
     preBuild:
       commands:
-        - echo "=== AWS Amplify Production Build ==="
-        - echo "Node.js version:" && node --version
-        - echo "NPM version:" && npm --version
-        - echo "=== Environment Configuration ==="
-        - export NODE_ENV=production
-        - export CI=true
-        - export ROLLUP_NO_NATIVE=1
-        - export NODE_OPTIONS="--max-old-space-size=6144"
-        - echo "=== Deep Clean Dependencies ==="
-        - npm cache clean --force
-        - rm -rf node_modules package-lock.json
-        - rm -rf frontend/node_modules frontend/package-lock.json
-        - rm -rf frontend/.vite frontend/dist
-        - echo "=== Installing Dependencies (Production + Rollup Fix) ==="
-        - npm install --prefer-offline --no-audit --no-fund
-        - npm install @rollup/rollup-linux-x64-gnu --save-dev --no-optional || echo "Rollup Linux module install failed, continuing..."
-        - cd frontend 
-        - npm install --prefer-offline --no-audit --no-fund
-        - npm install @rollup/rollup-linux-x64-gnu --save-dev --no-optional || echo "Frontend Rollup Linux module install failed, continuing..."
-        - cd ..
-        - echo "=== Build Environment Ready ==="
+        - npm ci
+        - cd frontend && npm ci
     build:
       commands:
-        - echo "=== Production Build Started ==="
-        - export NODE_ENV=production
-        - export CI=true
-        - export ROLLUP_NO_NATIVE=1
-        - export NODE_OPTIONS="--max-old-space-size=6144"
-        - export GENERATE_SOURCEMAP=false
-        - cd frontend
-        - npm run build
-        - cd ..
-        - echo "=== Build Completed Successfully ==="
-        - ls -la frontend/dist/
-        - echo "Build size:" && du -sh frontend/dist/
+        - cd frontend && npm run build
   artifacts:
     baseDirectory: frontend/dist
     files:
       - '**/*'
-    name: bab-ai-frontend-build
   cache:
     paths:
       - node_modules/**/*
       - frontend/node_modules/**/*
-      - frontend/.vite/**/*

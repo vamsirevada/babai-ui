@@ -5,13 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "cross-env NODE_ENV=production ROLLUP_NO_NATIVE=1 GENERATE_SOURCEMAP=false vite build",
-    "build:dev": "cross-env NODE_ENV=development vite build --mode development",
-    "build:prod": "cross-env NODE_ENV=production ROLLUP_NO_NATIVE=1 GENERATE_SOURCEMAP=false vite build --mode production",
+    "build": "vite build",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "preview": "vite preview",
-    "clean": "rm -rf dist node_modules/.vite"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
