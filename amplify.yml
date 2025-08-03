@@ -4,10 +4,8 @@ frontend:
     preBuild:
       commands:
         - npm ci
-        - pwd # Show current directory
-        - ls -la # Show what's actually there
-        - echo "Current directory contents above"
         - cd frontend && npm ci
+        - echo "Building for AWS Amplify (Primary Deployment)"
     build:
       commands:
         - cd frontend && npm run build
