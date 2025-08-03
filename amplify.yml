@@ -10,9 +10,9 @@ frontend:
         - rm -rf node_modules package-lock.json
         - rm -rf frontend/node_modules frontend/package-lock.json
         - echo "=== Installing root dependencies ==="
-        - npm ci --legacy-peer-deps
+        - npm install --legacy-peer-deps
         - echo "=== Installing frontend dependencies ==="
-        - cd frontend && npm ci --legacy-peer-deps
+        - cd frontend && npm install --legacy-peer-deps
         - cd ..
     build:
       commands:
