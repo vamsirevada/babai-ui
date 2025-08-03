@@ -4,6 +4,7 @@ frontend:
     preBuild:
       commands:
         - npm ci
+        - ls -la # Debug: see what directories exist
         - cd frontend && npm ci
     build:
       commands:
