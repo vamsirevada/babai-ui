@@ -1,12 +1,8 @@
 {
-  "buildCommand": "npm install && npm run build",
+  "buildCommand": "npm ci --prefer-offline && npm run build",
   "outputDirectory": "frontend/dist",
-  "installCommand": "npm install",
+  "installCommand": "npm ci --prefer-offline",
   "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/backend/src/$1"
-    },
     {
       "source": "/((?!api).*)",
       "destination": "/index.html"
