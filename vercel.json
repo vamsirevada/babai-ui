@@ -1,5 +1,5 @@
 {
-  "buildCommand": "rm -rf node_modules package-lock.json frontend/node_modules frontend/package-lock.json && npm install && npm run build",
+  "buildCommand": "npm install && npm run build",
   "outputDirectory": "frontend/dist",
   "installCommand": "npm install",
   "rewrites": [
