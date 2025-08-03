@@ -4,7 +4,9 @@ frontend:
     preBuild:
       commands:
         - npm ci
-        - ls -la # Debug: see what directories exist
+        - pwd # Show current directory
+        - ls -la # Show what's actually there
+        - echo "Current directory contents above"
         - cd frontend && npm ci
     build:
       commands:
