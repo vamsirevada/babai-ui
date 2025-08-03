@@ -39,9 +39,17 @@ bab-ai-dashboard/
 
 ### Deployment
 
-- **Frontend**: AWS Amplify / Vercel
-- **Backend**: AWS App Runner / Lambda
-- **Database**: AWS RDS PostgreSQL
+**AWS Amplify (Recommended)**:
+
+```bash
+git push origin main  # Automatic deployment
+```
+
+**Local Development**:
+
+```bash
+npm run dev           # Start both frontend and backend
+```
 
 ## 📱 Features
 

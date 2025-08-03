@@ -11,6 +11,7 @@
 ## 🛠️ **What Changed**
 
 ### Before (Broken):
+
 ```yaml
 preBuild:
   commands:
@@ -18,18 +19,19 @@ preBuild:
     - npm ci
 build:
   commands:
-    - cd frontend  # ❌ Fails here - back in root directory
+    - cd frontend # ❌ Fails here - back in root directory
     - npm run build
 ```
 
 ### After (Fixed):
+
 ```yaml
 preBuild:
   commands:
-    - cd frontend && npm ci  # ✅ Self-contained
+    - cd frontend && npm ci # ✅ Self-contained
 build:
   commands:
-    - cd frontend && npm run build  # ✅ Self-contained
+    - cd frontend && npm run build # ✅ Self-contained
 ```
 
 ## 🚀 **Ready for AWS Amplify**
