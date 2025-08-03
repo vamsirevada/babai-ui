@@ -4,7 +4,7 @@
   "installCommand": "npm install",
   "functions": {
     "backend/src/**/*.js": {
-      "runtime": "nodejs18.x"
+      "runtime": "nodejs20.x"
     }
   },
   "rewrites": [
