@@ -26,7 +26,11 @@ export default defineConfig(({ mode }) => ({
           // Split vendor chunks for better caching
           vendor: ['react', 'react-dom'],
           router: ['react-router-dom'],
-          ui: ['lucide-react', '@radix-ui/react-dialog', '@radix-ui/react-label'],
+          ui: [
+            'lucide-react',
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-label',
+          ],
         },
       },
     },
