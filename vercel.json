@@ -1,11 +1,16 @@
 {
-  "buildCommand": "rm -rf node_modules package-lock.json frontend/node_modules frontend/package-lock.json && npm install && npm run build",
+  "buildCommand": "npm install && npm run build",
   "outputDirectory": "frontend/dist",
   "installCommand": "npm install",
+  "functions": {
+    "backend/src/**/*.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
   "rewrites": [
     {
-      "source": "/api/review-order/:id",
-      "destination": "/api/review-order?id=:id"
+      "source": "/api/(.*)",
+      "destination": "/backend/src/$1"
     },
     {
       "source": "/((?!api).*)",
