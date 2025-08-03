@@ -25,26 +25,8 @@ node_modules
 *.tmp
 *.temp
 
-# Monorepo specific - Environment variables in packages only
-packages/*/node_modules/
-packages/*/dist/
-packages/*/.env
-packages/*/.env.local
-
-# Build outputs
-packages/frontend/dist/
-packages/backend/build/
-
 # Environment files
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-
-# AWS
-.aws/
-infrastructure/.aws/
-
-# Backup files
-*-backup/
-*-backup.*
