@@ -26,9 +26,18 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: 'dist',
       chunkSizeWarningLimit: 1000, // Increase chunk size warning limit
-      rollupOptions: {
+      // Use esbuild for cloud builds to avoid Rollup native module issues
+      target: isCloudBuild ? 'es2020' : 'esnext',
+      minify: isCloudBuild ? 'esbuild' : 'terser',
+      rollupOptions: isCloudBuild ? {
+        // For cloud builds, use minimal Rollup configuration
+        external: ['@rollup/rollup-linux-x64-gnu'],
+        output: {
+          format: 'es',
+        },
+      } : {
         // Handle Rollup native module issues on cloud platforms
-        external: isCloudBuild ? ['@rollup/rollup-linux-x64-gnu'] : [],
+        external: ['@rollup/rollup-linux-x64-gnu'],
         output: {
           manualChunks: {
             // Split vendor chunks for better caching
