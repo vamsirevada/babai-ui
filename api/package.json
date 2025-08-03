@@ -1,0 +1,11 @@
+{
+  "name": "bab-ai-api",
+  "version": "1.0.0",
+  "description": "Vercel serverless functions for BAB AI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No tests for API functions\""
+  },
+  "dependencies": {},
+  "private": true
+}

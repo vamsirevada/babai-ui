@@ -17,9 +17,18 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     outDir: 'dist',
+    chunkSizeWarningLimit: 1000, // Increase chunk size warning limit
     rollupOptions: {
       // Handle Rollup native module issues on Vercel
       external: process.env.VERCEL ? ['@rollup/rollup-linux-x64-gnu'] : [],
+      output: {
+        manualChunks: {
+          // Split vendor chunks for better caching
+          vendor: ['react', 'react-dom'],
+          router: ['react-router-dom'],
+          ui: ['lucide-react', '@radix-ui/react-dialog', '@radix-ui/react-label'],
+        },
+      },
     },
   },
   plugins: [

@@ -2,7 +2,10 @@
 export default async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+  res.setHeader(
+    'Access-Control-Allow-Methods',
+    'GET, POST, PUT, DELETE, OPTIONS'
+  )
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
 
   if (req.method === 'OPTIONS') {
@@ -23,28 +26,28 @@ export default async function handler(req, res) {
     const mockOrderData = [
       {
         id: 1,
-        material_name: "Cement",
-        sub_type: "OPC 53 Grade",
-        dimensions: "50kg bags",
+        material_name: 'Cement',
+        sub_type: 'OPC 53 Grade',
+        dimensions: '50kg bags',
         quantity: 10,
-        unit_price: 350
+        unit_price: 350,
       },
       {
         id: 2,
-        material_name: "Steel TMT Bars",
-        sub_type: "Fe500D",
-        dimensions: "12mm x 12m",
+        material_name: 'Steel TMT Bars',
+        sub_type: 'Fe500D',
+        dimensions: '12mm x 12m',
         quantity: 25,
-        unit_price: 65
+        unit_price: 65,
       },
       {
         id: 3,
-        material_name: "Bricks",
-        sub_type: "Red Clay Bricks",
-        dimensions: "Standard size",
+        material_name: 'Bricks',
+        sub_type: 'Red Clay Bricks',
+        dimensions: 'Standard size',
         quantity: 1000,
-        unit_price: 8
-      }
+        unit_price: 8,
+      },
     ]
 
     res.status(200).json(mockOrderData)

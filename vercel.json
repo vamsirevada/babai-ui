@@ -1,7 +1,13 @@
 {
+  "version": 2,
   "buildCommand": "rm -rf node_modules package-lock.json frontend/node_modules frontend/package-lock.json && npm install --legacy-peer-deps && npm run build:vercel",
   "outputDirectory": "frontend/dist",
   "installCommand": "npm install --legacy-peer-deps",
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "@vercel/node@3"
+    }
+  },
   "rewrites": [
     {
       "source": "/api/review-order/(.*)",
