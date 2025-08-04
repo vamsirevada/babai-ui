@@ -1,160 +1,148 @@
-# BAB.AI - Construction Management Platform
+# BAB AI - Business Automation & Building AI Platform
 
-A modern construction materials ordering platform with WhatsApp integration, built with React and Node.js.
+A modern construction materials ordering platform with AI-powered procurement automation, built with React, Node.js, and deployed on AWS.
 
 ## 🚀 Live Demo
 
-- **Production**: [https://babai-ui.vercel.app](https://babai-ui.vercel.app)
-- **Place Order**: [https://babai-ui.vercel.app/place-order](https://babai-ui.vercel.app/place-order)
-- **Review Order**: [https://babai-ui.vercel.app/review-order](https://babai-ui.vercel.app/review-order)
+- **Production**: [https://www.bab-ai.com](https://www.bab-ai.com)
+- **Admin Dashboard**: [https://www.bab-ai.com/dashboard](https://www.bab-ai.com/dashboard)
 
-## 🏗️ Project Structure (Ultra-Clean Monorepo)
+## 🏗️ Project Structure
 
 ```
-bab-ai-dashboard/
-├── packages/
-│   ├── frontend/          # React app (Vite + Tailwind)
-│   ├── backend/           # Express API server
-│   └── shared/            # Shared utilities
-├── amplify.yml            # AWS Amplify deployment config
-├── vercel.json            # Vercel deployment config
-└── package.json           # Workspace configuration
+bab-ai/
+├── frontend/              # React frontend (Vite + Tailwind)
+│   ├── src/
+│   ├── public/
+│   ├── package.json
+│   └── vite.config.js
+├── backend/               # Express.js API (AWS Lambda)
+│   ├── src/
+│   ├── template.yaml      # SAM template
+│   ├── lambda.js          # Lambda handler
+│   └── package.json
+├── amplify.yml            # AWS Amplify deployment
+├── package.json           # Monorepo workspace
+└── README.md
 ```
 
 ## 🛠️ Tech Stack
 
 ### Frontend
-
-- **React** + **Vite**
-- **Tailwind CSS**
-- **Framer Motion** (animations)
-- **React Three Fiber** (3D elements)
-- **Custom UI Components**
+- **React 18** with **Vite**
+- **Tailwind CSS** for styling
+- **Framer Motion** for animations
+- **Shadcn/ui** components
+- **React Router** for navigation
 
 ### Backend
-
-- **Node.js** + **Express**
+- **Node.js** with **Express.js**
 - **PostgreSQL** database
-- **CORS** enabled for frontend integration
+- **AWS Lambda** (serverless)
+- **API Gateway** for REST API
 
-### Deployment
+### Infrastructure
+- **AWS Amplify** (frontend hosting)
+- **AWS Lambda** (backend API)
+- **AWS RDS** (PostgreSQL database)
+- **AWS API Gateway** (API management)
 
-**AWS Amplify (Recommended)**:
+## 🚀 Quick Start
 
-```bash
-git push origin main  # Automatic deployment
-```
+### Prerequisites
+- Node.js 20.x
+- AWS CLI configured
+- AWS SAM CLI (for backend deployment)
 
-**Local Development**:
+### 1. Clone and Install
+\`\`\`bash
+git clone https://github.com/vamsirevada/babai-ui.git
+cd bab-ai
+npm run install:all
+\`\`\`
 
-```bash
-npm run dev           # Start both frontend and backend
-```
+### 2. Environment Setup
+
+**Frontend (.env):**
+\`\`\`bash
+cd frontend
+cp .env.production.template .env
+# Update VITE_API_URL with your backend URL
+\`\`\`
+
+**Backend (.env):**
+\`\`\`bash
+cd backend
+cp .env.production.template .env
+# Update database credentials
+\`\`\`
+
+### 3. Local Development
+\`\`\`bash
+# Start both frontend and backend
+npm run dev
+
+# Or separately:
+npm run dev --workspace=frontend  # http://localhost:5173
+npm run dev --workspace=backend   # http://localhost:4000
+\`\`\`
+
+## 🚚 Deployment
+
+### Frontend (AWS Amplify)
+1. Connect your GitHub repo to AWS Amplify
+2. Set environment variables in Amplify Console
+3. Deploy automatically on push to main
+
+### Backend (AWS Lambda)
+\`\`\`bash
+cd backend
+npm run deploy
+\`\`\`
+
+## 📋 Environment Variables
+
+### Frontend (AWS Amplify Console)
+\`\`\`
+VITE_API_URL=https://your-api-gateway-url.execute-api.region.amazonaws.com/prod
+VITE_APP_ENV=production
+\`\`\`
+
+### Backend (AWS Lambda Console)
+\`\`\`
+DB_HOST=your-rds-endpoint
+DB_PORT=5432
+DB_DATABASE=your-database-name
+DB_USER=your-database-user
+DB_PASSWORD=your-database-password
+NODE_ENV=production
+\`\`\`
+
+## 🔧 API Endpoints
+
+- \`GET /projects\` - Get all projects
+- \`POST /review-order\` - Create review order
+- \`GET /review-order/:id\` - Get review order by ID
 
 ## 📱 Features
 
-- ✅ WhatsApp integration for user authentication
-- ✅ Responsive mobile-first design
-- ✅ Construction materials catalog
-- ✅ Bulk order placement
-- ✅ Real-time order review and editing
-- ✅ Project/site selection
-- ✅ Professional UI with modern card layouts
+- **AI-Powered Procurement** - Automated material ordering
+- **Real-time Dashboard** - Project and inventory management
+- **Mobile Responsive** - Works on all devices
+- **Secure Authentication** - JWT-based auth
+- **Database Integration** - PostgreSQL with proper schemas
 
-## 🔧 Development Setup
+## 🤝 Contributing
 
-```bash
-# Clone the repository
-git clone https://github.com/vamsirevada/babai-ui.git
-cd babai-ui
-
-# Install dependencies
-npm install
-
-# Start development server (both frontend and backend)
-npm run dev
-
-# Build for production
-npm run build
-```
-
-## 🚀 Deployment
-
-### Frontend (AWS Amplify)
-
-1. Connect your GitHub repository to AWS Amplify
-2. Amplify will automatically detect `amplify.yml` for build configuration
-3. Set environment variables in Amplify Console
-
-### Backend (AWS App Runner/Lambda)
-
-1. **App Runner**: Deploy directly from repository
-2. **Lambda**: Use serverless framework or AWS SAM
-3. **Database**: Use AWS RDS PostgreSQL
-
-### Alternative: Vercel
-
-- Frontend deploys automatically using `vercel.json` configuration
-
-### Environment Variables
-
-- **Frontend**: Set `VITE_API_URL` to your backend URL
-- **Backend**: Configure database connection in `packages/backend/.env`
-
-## 🌐 API Configuration
-
-Currently, the app uses mock data in production. To connect to a real backend:
-
-1. Deploy your backend API to a cloud service
-2. Update the API_BASE_URL in the component files:
-
-```javascript
-const API_BASE_URL =
-  process.env.NODE_ENV === 'production'
-    ? 'https://your-backend-api.herokuapp.com' // Your production API
-    : 'http://localhost:4000' // Local development
-```
-
-3. Or use environment variables:
-
-```bash
-# .env.production
-VITE_API_BASE_URL=https://your-production-api.com
-```
-
-## 📦 Deployment
-
-The app is configured for automatic deployment on Vercel:
-
-1. **Frontend**: Deployed automatically from `main` branch
-2. **Backend**: Deploy separately and update API_BASE_URL
-
-### Manual Deployment
-
-```bash
-# Build the project
-npm run build
-
-# Deploy to Vercel
-npx vercel --prod
-```
-
-## 🔄 Current Status
-
-- ✅ Frontend fully functional with mock data
-- ✅ Responsive design optimized for mobile/WhatsApp
-- ✅ Production deployment on Vercel
-- ⏳ Backend API integration (pending)
-- ⏳ Database connectivity (pending)
-
-## 🎯 Next Steps
-
-1. Deploy backend API to cloud service (Heroku, Railway, etc.)
-2. Connect PostgreSQL database
-3. Implement real WhatsApp API integration
-4. Add user authentication
-5. Implement order management system
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
 ## 📄 License
 
-MIT License - feel free to use this project as needed.
+This project is licensed under the MIT License.
+
+## 🆘 Support
+
+For support, email support@bab-ai.com or create an issue in this repository.

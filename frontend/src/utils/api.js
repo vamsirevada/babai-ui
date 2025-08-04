@@ -11,9 +11,9 @@ const getApiConfig = () => {
   }
 
   // Production - AWS Amplify with your backend API
-  // Use relative URLs to avoid CORS issues
+  // Use environment variable for backend URL, fallback to relative
   return {
-    baseUrl: '/api',
+    baseUrl: import.meta.env.VITE_API_URL || '/api',
     strategy: 'amplify-production',
   }
 }

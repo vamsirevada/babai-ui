@@ -1,19 +1,22 @@
 {
   "name": "@bab-ai/backend",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "BAB AI Backend API",
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "build": "echo 'No build step needed for Node.js'",
-    "test": "echo 'Tests not implemented yet'"
+    "deploy": "sam build && sam deploy",
+    "setup": "copy .env.example .env",
+    "db:init": "psql -f schema.sql"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
-    "pg": "^8.16.3"
+    "pg": "^8.16.3",
+    "serverless-http": "^3.2.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"

@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# AWS SAM
+.aws-sam/
+samconfig.toml
+
+# Deployment artifacts
+*.zip
+deployment/
+
+# Logs
+*.log
+logs/
+
+# Runtime data
+pids/
+*.pid
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Database
+*.db
+*.sqlite
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

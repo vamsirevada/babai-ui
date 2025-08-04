@@ -1,0 +1,66 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'BAB AI Backend API'
+
+Globals:
+  Function:
+    Timeout: 30
+    Runtime: nodejs20.x
+    Environment:
+      Variables:
+        NODE_ENV: production
+        DB_HOST: !Ref DbHost
+        DB_PORT: !Ref DbPort
+        DB_DATABASE: !Ref DbDatabase
+        DB_USER: !Ref DbUser
+        DB_PASSWORD: !Ref DbPassword
+
+Parameters:
+  Stage:
+    Type: String
+    Default: prod
+    Description: API Gateway stage name
+  DbHost:
+    Type: String
+    Default: db.bab-ai.com
+    Description: Database host endpoint
+  DbPort:
+    Type: String
+    Default: '5432'
+    Description: Database port
+  DbDatabase:
+    Type: String
+    Default: test
+    Description: Database name
+  DbUser:
+    Type: String
+    Default: babai_admin
+    Description: Database username
+  DbPassword:
+    Type: String
+    Default: ecq5UmGxgjqDFYZPDZFW
+    NoEcho: true
+    Description: Database password
+
+Resources:
+  BabAiApi:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: lambda.handler
+      Events:
+        ApiProxy:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+        ApiRoot:
+          Type: Api
+          Properties:
+            Path: /
+            Method: ANY
+
+Outputs:
+  ApiUrl:
+    Description: 'API Gateway endpoint URL'
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/${Stage}'
