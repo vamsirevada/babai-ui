@@ -1,25 +1,39 @@
 // src/utils/api.js - API helper optimized for AWS Lambda
 const isDevelopment = import.meta.env.MODE === 'development'
+const apiUrl = import.meta.env.VITE_API_URL
+
+console.log('🔍 Environment Check:', {
+  mode: import.meta.env.MODE,
+  isDevelopment,
+  apiUrl,
+  nodeEnv: import.meta.env.NODE_ENV,
+})
 
 // API configuration for both local and Lambda backends
 const getApiConfig = () => {
-  const apiUrl = import.meta.env.VITE_API_URL
+  // If we have a Lambda URL (in any environment), use it directly
+  if (apiUrl && apiUrl.includes('lambda-url')) {
+    return {
+      baseUrl: apiUrl,
+      strategy: 'lambda-direct',
+      useApiPrefix: false, // Lambda doesn't need /api prefix
+    }
+  }
 
   if (isDevelopment) {
     return {
       baseUrl: apiUrl || 'http://localhost:4000',
-      strategy: apiUrl?.includes('lambda-url')
-        ? 'lambda-development'
-        : 'local-development',
+      strategy: 'local-development',
+      useApiPrefix: true, // Local development uses Vite proxy with /api
     }
   }
 
-  // Production - AWS Amplify with Lambda backend
+  // Production fallback - assume Lambda
   return {
     baseUrl:
-      apiUrl ||
       'https://xu6bjzx45vbot3gwmqfn5f3e3m0ufkma.lambda-url.us-east-1.on.aws',
-    strategy: 'lambda-production',
+    strategy: 'lambda-production-fallback',
+    useApiPrefix: false,
   }
 }
 
@@ -28,23 +42,23 @@ const API_BASE_URL = config.baseUrl
 
 console.log(`🚀 API Configuration: ${config.strategy}`)
 console.log(`📡 API Base URL: ${API_BASE_URL}`)
+console.log(`🔧 Use API Prefix: ${config.useApiPrefix}`)
 
 // Generic API request function optimized for Lambda
 export const apiRequest = async (endpoint, options = {}) => {
-  // For local development, use /api prefix (handled by Vite proxy)
-  // For production, call Lambda URL directly without /api prefix
   let url
 
-  if (isDevelopment && !API_BASE_URL.includes('lambda-url')) {
-    // Local development with proxy - keep /api prefix
+  if (config.useApiPrefix) {
+    // Local development with Vite proxy - keep /api prefix
     url = `${API_BASE_URL}${endpoint}`
   } else {
-    // Production Lambda or development with Lambda URL - remove /api prefix
-    const cleanEndpoint = endpoint.replace(/^\/api/, '')
+    // Lambda direct - remove /api prefix and call Lambda directly
+    const cleanEndpoint = endpoint.replace(/^\/api/, '') || '/'
     url = `${API_BASE_URL}${cleanEndpoint}`
   }
-
   const defaultOptions = {
+    mode: 'cors',
+    credentials: 'omit',
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
