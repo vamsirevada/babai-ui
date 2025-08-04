@@ -3,13 +3,21 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm cache clean --force
-        - rm -f package-lock.json
-        - npm install
+        - echo "🔧 Setting up frontend build environment..."
+        - node --version
+        - npm --version
+        - cd frontend
+        - npm ci
     build:
       commands:
-        - npm run build --workspace=frontend
+        - echo "🏗️ Building frontend for production..."
+        - cd frontend
+        - npm run build
+        - echo "✅ Frontend build completed!"
   artifacts:
     baseDirectory: frontend/dist
     files:
       - '**/*'
+  cache:
+    paths:
+      - frontend/node_modules/**/*

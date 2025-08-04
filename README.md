@@ -1,148 +1,154 @@
 # BAB AI - Business Automation & Building AI Platform
 
-A modern construction materials ordering platform with AI-powered procurement automation, built with React, Node.js, and deployed on AWS.
+A production-ready full-stack application with React frontend and Node.js backend, optimized for AWS deployment.
 
-## 🚀 Live Demo
+## 🏗️ Architecture
 
-- **Production**: [https://www.bab-ai.com](https://www.bab-ai.com)
-- **Admin Dashboard**: [https://www.bab-ai.com/dashboard](https://www.bab-ai.com/dashboard)
+- **Frontend**: React + Vite + TailwindCSS → **AWS Amplify**
+- **Backend**: Node.js + Express + PostgreSQL → **AWS Lambda**
+- **Database**: PostgreSQL (local) / AWS RDS (production)
 
-## 🏗️ Project Structure
+## 📁 Project Structure
 
 ```
 bab-ai/
-├── frontend/              # React frontend (Vite + Tailwind)
-│   ├── src/
-│   ├── public/
-│   ├── package.json
-│   └── vite.config.js
-├── backend/               # Express.js API (AWS Lambda)
-│   ├── src/
-│   ├── template.yaml      # SAM template
-│   ├── lambda.js          # Lambda handler
-│   └── package.json
-├── amplify.yml            # AWS Amplify deployment
-├── package.json           # Monorepo workspace
-└── README.md
+├── amplify.yml           # AWS Amplify build config
+├── frontend/             # React application
+│   ├── src/             # Source code
+│   ├── public/          # Static assets
+│   ├── package.json     # Frontend dependencies
+│   └── node_modules/    # Frontend packages
+└── backend/             # Node.js API
+    ├── src/
+    │   └── index.js     # Express server + Lambda handler
+    ├── package.json     # Backend dependencies
+    ├── node_modules/    # Backend packages
+    └── template.yaml    # SAM deployment config
 ```
-
-## 🛠️ Tech Stack
-
-### Frontend
-- **React 18** with **Vite**
-- **Tailwind CSS** for styling
-- **Framer Motion** for animations
-- **Shadcn/ui** components
-- **React Router** for navigation
-
-### Backend
-- **Node.js** with **Express.js**
-- **PostgreSQL** database
-- **AWS Lambda** (serverless)
-- **API Gateway** for REST API
-
-### Infrastructure
-- **AWS Amplify** (frontend hosting)
-- **AWS Lambda** (backend API)
-- **AWS RDS** (PostgreSQL database)
-- **AWS API Gateway** (API management)
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 20.x
-- AWS CLI configured
-- AWS SAM CLI (for backend deployment)
 
-### 1. Clone and Install
-\`\`\`bash
-git clone https://github.com/vamsirevada/babai-ui.git
-cd bab-ai
-npm run install:all
-\`\`\`
+- Node.js 18+ and npm
+- PostgreSQL (local development)
+- AWS CLI configured (for deployment)
 
-### 2. Environment Setup
+### Local Development
 
-**Frontend (.env):**
-\`\`\`bash
+**Frontend** (Terminal 1):
+
+```bash
 cd frontend
-cp .env.production.template .env
-# Update VITE_API_URL with your backend URL
-\`\`\`
+npm install
+npm run dev          # http://localhost:5173
+```
 
-**Backend (.env):**
-\`\`\`bash
+**Backend** (Terminal 2):
+
+```bash
 cd backend
-cp .env.production.template .env
-# Update database credentials
-\`\`\`
+cp .env.example .env # Configure database
+npm install
+npm run dev          # http://localhost:4000
+```
 
-### 3. Local Development
-\`\`\`bash
-# Start both frontend and backend
-npm run dev
+## 📦 Deployment
 
-# Or separately:
-npm run dev --workspace=frontend  # http://localhost:5173
-npm run dev --workspace=backend   # http://localhost:4000
-\`\`\`
+### Frontend → AWS Amplify
 
-## 🚚 Deployment
+1. Connect GitHub repo to AWS Amplify
+2. Set environment variable: `VITE_API_URL` = your Lambda API URL
+3. Deploy automatically on git push
 
-### Frontend (AWS Amplify)
-1. Connect your GitHub repo to AWS Amplify
-2. Set environment variables in Amplify Console
-3. Deploy automatically on push to main
+### Backend → AWS Lambda
 
-### Backend (AWS Lambda)
-\`\`\`bash
+```bash
 cd backend
-npm run deploy
-\`\`\`
+npm run deploy       # SAM guided deployment
+```
 
-## 📋 Environment Variables
+## 🌍 Environment Variables
 
-### Frontend (AWS Amplify Console)
-\`\`\`
-VITE_API_URL=https://your-api-gateway-url.execute-api.region.amazonaws.com/prod
-VITE_APP_ENV=production
-\`\`\`
+### Frontend (.env)
 
-### Backend (AWS Lambda Console)
-\`\`\`
-DB_HOST=your-rds-endpoint
+```bash
+VITE_API_URL=http://localhost:4000
+VITE_APP_ENV=development
+VITE_APP_TITLE=BAB AI
+```
+
+### Backend (.env)
+
+```bash
+NODE_ENV=development
+PORT=4000
+DB_HOST=localhost
 DB_PORT=5432
-DB_DATABASE=your-database-name
-DB_USER=your-database-user
-DB_PASSWORD=your-database-password
-NODE_ENV=production
-\`\`\`
+DB_DATABASE=babai_dev
+DB_USER=postgres
+DB_PASSWORD=your_password
+DB_SSL=false
+FRONTEND_URL=http://localhost:5173
+```
 
-## 🔧 API Endpoints
+## 🔗 API Endpoints
 
-- \`GET /projects\` - Get all projects
-- \`POST /review-order\` - Create review order
-- \`GET /review-order/:id\` - Get review order by ID
+- `GET /` - Health check
+- `GET /health` - Database health
+- `GET /projects` - List projects
+- `GET /inventory` - List inventory
+- `GET /items` - List items
+- `GET /review-order/:id` - Order details
+- `POST /submit-order` - Submit order
 
-## 📱 Features
+## 🛠️ Scripts
 
-- **AI-Powered Procurement** - Automated material ordering
-- **Real-time Dashboard** - Project and inventory management
-- **Mobile Responsive** - Works on all devices
-- **Secure Authentication** - JWT-based auth
-- **Database Integration** - PostgreSQL with proper schemas
+### Frontend
 
-## 🤝 Contributing
+```bash
+npm run dev          # Development server
+npm run build        # Production build
+npm run preview      # Preview build
+```
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+### Backend
+
+```bash
+npm run start        # Production server
+npm run dev          # Development server
+npm run deploy       # Deploy to Lambda
+```
+
+## 🎯 Development Workflow
+
+1. **Clone & Setup**:
+
+   ```bash
+   git clone <repo>
+   cd bab-ai
+   ```
+
+2. **Frontend**:
+
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
+
+3. **Backend**:
+   ```bash
+   cd backend
+   npm install
+   cp .env.example .env
+   npm run dev
+   ```
 
 ## 📄 License
 
-This project is licensed under the MIT License.
+Private - All Rights Reserved
 
-## 🆘 Support
+---
 
-For support, email support@bab-ai.com or create an issue in this repository.
+**🎉 Clean, minimal, and production-ready!**

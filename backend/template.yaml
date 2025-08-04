@@ -1,11 +1,12 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: 'BAB AI Backend API'
+Description: 'BAB AI Backend API - Production Ready'
 
 Globals:
   Function:
     Timeout: 30
     Runtime: nodejs20.x
+    MemorySize: 512
     Environment:
       Variables:
         NODE_ENV: production
@@ -14,6 +15,13 @@ Globals:
         DB_DATABASE: !Ref DbDatabase
         DB_USER: !Ref DbUser
         DB_PASSWORD: !Ref DbPassword
+        DB_SSL: !Ref DbSsl
+        FRONTEND_URL: !Ref FrontendUrl
+  Api:
+    Cors:
+      AllowMethods: "'GET,POST,PUT,DELETE,OPTIONS'"
+      AllowHeaders: "'Content-Type,Authorization,X-Requested-With'"
+      AllowOrigin: "'*'"
 
 Parameters:
   Stage:
@@ -22,15 +30,14 @@ Parameters:
     Description: API Gateway stage name
   DbHost:
     Type: String
-    Default: db.bab-ai.com
-    Description: Database host endpoint
+    Description: Database host endpoint (e.g., your-rds.region.rds.amazonaws.com)
   DbPort:
     Type: String
     Default: '5432'
     Description: Database port
   DbDatabase:
     Type: String
-    Default: test
+    Default: babai_production
     Description: Database name
   DbUser:
     Type: String
@@ -38,29 +45,49 @@ Parameters:
     Description: Database username
   DbPassword:
     Type: String
-    Default: ecq5UmGxgjqDFYZPDZFW
     NoEcho: true
-    Description: Database password
+    Description: Database password (secure)
+  DbSsl:
+    Type: String
+    Default: 'true'
+    Description: Enable SSL for database connection
+  FrontendUrl:
+    Type: String
+    Default: 'https://main.d3u6tp5amhwi3s.amplifyapp.com'
+    Description: Frontend URL for CORS
 
 Resources:
   BabAiApi:
     Type: AWS::Serverless::Function
     Properties:
+      FunctionName: !Sub 'babai-backend-${Stage}'
       CodeUri: ./
-      Handler: lambda.handler
+      Handler: src/index.handler
+      Description: 'BAB AI Backend API Lambda Function'
       Events:
-        ApiProxy:
+        ApiProxyAny:
           Type: Api
           Properties:
             Path: /{proxy+}
             Method: ANY
-        ApiRoot:
+        ApiRootAny:
           Type: Api
           Properties:
             Path: /
             Method: ANY
+      Environment:
+        Variables:
+          NODE_ENV: production
 
 Outputs:
   ApiUrl:
-    Description: 'API Gateway endpoint URL'
+    Description: 'API Gateway endpoint URL for BAB AI Backend'
     Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/${Stage}'
+    Export:
+      Name: !Sub '${AWS::StackName}-ApiUrl'
+
+  FunctionName:
+    Description: 'Lambda function name'
+    Value: !Ref BabAiApi
+    Export:
+      Name: !Sub '${AWS::StackName}-FunctionName'
