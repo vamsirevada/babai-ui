@@ -68,18 +68,18 @@ export const apiRequest = async (endpoint, options = {}) => {
 }
 
 // Specific API functions
-export const getProjects = () => apiRequest('/projects')
+export const getProjects = () => apiRequest('/api/projects')
 
 export const createReviewOrder = (items) =>
-  apiRequest('/review-order', {
+  apiRequest('/api/review-order', {
     method: 'POST',
     body: JSON.stringify(items),
   })
 
-export const getReviewOrder = (id) => apiRequest(`/review-order/${id}`)
+export const getReviewOrder = (id) => apiRequest(`/api/review-order/${id}`)
 
 // Health check function
-export const checkHealth = () => apiRequest('/health')
+export const checkHealth = () => apiRequest('/api/health')
 
 // Test all endpoints
 export const testApiConnection = async () => {
