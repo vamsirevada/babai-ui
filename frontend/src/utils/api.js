@@ -1,18 +1,18 @@
 // src/utils/api.js - Simple API helper for AWS Amplify
-const isDevelopment = process.env.NODE_ENV === 'development'
+const isDevelopment = import.meta.env.MODE === 'development'
 
 // Simple API configuration for AWS Amplify only
 const getApiConfig = () => {
   if (isDevelopment) {
     return {
-      baseUrl: 'http://localhost:4000',
+      baseUrl: import.meta.env.VITE_API_URL || 'http://localhost:4000',
       strategy: 'development',
     }
   }
 
   // Production - AWS Amplify with your backend API
   return {
-    baseUrl: process.env.REACT_APP_API_URL || '/api',
+    baseUrl: import.meta.env.VITE_API_URL || '/api',
     strategy: 'amplify-production',
   }
 }
@@ -36,6 +36,7 @@ export const apiRequest = async (endpoint, options = {}) => {
   const mergedOptions = {
     ...defaultOptions,
     ...options,
+    cache: 'no-cache',
     headers: {
       ...defaultOptions.headers,
       ...options.headers,
