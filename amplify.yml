@@ -4,7 +4,9 @@ frontend:
     preBuild:
       commands:
         - nvm use 20
-        - cd frontend && npm ci
+        - cd frontend
+        - npm cache clean --force
+        - npm install
     build:
       commands:
         - npm run build
