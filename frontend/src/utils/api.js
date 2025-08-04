@@ -1,20 +1,25 @@
-// src/utils/api.js - Simple API helper for AWS Amplify
+// src/utils/api.js - API helper optimized for AWS Lambda
 const isDevelopment = import.meta.env.MODE === 'development'
 
-// Simple API configuration for AWS Amplify only
+// API configuration for both local and Lambda backends
 const getApiConfig = () => {
+  const apiUrl = import.meta.env.VITE_API_URL
+
   if (isDevelopment) {
     return {
-      baseUrl: import.meta.env.VITE_API_URL || 'http://localhost:4000',
-      strategy: 'development',
+      baseUrl: apiUrl || 'http://localhost:4000',
+      strategy: apiUrl?.includes('lambda-url')
+        ? 'lambda-development'
+        : 'local-development',
     }
   }
 
-  // Production - AWS Amplify with your backend API
-  // Use environment variable for backend URL, fallback to relative
+  // Production - AWS Amplify with Lambda backend
   return {
-    baseUrl: import.meta.env.VITE_API_URL || '/api',
-    strategy: 'amplify-production',
+    baseUrl:
+      apiUrl ||
+      'https://xu6bjzx45vbot3gwmqfn5f3e3m0ufkma.lambda-url.us-east-1.on.aws',
+    strategy: 'lambda-production',
   }
 }
 
@@ -24,13 +29,14 @@ const API_BASE_URL = config.baseUrl
 console.log(`🚀 API Configuration: ${config.strategy}`)
 console.log(`📡 API Base URL: ${API_BASE_URL}`)
 
-// Generic API request function
+// Generic API request function optimized for Lambda
 export const apiRequest = async (endpoint, options = {}) => {
   const url = `${API_BASE_URL}${endpoint}`
 
   const defaultOptions = {
     headers: {
       'Content-Type': 'application/json',
+      Accept: 'application/json',
     },
   }
 
@@ -70,7 +76,30 @@ export const createReviewOrder = (items) =>
     body: JSON.stringify(items),
   })
 
-export const getReviewOrder = (id) => apiRequest(`/review-order?id=${id}`)
+export const getReviewOrder = (id) => apiRequest(`/review-order/${id}`)
+
+// Health check function
+export const checkHealth = () => apiRequest('/health')
+
+// Test all endpoints
+export const testApiConnection = async () => {
+  try {
+    console.log('🧪 Testing API connection...')
+
+    // Test root endpoint
+    const root = await apiRequest('/')
+    console.log('✅ Root endpoint:', root)
+
+    // Test health endpoint
+    const health = await checkHealth()
+    console.log('✅ Health endpoint:', health)
+
+    return { success: true, root, health }
+  } catch (error) {
+    console.error('❌ API connection test failed:', error)
+    return { success: false, error: error.message }
+  }
+}
 
 // Backward compatibility alias
 export const apiCall = (endpoint, options = {}) => {
@@ -85,4 +114,6 @@ export default {
   getProjects,
   createReviewOrder,
   getReviewOrder,
+  checkHealth,
+  testApiConnection,
 }
