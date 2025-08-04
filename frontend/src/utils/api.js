@@ -31,7 +31,18 @@ console.log(`📡 API Base URL: ${API_BASE_URL}`)
 
 // Generic API request function optimized for Lambda
 export const apiRequest = async (endpoint, options = {}) => {
-  const url = `${API_BASE_URL}${endpoint}`
+  // For local development, use /api prefix (handled by Vite proxy)
+  // For production, call Lambda URL directly without /api prefix
+  let url
+
+  if (isDevelopment && !API_BASE_URL.includes('lambda-url')) {
+    // Local development with proxy - keep /api prefix
+    url = `${API_BASE_URL}${endpoint}`
+  } else {
+    // Production Lambda or development with Lambda URL - remove /api prefix
+    const cleanEndpoint = endpoint.replace(/^\/api/, '')
+    url = `${API_BASE_URL}${cleanEndpoint}`
+  }
 
   const defaultOptions = {
     headers: {

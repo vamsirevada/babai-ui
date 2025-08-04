@@ -57,8 +57,8 @@ app.get('/', (req, res) => {
   })
 })
 
-// API routes with /api prefix
-app.get('/api/health', async (req, res) => {
+// Database health check
+app.get('/health', async (req, res) => {
   try {
     const dbPool = getDbConnection()
     const client = await dbPool.connect()
@@ -81,7 +81,7 @@ app.get('/api/health', async (req, res) => {
   }
 })
 
-app.get('/api/projects', async (req, res) => {
+app.get('/projects', async (req, res) => {
   try {
     const dbPool = getDbConnection()
     const result = await dbPool.query('SELECT id, name FROM projects')
@@ -98,7 +98,7 @@ app.get('/api/projects', async (req, res) => {
   }
 })
 
-app.get('/api/inventory', async (req, res) => {
+app.get('/inventory', async (req, res) => {
   try {
     const dbPool = getDbConnection()
     const result = await dbPool.query('SELECT * FROM inventory ORDER BY id')
@@ -115,7 +115,7 @@ app.get('/api/inventory', async (req, res) => {
   }
 })
 
-app.get('/api/items', async (req, res) => {
+app.get('/items', async (req, res) => {
   try {
     const dbPool = getDbConnection()
     const result = await dbPool.query(
@@ -135,7 +135,7 @@ app.get('/api/items', async (req, res) => {
 })
 
 // GET endpoint to fetch review order data by ID (path parameter)
-app.get('/api/review-order/:id', async (req, res) => {
+app.get('/review-order/:id', async (req, res) => {
   try {
     const { id } = req.params
 
@@ -173,7 +173,7 @@ app.get('/api/review-order/:id', async (req, res) => {
   }
 })
 
-app.post('/api/submit-order', async (req, res) => {
+app.post('/submit-order', async (req, res) => {
   try {
     const orderData = req.body
 
