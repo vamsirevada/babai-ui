@@ -1,4 +1,14 @@
 version: 1
+backend:
+  phases:
+    preBuild:
+      commands:
+        - npm cache clean --force
+        - rm -f package-lock.json
+        - npm install
+    start:
+      commands:
+        - npm start --workspace=backend
 frontend:
   phases:
     preBuild:
