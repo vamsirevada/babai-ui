@@ -1,10 +1,16 @@
 version: 1
+backend:
+  phases:
+    preBuild:
+      commands:
+        - npm install
+    start:
+      commands:
+        - npm start --workspace=backend
 frontend:
   phases:
     preBuild:
       commands:
-        - nvm use 20
-        - rm -rf node_modules package-lock.json
         - npm install
     build:
       commands:

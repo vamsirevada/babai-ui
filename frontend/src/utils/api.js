@@ -5,7 +5,7 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 const getApiConfig = () => {
   if (isDevelopment) {
     return {
-      baseUrl: 'http://localhost:3001/api',
+      baseUrl: 'http://localhost:4000',
       strategy: 'development',
     }
   }
