@@ -36,12 +36,9 @@ const getDbConnection = () => {
       database: process.env.DB_DATABASE,
       password: process.env.DB_PASSWORD,
       port: process.env.DB_PORT || 5432,
-      ssl:
-        process.env.DB_SSL === 'true'
-          ? {
-              rejectUnauthorized: false,
-            }
-          : false,
+      ssl: {
+        rejectUnauthorized: false,
+      },
       max: 20,
       idleTimeoutMillis: 30000,
       connectionTimeoutMillis: 2000,
