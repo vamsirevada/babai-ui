@@ -14,7 +14,14 @@ const app = express()
 const corsOptions = {
   origin:
     process.env.NODE_ENV === 'production'
-      ? [process.env.FRONTEND_URL, 'https://main.d3u6tp5amhwi3s.amplifyapp.com']
+      ? [
+          process.env.FRONTEND_URL,
+          'https://main.d3u6tp5amhwi3s.amplifyapp.com',
+          'https://bab-ai.com',
+          'https://www.bab-ai.com',
+          'http://bab-ai.com',
+          'http://www.bab-ai.com',
+        ]
       : true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
