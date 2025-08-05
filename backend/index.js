@@ -12,19 +12,37 @@ const app = express()
 
 // Production-ready CORS configuration
 const corsOptions = {
-  origin:
-    process.env.NODE_ENV === 'production'
-      ? [
-          process.env.FRONTEND_URL,
-          'https://main.d3u6tp5amhwi3s.amplifyapp.com',
-          'https://bab-ai.com',
-          'https://www.bab-ai.com',
-          'http://bab-ai.com',
-          'http://www.bab-ai.com',
-        ]
-      : true,
+  origin: (origin, callback) => {
+    const allowedOrigins = [
+      'https://main.d3u6tp5amhwi3s.amplifyapp.com',
+      'https://bab-ai.com',
+      'https://www.bab-ai.com',
+      'http://bab-ai.com',
+      'http://www.bab-ai.com',
+      'http://localhost:8080', // for local development
+      'http://localhost:3000', // for local development
+    ]
+
+    // Allow requests with no origin (mobile apps, etc.)
+    if (!origin) return callback(null, true)
+
+    // Check if the requesting origin is allowed
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'X-Requested-With',
+    'Accept',
+    'Origin',
+  ],
+  credentials: false, // Keep false to match AWS Lambda Function URL
+  optionsSuccessStatus: 200,
 }
 
 app.use(cors(corsOptions))
