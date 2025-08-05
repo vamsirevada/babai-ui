@@ -15,6 +15,14 @@ export default defineConfig({
     port: 8080,
     host: '0.0.0.0',
     open: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:4000',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
   },
   build: {
     outDir: 'dist',
