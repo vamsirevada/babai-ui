@@ -159,18 +159,41 @@ app.get('/review-order/:id', async (req, res) => {
     const { id } = req.params
 
     // Validate ID parameter
-    if (!id || isNaN(parseInt(id))) {
+    if (!id) {
       return res.status(400).json({
         error: 'Invalid ID parameter',
-        message: 'ID must be a valid number',
+        message: 'ID is required',
+      })
+    }
+
+    // Check if it's a valid UUID format or number
+    const isUUID =
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)
+    const isNumeric = !isNaN(parseInt(id)) && isFinite(id)
+
+    if (!isUUID && !isNumeric) {
+      return res.status(400).json({
+        error: 'Invalid ID parameter',
+        message: 'ID must be a valid number or UUID',
       })
     }
 
     const dbPool = getDbConnection()
-    const result = await dbPool.query(
-      'SELECT * FROM material_request_items WHERE material_request_id = $1 ORDER BY id',
-      [parseInt(id)]
-    )
+
+    let result
+    if (isUUID) {
+      // If it's a UUID, search by material_request_uuid or similar field
+      result = await dbPool.query(
+        'SELECT * FROM material_request_items WHERE material_request_uuid = $1 ORDER BY id',
+        [id]
+      )
+    } else {
+      // If it's numeric, use the original query
+      result = await dbPool.query(
+        'SELECT * FROM material_request_items WHERE material_request_id = $1 ORDER BY id',
+        [parseInt(id)]
+      )
+    }
 
     if (result.rows.length === 0) {
       return res.status(404).json({
