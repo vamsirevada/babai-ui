@@ -18,8 +18,7 @@ const ApiDebugPage = () => {
   }, [])
 
   const testLambdaDirect = async () => {
-    const elasticUrl =
-      'http://babai-backend.eba-qig39iya.us-east-1.elasticbeanstalk.com/'
+    const elasticUrl = 'https://api.bab-ai.com/'
 
     try {
       console.log('🧪 Testing EB directly...')

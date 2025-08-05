@@ -30,8 +30,7 @@ const getApiConfig = () => {
 
   // Production fallback - assume Elastic Beanstalk
   return {
-    baseUrl:
-      'http://babai-backend.eba-qig39iya.us-east-1.elasticbeanstalk.com/',
+    baseUrl: 'https://api.bab-ai.com/',
     strategy: 'eb-production-fallback',
     useApiPrefix: false,
   }
