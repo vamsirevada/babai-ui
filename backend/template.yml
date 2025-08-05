@@ -34,25 +34,7 @@ Resources:
       FunctionUrlConfig:
         AuthType: NONE
         InvokeMode: BUFFERED
-        Cors:
-          AllowCredentials: false
-          AllowOrigins:
-            - 'https://www.bab-ai.com'
-            - 'https://bab-ai.com'
-            - 'https://main.d3u6tp5amhwi3s.amplifyapp.com'
-            - 'http://localhost:8080'
-          AllowHeaders:
-            - 'Content-Type'
-            - 'Authorization'
-            - 'X-Requested-With'
-            - 'Accept'
-          AllowMethods:
-            - 'GET'
-            - 'POST'
-            - 'PUT'
-            - 'DELETE'
-            - 'OPTIONS'
-          MaxAge: 300
+        
       PackageType: Zip
       Policies:
         - Statement:
