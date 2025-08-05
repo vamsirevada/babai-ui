@@ -2,7 +2,6 @@ import express from 'express'
 import cors from 'cors'
 import pkg from 'pg'
 import dotenv from 'dotenv'
-import serverless from 'serverless-http'
 
 dotenv.config()
 
@@ -20,6 +19,7 @@ const allowedOrigins = [
   'http://localhost:8080', // for local development
   'http://localhost:3000', // for local development
 ]
+
 const corsOptions = {
   origin: (origin, callback) => {
     console.log('🌐 CORS Check - Origin:', origin)
@@ -39,7 +39,7 @@ const corsOptions = {
     'Accept',
     'Origin',
   ],
-  credentials: false, // Keep false to match AWS Lambda Function URL
+  credentials: false,
   optionsSuccessStatus: 200,
 }
 
@@ -69,7 +69,6 @@ const getDbConnection = () => {
   return pool
 }
 
-// Health check endpoint - root
 app.get('/', (req, res) => {
   res.json({
     status: 'OK',
@@ -79,7 +78,6 @@ app.get('/', (req, res) => {
   })
 })
 
-// Database health check
 app.get('/health', async (req, res) => {
   try {
     const dbPool = getDbConnection()
@@ -156,7 +154,6 @@ app.get('/items', async (req, res) => {
   }
 })
 
-// GET endpoint to fetch review order data by ID (path parameter)
 app.get('/review-order/:id', async (req, res) => {
   try {
     const { id } = req.params
@@ -229,7 +226,6 @@ app.post('/submit-order', async (req, res) => {
   }
 })
 
-// 404 handler for unknown routes
 app.use('*', (req, res) => {
   res.status(404).json({
     error: 'Route not found',
@@ -238,7 +234,6 @@ app.use('*', (req, res) => {
   })
 })
 
-// Global error handler
 app.use((error, req, res, next) => {
   console.error('Unhandled error:', error)
   res.status(500).json({
@@ -253,17 +248,8 @@ app.use((error, req, res, next) => {
 
 // Start server only when not in Lambda environment
 const PORT = process.env.PORT || 4000
-if (
-  process.env.NODE_ENV !== 'production' &&
-  !process.env.AWS_LAMBDA_FUNCTION_NAME
-) {
-  app.listen(PORT, () => {
-    console.log(`🚀 Server running on port ${PORT}`)
-    console.log(`📊 Health check: http://localhost:${PORT}/health`)
-    console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`)
-  })
-}
-
-// Export for serverless deployment
-export default app
-export const handler = serverless(app)
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`)
+  console.log(`📊 Health check: http://localhost:${PORT}/health`)
+  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`)
+})
