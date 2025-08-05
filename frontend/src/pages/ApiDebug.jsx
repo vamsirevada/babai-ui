@@ -18,18 +18,18 @@ const ApiDebugPage = () => {
   }, [])
 
   const testLambdaDirect = async () => {
-    const lambdaUrl =
+    const elasticUrl =
       'https://babai-backend.eba-qig39iya.us-east-1.elasticbeanstalk.com/'
 
     try {
       console.log('🧪 Testing EB directly...')
 
       // Test root
-      const rootResponse = await fetch(`${lambdaUrl}/`)
+      const rootResponse = await fetch(`${elasticUrl}/`)
       const rootData = await rootResponse.json()
 
       // Test health
-      const healthResponse = await fetch(`${lambdaUrl}/health`)
+      const healthResponse = await fetch(`${elasticUrl}/health`)
       const healthData = await healthResponse.json()
 
       setTestResults({

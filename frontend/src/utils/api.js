@@ -9,14 +9,14 @@ console.log('🔍 Environment Check:', {
   nodeEnv: import.meta.env.NODE_ENV,
 })
 
-// API configuration for both local and Lambda backends
+// API configuration for both local and Elastic Beanstalk backends
 const getApiConfig = () => {
-  // If we have a Lambda URL (in any environment), use it directly
-  if (apiUrl && apiUrl.includes('lambda-url')) {
+  // If we have a Elastic Beanstalk URL (in any environment), use it directly
+  if (apiUrl && apiUrl.includes('elasticbeanstalk')) {
     return {
       baseUrl: apiUrl,
-      strategy: 'lambda-direct',
-      useApiPrefix: false, // Lambda doesn't need /api prefix
+      strategy: 'elastic-beanstalk-direct',
+      useApiPrefix: false, // Elastic Beanstalk doesn't need /api prefix
     }
   }
 
