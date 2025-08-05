@@ -19,10 +19,10 @@ const ApiDebugPage = () => {
 
   const testLambdaDirect = async () => {
     const lambdaUrl =
-      'http://babai-backend.eba-qig39iya.us-east-1.elasticbeanstalk.com/'
+      'https://babai-backend.eba-qig39iya.us-east-1.elasticbeanstalk.com/'
 
     try {
-      console.log('🧪 Testing Lambda directly...')
+      console.log('🧪 Testing EB directly...')
 
       // Test root
       const rootResponse = await fetch(`${lambdaUrl}/`)
