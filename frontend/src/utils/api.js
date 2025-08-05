@@ -28,11 +28,11 @@ const getApiConfig = () => {
     }
   }
 
-  // Production fallback - assume Lambda
+  // Production fallback - assume Elastic Beanstalk
   return {
     baseUrl:
       'http://babai-backend.eba-qig39iya.us-east-1.elasticbeanstalk.com/',
-    strategy: 'lambda-production-fallback',
+    strategy: 'eb-production-fallback',
     useApiPrefix: false,
   }
 }
