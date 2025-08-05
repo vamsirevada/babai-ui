@@ -19,7 +19,7 @@ const ApiDebugPage = () => {
 
   const testLambdaDirect = async () => {
     const lambdaUrl =
-      'https://xu6bjzx45vbot3gwmqfn5f3e3m0ufkma.lambda-url.us-east-1.on.aws'
+      'http://babai-backend.eba-qig39iya.us-east-1.elasticbeanstalk.com/'
 
     try {
       console.log('🧪 Testing Lambda directly...')

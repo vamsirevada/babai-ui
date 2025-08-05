@@ -31,7 +31,7 @@ const getApiConfig = () => {
   // Production fallback - assume Lambda
   return {
     baseUrl:
-      'https://xu6bjzx45vbot3gwmqfn5f3e3m0ufkma.lambda-url.us-east-1.on.aws',
+      'http://babai-backend.eba-qig39iya.us-east-1.elasticbeanstalk.com/',
     strategy: 'lambda-production-fallback',
     useApiPrefix: false,
   }
