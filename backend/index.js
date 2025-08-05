@@ -215,6 +215,32 @@ app.get('/review-order/:id', async (req, res) => {
   }
 })
 
+// Add this temporary debug route
+app.get('/debug/table-schema', async (req, res) => {
+  try {
+    const dbPool = getDbConnection()
+
+    // Get table schema info
+    const result = await dbPool.query(`
+      SELECT column_name, data_type, is_nullable
+      FROM information_schema.columns
+      WHERE table_name = 'material_request_items'
+      ORDER BY ordinal_position
+    `)
+
+    res.json({
+      table: 'material_request_items',
+      columns: result.rows,
+    })
+  } catch (error) {
+    console.error('Schema debug error:', error)
+    res.status(500).json({
+      error: 'Failed to get schema info',
+      message: error.message,
+    })
+  }
+})
+
 app.post('/submit-order', async (req, res) => {
   try {
     const orderData = req.body
