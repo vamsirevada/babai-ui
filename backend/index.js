@@ -11,23 +11,19 @@ const { Pool } = pkg
 const app = express()
 
 // Production-ready CORS configuration
+const allowedOrigins = [
+  'https://main.d3u6tp5amhwi3s.amplifyapp.com',
+  'https://bab-ai.com',
+  'https://www.bab-ai.com',
+  'http://bab-ai.com',
+  'http://www.bab-ai.com',
+  'http://localhost:8080', // for local development
+  'http://localhost:3000', // for local development
+]
 const corsOptions = {
   origin: (origin, callback) => {
-    const allowedOrigins = [
-      'https://main.d3u6tp5amhwi3s.amplifyapp.com',
-      'https://bab-ai.com',
-      'https://www.bab-ai.com',
-      'http://bab-ai.com',
-      'http://www.bab-ai.com',
-      'http://localhost:8080', // for local development
-      'http://localhost:3000', // for local development
-    ]
-
-    // Allow requests with no origin (mobile apps, etc.)
-    if (!origin) return callback(null, true)
-
-    // Check if the requesting origin is allowed
-    if (allowedOrigins.includes(origin)) {
+    // Allow requests with no origin (like mobile apps or curl requests) and whitelisted origins
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
