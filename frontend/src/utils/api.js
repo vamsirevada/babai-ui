@@ -11,13 +11,12 @@ console.log('🔍 Environment Check:', {
 
 // API configuration for both local and Elastic Beanstalk backends
 const getApiConfig = () => {
-  // If we have a Elastic Beanstalk URL (in any environment), use it directly
-  if (apiUrl && apiUrl.includes('elasticbeanstalk')) {
-    return {
-      baseUrl: apiUrl,
-      strategy: 'elastic-beanstalk-direct',
-      useApiPrefix: false, // Elastic Beanstalk doesn't need /api prefix
-    }
+  // Get the API URL from environment variable
+  let apiUrl = import.meta.env.VITE_API_URL
+
+  // Remove trailing slash if it exists
+  if (apiUrl && apiUrl.endsWith('/')) {
+    apiUrl = apiUrl.slice(0, -1)
   }
 
   if (isDevelopment) {
@@ -30,7 +29,7 @@ const getApiConfig = () => {
 
   // Production fallback - assume Elastic Beanstalk
   return {
-    baseUrl: 'https://api.bab-ai.com/',
+    baseUrl: 'https://api.bab-ai.com',
     strategy: 'eb-production-fallback',
     useApiPrefix: false,
   }
@@ -123,6 +122,28 @@ export const testApiConnection = async () => {
     console.error('❌ API connection test failed:', error)
     return { success: false, error: error.message }
   }
+}
+
+// Update the buildUrl function to handle slashes properly
+const buildUrl = (endpoint) => {
+  const config = getApiConfig()
+  let { baseUrl, useApiPrefix } = config
+
+  // Ensure baseUrl doesn't end with slash
+  if (baseUrl.endsWith('/')) {
+    baseUrl = baseUrl.slice(0, -1)
+  }
+
+  // Ensure endpoint starts with slash
+  if (!endpoint.startsWith('/')) {
+    endpoint = '/' + endpoint
+  }
+
+  if (useApiPrefix) {
+    return `${baseUrl}/api${endpoint}`
+  }
+
+  return `${baseUrl}${endpoint}`
 }
 
 // Backward compatibility alias

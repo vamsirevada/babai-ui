@@ -184,7 +184,7 @@ app.get('/review-order/:id', async (req, res) => {
     if (isUUID) {
       // If it's a UUID, search by material_request_uuid or similar field
       result = await dbPool.query(
-        'SELECT * FROM material_request_items WHERE material_request_uuid = $1 ORDER BY id',
+        'SELECT * FROM material_request_items WHERE material_request_id = $1 ORDER BY id',
         [id]
       )
     } else {
